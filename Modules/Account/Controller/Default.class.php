@@ -10,7 +10,7 @@ class Account_Controller_Default extends CommonController {
    * "username", "more" or "detailed"
    * @return Array of users
    */
-  public function GetAccounts($types, $incBanned, $info) {
+  public function GetAccounts($incAdmin, $incCustomer, $incProvider, $incBanned, $info) {
     throw new NotImplementedException();
   }
 
