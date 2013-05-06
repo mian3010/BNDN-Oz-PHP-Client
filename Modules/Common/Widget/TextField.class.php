@@ -3,7 +3,7 @@
 class Common_Widget_TextField extends Widget {
   public function __construct($label = ''){
     $this->label = $label;
-    $this->default = "";
+    $this->default = '';
   }
   public function ToHtml() {
     $returnVal = '';
