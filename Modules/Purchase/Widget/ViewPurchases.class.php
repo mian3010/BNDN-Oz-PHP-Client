@@ -1,6 +1,6 @@
 <?php
 
-class Purchase_View_ViewPurchases extends Widget {
+class Purchase_Widget_ViewPurchases extends WidgetContainer {
   public function ToHtml() {
     throw new NotImplementedException();
   }
