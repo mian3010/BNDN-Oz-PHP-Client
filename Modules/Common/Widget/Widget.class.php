@@ -1,6 +1,9 @@
 <?php
 
 abstract class Widget {
+  public $id;
+  public $class; // Array of HTML classes
+
   public static function register() {
     spl_autoload_register("Widget::WidgetAutoload");
   }
@@ -9,7 +12,7 @@ abstract class Widget {
     
     //Should the class being loaded be handled by us?
     if (strpos($class, $prefix) == 0) {
-      
+
       //Path to class file
       $classFile = "Modules/Common/Widget/".substr($class, strlen($prefix)).".class.php";
       if (file_exists($classFile)) {
