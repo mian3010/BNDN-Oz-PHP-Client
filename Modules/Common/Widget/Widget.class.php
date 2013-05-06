@@ -1,8 +1,8 @@
 <?php
 
 abstract class Widget {
-  public $id;
-  public $classes; // Array of HTML classes
+  public $id = '';
+  public $classes = array(); // Array of HTML classes
 
   public static function register() {
     spl_autoload_register("Widget::WidgetAutoload");
@@ -27,7 +27,7 @@ abstract class Widget {
 
   protected function GetClasses() {
     $classesStr = '';
-    foreach ($classes as $c) $classesStr .= $c.' ';
+    foreach ($this->classes as $c) $classesStr .= $c.' ';
     return trim($classesStr);
   }
 

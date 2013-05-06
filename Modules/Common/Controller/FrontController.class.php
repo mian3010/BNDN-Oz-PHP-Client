@@ -30,7 +30,9 @@ class FrontController {
     //Create CommonView for rendering
     $view = new CommonView($container);
 
-    //Call render method, and output
-    echo $view->render();
+    //If nowrap is set, only render container
+    if (isset($_GET['nowrap'])) echo $view->renderContainer();
+    //Else call render method, and output.
+    else echo $view->render();
   }
 }

@@ -1,8 +1,8 @@
 <?php
 
 class Product_Controller_Default extends CommonController {
-  public function GetProduct($id) {
-    throw new NotImplemtedException();
+  public function ViewProduct($id) {
+    return new Widget_Container();
   }
 
   /*
