@@ -6,6 +6,7 @@ class FrontController {
     require_once("Modules/Common/Model/CommonModel.class.php");
     require_once("Modules/Common/View/CommonView.class.php");
     require_once("Modules/Common/Widget/Widget.class.php");
+    require_once("Modules/Common/Widget/WidgetContainer.class.php");
     //Widget should register own autoloader
     Widget::register();
   }
