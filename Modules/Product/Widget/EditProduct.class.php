@@ -1,6 +1,6 @@
 <?php
 
-class Product_Widget_EditProduct extends WidgetContainer {
+class Product_Widget_EditProduct extends Widget_Container {
   public function ToHtml() {
     throw new NotImplementedException();
   }
