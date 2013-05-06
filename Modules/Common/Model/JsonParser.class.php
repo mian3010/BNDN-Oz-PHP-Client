@@ -14,7 +14,7 @@ class JsonParser {
 	 * 
 	 * @param $stream
 	 */
-	public static function dataFromServer($stream) {
+	public static function FromJson($stream) {
 		return json_decode($stream);
 	}
 }
