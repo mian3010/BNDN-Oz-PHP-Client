@@ -24,7 +24,7 @@ class FrontController {
     if (!class_exists($widgetClass)) throw new InvalidArgumentException("Module not found!");
 
     //Instantiate widget
-    $container = $widgetClass();
+    $container = new $widgetClass();
 
     //Create CommonView for rendering
     $view = new CommonView($container);
