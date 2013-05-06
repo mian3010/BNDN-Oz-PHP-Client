@@ -1,8 +1,8 @@
 <?php
 
 abstract class Widget {
-  public $id = '';
   public $classes = array(); // Array of HTML classes
+  protected $atrbs = array();
 
   public static function register() {
     spl_autoload_register("Widget::WidgetAutoload");
@@ -23,6 +23,22 @@ abstract class Widget {
     }
     //Class is not part of widgets
     return FALSE;
+  }
+
+  public function __set($k, $v){
+    $this->atrbs[$k] = $v;
+  }
+
+  public function __get($k) {
+    return $this->atrbs[$k];
+  }
+
+  protected function GetAttributes(){
+    $this->atrbs['id'] = $this->id;
+    $this->atrbs['class'] = $this->GetClasses();
+    $atrb = '';
+    foreach ($this->atrbs as $key => $value) $atrb .= $key . '="' . $value . '" ';
+    return $atrb;
   }
 
   protected function GetClasses() {
