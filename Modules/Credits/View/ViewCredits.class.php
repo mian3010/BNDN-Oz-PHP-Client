@@ -2,8 +2,8 @@
 /*
  * Get a widget showing the accounts amount of credits
  */
-class Credits_View_ViewCreditsWidget extends CommonView {
-  public function render() {
+class Credits_Widget_ViewCredits extends Widget {
+  public function ToHtml() {
     throw new NotImplementedException();
   }
 }

@@ -1,10 +1,10 @@
 <?php
 
 /*
- * View for buying credits
+ * Widget for buying credits
  */
-class Credits_View_BuyCredits extends CommonView {
- public function render() {
+class Credits_Widget_BuyCredits extends Widget {
+ public function ToHtml() {
    throw new NotImplementedException();
  }
 }
