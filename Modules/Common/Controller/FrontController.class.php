@@ -20,18 +20,18 @@ class FrontController {
     //Get the container containing our view
     
     //Check if class exists
-    $controller = $module."_Controller_Default";
-    if (!class_exists($controller)) throw new InvalidArgumentException("Module not found!");
-    if (!method_exists($controller, $method)) throw new InvalidArgumentException("View not found!");
+    $widgetClass = $module."_Widget_".$method;
+    if (!class_exists($widgetClass)) throw new InvalidArgumentException("Module not found!");
 
-    //Call the controller static method
-    $container = call_user_func_array($controller.'::'.$method, array(UriController::restOfArgs(2)));
+    //Instantiate widget
+    $container = $widgetClass();
 
     //Create CommonView for rendering
     $view = new CommonView($container);
 
     //If nowrap is set, only render container
     if (isset($_GET['nowrap'])) echo $view->renderContainer();
+    
     //Else call render method, and output.
     else echo $view->render();
   }
