@@ -1,11 +1,11 @@
 <?php
 
 abstract class WidgetContainer extends Widget {
-  public $widgets; // Array of Widgets
+  public $widgets = array(); // Array of Widgets
 
   protected function ChildrenToHtml() {
     $markup = '';
-    foreach ($widgets as $widget) $markup .= $widget->ToHtml();
+    foreach ($this->widgets as $widget) $markup .= $widget->ToHtml();
     return $markup;
   }
 }
