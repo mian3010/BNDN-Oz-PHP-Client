@@ -7,7 +7,7 @@ abstract class CommonView {
    * @param $args An array containing all the arguments from the url
    */
   public function __construct($arg) {
-    $this->arg = $arg;
+    $this->arg = $arg; //
     foreach ($_GET as $key => $value) $this->$key = $value;
   }
 
