@@ -12,27 +12,24 @@ class FrontController {
   public function init() {
     //Parse the URI to GET variable
     UriController::parseUri();
-
-    //Get the module and method to call
+    
     $module = $_GET[0];
-    $view = $module."_View_".$_GET[1];
+    $method = $_GET[1];
 
-    //Send the rest of URL as arguments to method
-    $arg = implode("/", UriController::restOfArgs(2));
-
+    //Get the container containing our view
+    
     //Check if class exists
-    if (!class_exists($view)) throw new InvalidArgumentException("View not found!");
+    $controller = $module."_Controller_Default";
+    if (!class_exists($controller)) throw new InvalidArgumentException("Module not found!");
+    if (!method_exists($controller, $method)) throw new InvalidArgumentException("View not found!");
 
-    //Create instance of class
-    $moduleView = new $view($arg);
+    //Call the controller static method
+    $container = call_user_func_array($controller.'::'.$method, array(UriController::restOfArgs(2)));
 
-    //Call render method
-    $container = $moduleView->render();
+    //Create CommonView for rendering
+    $view = new CommonView($container);
 
-    //Has call failed?
-    if (!is_subclass_of($container, "Widget")) throw new Exception("Something went wrong in rendering view");
-
-    //Output container html
-    echo $container->toHtml();
+    //Call render method, and output
+    echo $view->render();
   }
 }

@@ -1,19 +1,28 @@
 <?php
 
-abstract class CommonView {
-  /*
-   * Parse arguments to object properties
-   * Render depends on these arguments
-   * @param $args An array containing all the arguments from the url
+class CommonView {
+  private $container;
+
+  /**
+   * Constructor. Taking the container defining the content of the page
    */
-  public function __construct($arg) {
-    $this->arg = $arg;
-    foreach ($_GET as $key => $value) $this->$key = $value;
+  public function __construct($container) {
+    $this->container = $container;
   }
 
-  /*
-   * Render the view
-   * @return A renderable widget
+  /**
+   * Render the page
+   * @return HTML to output
    */
-  abstract function render();
+  public function render() {
+    return "Hello deudes";
+  }
+
+  /**
+   * Render the container defining content of the page
+   * @return HTML to output
+   */
+  public function renderContainer() {
+    return $this->container->ToHtml();
+  }
 }
