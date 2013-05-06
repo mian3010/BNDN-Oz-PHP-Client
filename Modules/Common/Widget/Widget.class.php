@@ -2,7 +2,7 @@
 
 abstract class Widget {
   public $id;
-  public $class; // Array of HTML classes
+  public $classes; // Array of HTML classes
 
   public static function register() {
     spl_autoload_register("Widget::WidgetAutoload");
@@ -24,6 +24,12 @@ abstract class Widget {
     //Class is not part of widgets
     return FALSE;
   }
-  
+
+  protected function GetClasses() {
+    $classesStr = '';
+    foreach ($classes as $c) $classesStr .= $c.' ';
+    return trim($classesStr);
+  }
+
   abstract function ToHtml();
 }
