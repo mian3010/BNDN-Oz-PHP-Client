@@ -31,5 +31,5 @@ abstract class Widget {
     return trim($classesStr);
   }
 
-  abstract function ToHtml();
+  public abstract function ToHtml();
 }
