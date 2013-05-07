@@ -2,3 +2,5 @@
 .idea/
 .idea/*
 *.xml
+.project
+desktop.ini
