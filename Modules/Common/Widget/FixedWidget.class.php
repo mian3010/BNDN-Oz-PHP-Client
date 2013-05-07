@@ -1,6 +1,6 @@
 <?php
 
-class Common_Widget_FixedWidget extends Widget {
+class Common_Widget_FixedWidget extends WidgetContainer {
   public function __construct($widget){
 	$this->widget = $widget;
 	$this->top = 0;
