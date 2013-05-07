@@ -21,6 +21,7 @@ class User implements JsonSerializable {
 	public $credits;
 	public $credits;
 	public $authenticated;
+	public $purchaseHistory;
 	
 	/**
 	 * 
