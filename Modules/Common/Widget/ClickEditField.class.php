@@ -6,6 +6,10 @@ class Common_Widget_ClickEditField extends Widget {
 	$this->handler = '';
   }
   
+  public function addHandler($handler) {
+  	$this->handler = $handler;
+  }
+  
   public function ToHtml() {
     return 	'<label id="' . $this->id . '">' . $this->value . '</label>'
 			. '<input id="' . $this->id . '_entry" style="display:none;"></input>'
@@ -23,6 +27,7 @@ class Common_Widget_ClickEditField extends Widget {
 		    	. '$("#'.$this->id.'")'
 		    	. '.text($("#'.$this->id.'_entry").val())'
 		    	. '.css("display", "");'
+		    	. $this->handler
 	  		. '});'
 	  		. '</script>';
   }
