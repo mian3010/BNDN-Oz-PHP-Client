@@ -16,6 +16,6 @@ class Common_Widget_FixedWidget extends Widget {
   }
   
   public function ToHtml() {
-  	return '<div style="position:fixed;top:"' . $this->top . '";left"'. $this->left . '">' . $this->widget.ToHtml() . '</div>';
+  	return '<div style="position:fixed;top:"' . $this->top . ';left'. $this->left . '">' . $this->widget.ToHtml() . '</div>';
   }
 }
