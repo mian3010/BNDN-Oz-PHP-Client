@@ -57,9 +57,6 @@ class Common_Widget_Slider extends WidgetContainer {
             margin-left:auto;
             margin-right:auto;
           }
-          #' . $this->widget->id . '{
-
-          }
       </style>';
   }
 }
