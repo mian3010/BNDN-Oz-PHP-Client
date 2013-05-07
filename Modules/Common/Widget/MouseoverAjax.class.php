@@ -15,7 +15,7 @@ class Common_Widget_MouseOverAjax extends WidgetContainer {
     $this->widget->id = "ert";
 
     return
-      '<div ' . $this->GetAttributes() . ' >
+      '<div ' . $this->GetAttributes() . $this->GetClasses() . ' >
       <style>
         #' . $this->widget->id . ' {
           position: fixed;

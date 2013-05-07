@@ -8,6 +8,6 @@ class Common_Widget_Label extends Widget {
   }
 
   public function ToHtml() {
-    return '<p ' . $this->GetAttributes() . '>' . $this->text . '</p>';
+    return '<p ' . $this->GetAttributes() . $this->GetClasses() . '>' . $this->text . '</p>';
   }
 }
