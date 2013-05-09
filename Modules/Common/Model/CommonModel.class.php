@@ -46,7 +46,7 @@ abstract class CommonModel {
 	 * @param exception $value
 	 */
 	protected function OverrideStatusCodeToExceptionMap($key, $exception) {
-		$httpStatusCodeToException[$key] = $exception;	
+		$this->httpStatusCodeToException[$key] = $exception;	
 	}
 	
 	/**
@@ -55,6 +55,6 @@ abstract class CommonModel {
 	 * @throws Exception if error code recieved from server.
 	 */
 	protected function ThrowExceptionIfError($code) {
-		if(array_key_exists($code, $httpStatusCodeToException)) throw $httpStatusCodeToException[$code];
+		if(array_key_exists($code, $this->httpStatusCodeToException)) throw $this->httpStatusCodeToException[$code];
 	}
 }
