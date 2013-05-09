@@ -41,49 +41,134 @@ class Product_Model_Default extends CommonModel {
    */
   public function GetProductTypes() {
     $ws = new WebService('GET','/product/types');
-    if($token!=null) $ws.SetToken($token);
+    $ws.SetToken($token);
     $object = $ws.Execute();
     $code = $ws.GetHttpStatusCode();
     ThrowExceptionIfError($code);
     return $object;
   }
  
+  /*
+   * 
+   * @param string $provider
+   * @param object $product
+   * @param string $token
+   */
   public function CreateProduct($provider, $product, $token) {
     $ws = new WebService('POST', 'accounts/'.$provider.'/products');
-    if($token!=null) $ws.SetToken($token);
-    $object = $ws.Execute();
+    $ws.SetToken($token);
+    $ws.SetData($product);
+    $ws.Execute();
     $code = $ws.GetHttpStatusCode();
     ThrowExceptionIfError($code);
-    return $object;
   }
 
-  public function UpdateProduct($provider, $product, $token) {
-    $ws = new WebSerice('PUT', 'accounts/'.$provider.'/products');
-    if($token!=null) $ws.SetToken($token);
-    $object = $ws.Execute();
+  /*
+   * 
+   * @param object $product
+   * @param string $token
+   */
+  public function UpdateProduct($product, $token) {
+    $ws = new WebSerice('PUT', 'products/'.$product->id);
+    $ws.SetToken($token);
+    $ws.SetData($product);
+    $ws.Execute();
+    $code = $ws.GetHttpStatusCode();
+    ThrowExceptionIfError($code);
   }
 
+  /*
+   * 
+   * @param int $id
+   * @param media $file
+   * @param string $token
+   */
   public function UploadMedia($id, $file, $token) {
-    throw new NotImplementedException();
+    $ws = new WebService('POST', 'products/'.$id);
+    $ws.SetToken($token);
+    $ws.SetData($file);
+    $mime = setMime($file);
+    ws.SetContentType($mime);
+    $ws.Execute();
+    $code = $ws.GetHttpStatusCode();
+    ThrowExceptionIfError($code);
   }
 
+  /*
+   * 
+   * @param int $id
+   * @param image $file
+   * @param string $token
+   */
   public function UploadThumbnail($id, $file, $token) {
-    throw new NotImplementedException();
+    $ws = new WebService('POST', 'products/'.$id.'/THUMBNAIL');
+    $ws.SetToken($token);
+    $ws.SetData($file);
+    $mime = setMime($file);
+    ws.SetContentType($mime);
+    $ws.Execute();
+    $code = $ws.GetHttpStatusCode();
+    ThrowExceptionIfError($code);
   }
 
+  /*
+   * 
+   * @param int $id
+   * @param string $token
+   * @return image
+   */
   public function GetThumbnail($id, $token = null) {
-    throw new NotImplementedException();
+    $ws = new WebService('GET', 'products/'.$id.'/THUMBNAIL');
+    if($token!=null) $ws.SetToken($token);
+    $thumb = $ws.Execute();
+    $code = $ws.GetHttpStatusCode();
+    ThrowExceptionIfError($code);
+    return $thumb;
   }
 
+  /*
+   * 
+   * @param int $id
+   * @param string $token
+   * @return unknown $media
+   */
   public function GetMedia($id, $token) {
-    throw new NotImplementedException();
+    $opts = array('http' =>array('method' =>'GET','header'=>'token:'.$token));
+    $context = stream_context_create($opts);
+    
+    $fp = fopen('http://rentit.itu.dk/RentIt27/RentItService.svc/products/'.$id,'r',$context);
+    return $fp;
   }
 
+  /*
+   * 
+   * @param int $id
+   * @param int $rating
+   * @param string $token
+   */
   public function UpdateRating($id, $rating, $token) {
-    throw new NotImplementedException();
+    $ws = new WebService('PUT','products/'.$id.'/rating');
+    $ws.SetToken($token);
+    $ws.SetData($rating);
+    $ws.Execute();
+    $code = $ws.GetHttpStatusCode();
+    ThrowExceptionIfError($code);
   }
 
   public function GetProductsByAccount($token) {
     throw new NotImplementedException();
+  }
+  
+  /*
+   * Returns the MIME-type of the given file.
+   * @param media $file
+   * @return string mime
+   */
+  private function setMime($file) {
+  	$mime;
+  	$finfo = finfo_open(FILEINFO_MIME_TYPE);
+  	$mime = finfo_file($finfo, $file);
+  	$finfo_close($finfo);
+  	return $mime;
   }
 }
