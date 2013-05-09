@@ -9,7 +9,7 @@ class Auth_Model_Default_Test extends Testing_Base {
     $this->assertObjectHasAttribute("expires", $token);
 
     $date = strtotime($token->expires);
-    $this->assertGreaterThan($date, time());
+    $this->assertGreaterThan(time(), $date);
   }
 
   /*
