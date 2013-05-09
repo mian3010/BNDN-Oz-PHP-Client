@@ -12,10 +12,8 @@ class Auth_Model_Default_Test extends Testing_Base {
     $this->assertGreaterThan(time(), $date);
   }
 
-  /*
-   * @expectedException UnauthorizedException
-   */
   public function testGetTokenUserNotExist() {
+    $this->setExpectedException('UnauthorizedException');
     $am = CommonModel::GetModel("Auth");
     $token = $am->GetToken("WrongUser", "SomePass");
   }

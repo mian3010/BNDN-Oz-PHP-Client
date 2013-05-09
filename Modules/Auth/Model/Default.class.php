@@ -1,5 +1,4 @@
 <?php
-var_dump("lol");
 class Auth_Model_Default extends CommonModel {
   /*
    * Get token for a user.
