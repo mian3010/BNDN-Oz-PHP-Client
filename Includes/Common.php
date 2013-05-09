@@ -1,6 +1,4 @@
 <?php
-class NotImplementedException extends BadMethodCallException
-{}
 
 function StandardAutoload($class) {
   //Replace underscores with slashes, to find class file path
