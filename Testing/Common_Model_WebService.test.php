@@ -48,7 +48,7 @@ class Common_Model_WebService_Test extends PHPUnit_Framework_TestCase {
     $this->assertEquals(200, $ws->GetHttpStatusCode());
     $this->assertObjectHasAttribute('title', $obj);
     $this->assertEquals('Inception', $obj->title);
-    return array('token' => $token, 'user' => $obj);
+    return array('token' => $token, 'product' => $obj);
   }
 
   /**
