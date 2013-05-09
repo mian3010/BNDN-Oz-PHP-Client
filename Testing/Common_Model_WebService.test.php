@@ -37,6 +37,19 @@ class Common_Model_WebService_Test extends PHPUnit_Framework_TestCase {
     $this->assertEquals('lynette@smu', $obj->email);
     return array('token' => $token, 'user' => $obj);
   }
+  
+  /**
+   * @depends testGetMethod
+   */ 
+  public function testGetMethodWithTokenProduct($token) {
+    $ws = new WebService('products/7', 'GET');
+    $ws->SetToken($token);
+    $obj = $ws->Execute();
+    $this->assertEquals(200, $ws->GetHttpStatusCode());
+    $this->assertObjectHasAttribute('title', $obj);
+    $this->assertEquals('Inception', $obj->title);
+    return array('token' => $token, 'user' => $obj);
+  }
 
   /**
    * @depends testGetMethodWithToken
