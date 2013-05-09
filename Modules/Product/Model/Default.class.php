@@ -2,10 +2,6 @@
 
 class Product_Model_Default extends CommonModel {
 	
-	public function __construct() {
-		require_once(dirname(__FILE__).'/../Modules/Common/Model/WebService.class.php');
-	}
-
   /*
    * @param $searchString
    * @param $types Array of product types
