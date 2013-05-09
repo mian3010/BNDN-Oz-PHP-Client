@@ -9,11 +9,9 @@ function StandardAutoload($class) {
 
   //Else look in modules folder
   else $classPath = "Modules/".$classPath.".class.php";
-  if (file_exists($classPath)) {
-    //Include the file
-    require_once($classPath);
-    return TRUE;
-  }
+  
+  //Include the file
+  if (@include_once($classPath)) return TRUE;
 
   //Class not found
   return FALSE;
@@ -21,10 +19,14 @@ function StandardAutoload($class) {
 spl_autoload_register("StandardAutoload");
 
 //Include common files, that cannot be fould via autoload
+require_once("Exceptions.php");
 require_once("Modules/Common/Model/CommonModel.class.php");
 require_once("Modules/Common/View/CommonView.class.php");
 require_once("Modules/Common/Widget/Widget.class.php");
 require_once("Modules/Common/Widget/WidgetContainer.class.php");
+require_once("Exceptions.php");
+require_once("Modules/Common/Model/WebService.class.php");
+require_once("Modules/Common/Model/JsonParser.class.php");
 
 //Widget should register own autoloader
 Widget::register();

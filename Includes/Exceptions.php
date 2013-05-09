@@ -40,8 +40,6 @@ class ExpectationFailedException extends Exception
 {}
 class ServerErrorException extends Exception
 {}
-class NotImplementedException extends Exception
-{}
 class BadGateWayException extends Exception
 {}
 class ServiceUnavailableException extends Exception
