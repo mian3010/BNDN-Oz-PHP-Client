@@ -13,30 +13,31 @@ abstract class CommonModel {
 	}
 	
 	private function __construct() {
-		$httpStatusCodeToException[400] = new BadRequestException();
-		$httpStatusCodeToException[401] = new UnauthorizedException();
-		$httpStatusCodeToException[402] = new PaymentRequiredException();
-		$httpStatusCodeToException[403] = new ForbiddenException();
-		$httpStatusCodeToException[404] = new NotFoundException();
-		$httpStatusCodeToException[405] = new MethodNotAllowedException();
-		$httpStatusCodeToException[406] = new NotAcceptableException();
-		$httpStatusCodeToException[407] = new ProxyAuthenticationRequiredException();
-		$httpStatusCodeToException[408] = new RequestTimeoutException();
-		$httpStatusCodeToException[409] = new ConflictException();
-		$httpStatusCodeToException[410] = new GoneException();
-		$httpStatusCodeToException[411] = new LengthRequiredException();
-		$httpStatusCodeToException[412] = new PreconditionFailedException();
-		$httpStatusCodeToException[413] = new RequestEntityTooLargeException();
-		$httpStatusCodeToException[414] = new RequestUriTooLongException();
-		$httpStatusCodeToException[415] = new UnsupportedMediaTypeException();
-		$httpStatusCodeToException[416] = new RequestedRangeNotSatisfiableException();
-		$httpStatusCodeToException[417] = new ExpectationFailedException();
-		$httpStatusCodeToException[500] = new ServerErrorException();
-		$httpStatusCodeToException[501] = new NotImplementedException();
-		$httpStatusCodeToException[502] = new BadGateWayException();
-		$httpStatusCodeToException[503] = new ServiceUnavailableException();
-		$httpStatusCodeToException[504] = new GatewayTimeoutException();
-		$httpStatusCodeToException[505] = new HttpVersionNotSupportedException();
+		$this->httpStatusCodeToException = array(
+			400 => new BadRequestException(),
+			401 => new UnauthorizedException(),
+			402 => new PaymentRequiredException(),
+			403 => new ForbiddenException(),
+			404 => new NotFoundException(),
+			405 => new MethodNotAllowedException(),
+			406 => new NotAcceptableException(),
+			407 => new ProxyAuthenticationRequiredException(),
+			408 => new RequestTimeoutException(),
+			409 => new ConflictException(),
+			410 => new GoneException(),
+			411 => new LengthRequiredException(),
+			412 => new PreconditionFailedException(),
+			413 => new RequestEntityTooLargeException(),
+			414 => new RequestUriTooLongException(),
+			415 => new UnsupportedMediaTypeException(),
+			416 => new RequestedRangeNotSatisfiableException(),
+			417 => new ExpectationFailedException(),
+			500 => new ServerErrorException(),
+			501 => new NotImplementedException(),
+			502 => new BadGateWayException(),
+			503 => new ServiceUnavailableException(),
+			504 => new GatewayTimeoutException(),
+			505 => new HttpVersionNotSupportedException());
 	}
 	
 	/**
