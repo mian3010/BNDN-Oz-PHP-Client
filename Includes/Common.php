@@ -32,9 +32,9 @@ require_once("Modules/Common/Model/JsonParser.class.php");
 Widget::register();
 
 function RentItGoto($module, $method, $args = array()) {
-  header("Location: /$module/$method/".implode("/", $args));
+  header("Location: ".UriController::GetAbsolutePath("/$module/$method/".implode("/", $args)));
 }
 
 function RentItError($module, $method, $message, $args = array()) {
-  header("Location: /$module/$method/".implode("/", $args)."?message=".urlencode($message));
+  header("Location: ".UriController::GetAbsolutePath("/$module/$method/".implode("/", $args))."?message=".urlencode($message));
 }
