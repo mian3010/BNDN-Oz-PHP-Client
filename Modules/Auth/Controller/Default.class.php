@@ -5,16 +5,18 @@ class Auth_Controller_Default extends CommonController {
     $widget = new Auth_Widget_Login();
     return $widget;
   }
-  public function Authenticate($username, $password) {
-    $am = CommonModel::GetModel("auth");
+  public function Authenticate() {
+    $username = $_POST['tf_login-username'];
+    $password = $_POST['tf_login-password'];
+    $am = CommonModel::GetModel("Auth");
     try {
-      $_SESSION['token'] = $am->GetToken();
+      $_SESSION['token'] = $am->GetToken($username, $password);
       $_SESSION['username'] = $username;
-      rentit_goto('Account', 'Dashboard');
+      RentItGoto('Account', 'Dashboard');
     } catch (UnauthorizedException $e) {
-      rentit_error('Auth', 'Login', array('Credentials supplied was wrong.'));
+      RentItError('Auth', 'Login', 'Credentials supplied was wrong.');
     } catch (Exception $e) {
-      rentit_error('Auth', 'Login', array('Server error. Please try again later.'));
+      RentItError('Auth', 'Login', 'Server error. Please try again later.');
     }
   }
 }
