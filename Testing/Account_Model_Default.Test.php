@@ -29,8 +29,8 @@ class Account_Model_Default_Test extends Testing_Base {
 
     $acm = CommonModel::GetModel("Account");
     $accounts = $acm->GetAccount('Lynette', $token->token);
-    $this->assertObjectHasAttribute('email', $accounts);
 
+    $this->assertObjectHasAttribute('email', $accounts);
     $this->assertTrue($accounts !== null);
   }
 
