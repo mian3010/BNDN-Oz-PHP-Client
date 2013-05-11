@@ -29,6 +29,6 @@ class UriController {
     	else return '/' . implode('/', array_slice($args, 0, $key+$inclAppBase)) . '/';
   }
   public static function GetAbsolutePath($relative) {
-    return "/".trim(self::GetBasePath(true).$relative, "/");
+    return "/".trim(self::GetBasePath(true).$relative, "/").'/';
   }
 }
