@@ -28,7 +28,7 @@ class Auth_Widget_Login extends Widget_Container {
     $f->widgets[] = $pw;
     $f->widgets[] = $s;
 
-    //Add form to pagae
+    //Add form to page
     $this->widgets[] = $f;
   }
 }

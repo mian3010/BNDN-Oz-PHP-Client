@@ -141,13 +141,16 @@ class Common_Widget_Header extends Widget {
 		
 		for($i = 0; $i < $limit; $i++){
 			
-			$text = array_pop($optionTexts);
-			$url = array_pop($optionUrls);
+			$text = array_shift($optionTexts);
+			$url = array_shift($optionUrls);
 			
 			$result .= $this->produceLink($url, $text, null, 3);
 		}
 		
 		if($alsoSelect){
+		
+			array_unshift($optionTexts, 'More...');
+			array_unshift($optionUrls, 'javascript:;');
 		
 			$selector = new Common_Widget_NavigationOption(array_combine($optionTexts, $optionUrls));
 			$result .= $selector->ToHtml();

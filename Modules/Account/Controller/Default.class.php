@@ -98,7 +98,7 @@ class Account_Controller_Default extends CommonController {
 
   public function Dashboard(){
     if(isset($_SESSION['token']) && isset($_SESSION['username'])){
-      return null; //TODO 
+      return null; //TODO
     } else
       return null; //TODO goto auth
   }
