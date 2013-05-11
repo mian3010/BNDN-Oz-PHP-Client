@@ -9,7 +9,7 @@ function StandardAutoload($class) {
 
   //Else look in modules folder
   else $classPath = "Modules/".$classPath.".class.php";
-  
+
   //Include the file
   if (@include_once($classPath)) return TRUE;
 
@@ -30,3 +30,11 @@ require_once("Modules/Common/Model/JsonParser.class.php");
 
 //Widget should register own autoloader
 Widget::register();
+
+function RentItGoto($module, $method, $args = array()) {
+  header("Location: /$module/$method/".implode("/", $args));
+}
+
+function RentItError($module, $method, $message, $args = array()) {
+  header("Location: /$module/$method/".implode("/", $args)."?message=".urlencode($message));
+}
