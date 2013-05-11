@@ -1,6 +1,6 @@
 <?php
 
-class Common_Widget_Slider extends WidgetContainer {
+class Widget_Slider extends WidgetContainer {
   private $widget; // Shown within the slider
   private $class; // Rotation class
   private $btnClass; // Rotation class

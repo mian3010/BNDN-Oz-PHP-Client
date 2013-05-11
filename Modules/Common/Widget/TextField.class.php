@@ -1,6 +1,6 @@
 <?php
 
-class Common_Widget_TextField extends Widget {
+class Widget_TextField extends Widget {
   public function __construct($label = ''){
     $this->label = $label;
     $this->default = '';
