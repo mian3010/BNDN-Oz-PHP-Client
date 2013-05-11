@@ -10,6 +10,9 @@ class Common_Widget_Widget_Test extends Testing_Base {
     $this->assertEquals($expString, $method->invoke($w));
   }
 
+  /**
+   * @depends testGetClasses
+   */
   public function testGetAttributes() {
     $w = new Widget_Container();
     $w->id = 'testid';
