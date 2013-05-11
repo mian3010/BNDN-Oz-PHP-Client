@@ -21,7 +21,7 @@ abstract class WidgetContainer extends Widget {
 
   private function getRecursive($function) {
     $res = array();
-    foreach ($widgets as $widget) {
+    foreach ($this->widgets as $widget) {
       $res = array_merge($res, call_user_func_array(array($this, $function)));
     }
     return $res;

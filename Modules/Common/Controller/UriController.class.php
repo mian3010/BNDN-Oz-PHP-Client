@@ -20,4 +20,14 @@ class UriController {
     }
     return $rest;
   }
+  public static function GetBasePath($inclAppBase=false) {
+  
+  	$args = explode("/", trim($_SERVER['REQUEST_URI'], "/"));
+    
+    	$key = array_search("index.php", $args);
+    	if($key === false) return '/';
+    	else return '/' . implode('/', array_slice($args, 0, $key+$inclAppBase)) . '/';
+	
+		return '/~nergalic/RentItClient/';
+  }
 }

@@ -7,6 +7,8 @@ abstract class Widget {
   private $css = array();
   private $jsFiles = array();
   private $cssFiles = array();
+  private $title = '';
+  private $options = array();
 
   public static function register() {
     spl_autoload_register("Widget::WidgetAutoload");
@@ -85,6 +87,26 @@ abstract class Widget {
   
   public function GetCssFiles() {
     return $this->cssFiles;
+  }
+  
+  protected function AddOption($text, $url) {
+  
+  	$this->options[$text] = $url;
+  }
+  
+  public function GetOptions() {
+  
+  	return $this->options;
+  }
+  
+  protected function SetTitle($title) {
+  
+  	$this->title = $title;
+  }
+  
+  public function GetTitle() {
+  
+  	return $this->title;
   }
 
   public abstract function ToHtml();
