@@ -62,12 +62,12 @@ abstract class Widget {
 
   protected function AddJsFile($path, $id = null) {
     if ($id == null) $id = $path;
-    $this->jsFiles[$path] = $path;
+    $this->jsFiles[$id] = $path;
   }
   
   protected function AddCssFile($path, $id = null) {
     if ($id == null) $id = $path;
-    $this->cssFiles[$path] = $path;
+    $this->cssFiles[$id] = $path;
   }
 
   public function GetJs() {
