@@ -4,19 +4,19 @@ abstract class WidgetContainer extends Widget {
   public $widgets = array(); // Array of Widgets
 
   public function GetJs() {
-    return $this->ArrayToString($this->getRecursive("GetJs"));
+    return $this->getRecursive("GetJs");
   }
 
   public function GetCss() {
-    return $this->ArrayToString($this->getRecursive("GetCss"));
+    return $this->getRecursive("GetCss");
   }
   
   public function GetJsFiles() {
-    return $this->ArrayToString($this->getRecursive("GetJsFiles"));
+    return $this->getRecursive("GetJsFiles");
   }
 
   public function GetCssFiles() {
-    return $this->ArrayToString($this->getRecursive("GetCssFiles"));
+    return $this->getRecursive("GetCssFiles");
   }
 
   private function getRecursive($function) {

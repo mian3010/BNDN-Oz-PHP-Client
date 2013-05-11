@@ -72,11 +72,11 @@ abstract class Widget {
   }
 
   public function GetJs() {
-    return $this->ArrayToString($this->js);
+    return $this->js;
   } 
 
   public function GetCss() {
-    return $this->ArrayToString($this->css);
+    return $this->css;
   }
 
   public function GetJsFiles() {
@@ -85,14 +85,6 @@ abstract class Widget {
   
   public function GetCssFiles() {
     return $this->cssFiles;
-  }
-
-  protected function ArrayToString(array $array) {
-    $string = '';
-    foreach ($array as $part) {
-      $string .= (string)$part;
-    }
-    return $string;
   }
 
   public abstract function ToHtml();
