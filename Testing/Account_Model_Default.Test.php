@@ -10,7 +10,7 @@ class Account_Model_Default_Test extends Testing_Base {
     $accounts = $acm->GetAccounts('ACP', FALSE, 'more', $token->token);
 
     $this->assertTrue($accounts !== null);
-    $this->assertObjectHasAttribute('email', $accounts[0]);
+    $this->assertObjectHasAttribute('email', array_shift($accounts));
   }
 
   public function testGetAccounts() {
@@ -20,7 +20,7 @@ class Account_Model_Default_Test extends Testing_Base {
     $accounts = $acm->GetAccounts('C', FALSE, 'more');
 
     $this->assertTrue($accounts !== null);
-    $this->assertObjectHasAttribute('email', $accounts[0]);
+    $this->assertObjectHasAttribute('email', array_shift($accounts));
   }
 
   public function testGetAccountAdmin() {
