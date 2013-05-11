@@ -1,6 +1,6 @@
 <?php
 
-class Common_Widget_MouseOverAjax extends WidgetContainer {
+class Widget_MouseOverAjax extends WidgetContainer {
   private $widget;
 
   public function __construct($widget, $id) {

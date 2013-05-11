@@ -1,6 +1,6 @@
 <?php
 
-class Common_Widget_FixedWidget extends WidgetContainer {
+class Widget_FixedWidget extends WidgetContainer {
   private $top;
   private $left;
   private $widget;

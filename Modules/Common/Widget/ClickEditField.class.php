@@ -1,6 +1,6 @@
 <?php
 
-class Common_Widget_ClickEditField extends Widget {
+class Widget_ClickEditField extends Widget {
   public function __construct($value = ''){
     $this->value = $value;
 	$this->handler = '';
