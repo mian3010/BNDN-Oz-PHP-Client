@@ -35,6 +35,8 @@ class Common_Widget_Widget_Test extends Testing_Base {
     );
 
     $method->invokeArgs($w, array($test[0]));
+    $method->invokeArgs($w, array($test[2], $test[1]));
+    $method->invokeArgs($w, array($test[1]));
     $method->invokeArgs($w, array($test[1]));
     $method->invokeArgs($w, array($test[2], $test[2]));
 
@@ -62,6 +64,8 @@ class Common_Widget_Widget_Test extends Testing_Base {
     );
 
     $method->invokeArgs($w, array($test[0]));
+    $method->invokeArgs($w2, array($test[2], $test[1]));
+    $method->invokeArgs($w2, array($test[1]));
     $method->invokeArgs($w2, array($test[1]));
     $method->invokeArgs($w2, array($test[2], $test[2]));
 
@@ -86,6 +90,8 @@ class Common_Widget_Widget_Test extends Testing_Base {
     );
 
     $method->invokeArgs($w, array($test[0]));
+    $method->invokeArgs($w, array($test[2], $test[1]));
+    $method->invokeArgs($w, array($test[1]));
     $method->invokeArgs($w, array($test[1]));
     $method->invokeArgs($w, array($test[2], $test[2]));
 
@@ -113,6 +119,8 @@ class Common_Widget_Widget_Test extends Testing_Base {
     );
 
     $method->invokeArgs($w, array($test[0]));
+    $method->invokeArgs($w2, array($test[2], $test[1]));
+    $method->invokeArgs($w2, array($test[1]));
     $method->invokeArgs($w2, array($test[1]));
     $method->invokeArgs($w2, array($test[2], $test[2]));
 
@@ -137,6 +145,8 @@ class Common_Widget_Widget_Test extends Testing_Base {
     );
 
     $method->invokeArgs($w, array($test[0]));
+    $method->invokeArgs($w, array($test[2], $test[1]));
+    $method->invokeArgs($w, array($test[1]));
     $method->invokeArgs($w, array($test[1]));
     $method->invokeArgs($w, array($test[2], $test[2]."lol"));
 
@@ -164,6 +174,8 @@ class Common_Widget_Widget_Test extends Testing_Base {
     );
 
     $method->invokeArgs($w, array($test[0]));
+    $method->invokeArgs($w2, array($test[2], $test[1]));
+    $method->invokeArgs($w2, array($test[1]));
     $method->invokeArgs($w2, array($test[1]));
     $method->invokeArgs($w2, array($test[2], $test[2]."lol"));
 
@@ -188,6 +200,8 @@ class Common_Widget_Widget_Test extends Testing_Base {
     );
 
     $method->invokeArgs($w, array($test[0]));
+    $method->invokeArgs($w, array($test[2], $test[1]));
+    $method->invokeArgs($w, array($test[1]));
     $method->invokeArgs($w, array($test[1]));
     $method->invokeArgs($w, array($test[2], $test[2]."lol"));
 
@@ -215,6 +229,8 @@ class Common_Widget_Widget_Test extends Testing_Base {
     );
 
     $method->invokeArgs($w, array($test[0]));
+    $method->invokeArgs($w2, array($test[2], $test[1]));
+    $method->invokeArgs($w2, array($test[1]));
     $method->invokeArgs($w2, array($test[1]));
     $method->invokeArgs($w2, array($test[2], $test[2]."lol"));
 
