@@ -3,6 +3,10 @@
 abstract class Widget {
   public $classes = array(); // Array of HTML classes
   protected $atrbs = array();
+  private $js = array();
+  private $css = array();
+  private $jsFiles = array();
+  private $cssFiles = array();
 
   public static function register() {
     spl_autoload_register("Widget::WidgetAutoload");
@@ -45,6 +49,50 @@ abstract class Widget {
     $classesStr = '';
     foreach ($this->classes as $c) $classesStr .= $c.' ';
     return trim($classesStr);
+  }
+
+  protected function AddJs($js, $id = null) {
+    if ($id == null) $id = md5($js);
+    $this->js[$id] = $js;
+  }
+
+  protected function AddCss($css, $id = null) {
+    if ($id == null) $id = md5($css);
+    $this->css[$id] = $css;
+  }
+
+  protected function AddJsFile($path, $id = null) {
+    if ($id == null) $id = $path;
+    $this->jsFiles[$path] = $path;
+  }
+  
+  protected function AddCssFile($path, $id = null) {
+    if ($id == null) $id = $path;
+    $this->cssFiles[$path] = $path;
+  }
+
+  public function GetJs() {
+    return $this->ArrayToString($this->js);
+  } 
+
+  public function GetCss() {
+    return $this->ArrayToString($this->css);
+  }
+
+  public function GetJsFiles() {
+    return $this->jsFiles;
+  }
+  
+  public function GetCssFiles() {
+    return $this->cssFiles;
+  }
+
+  protected function ArrayToString(array $array) {
+    $string = '';
+    foreach ($array as $part) {
+      $string .= (string)$part;
+    }
+    return $string;
   }
 
   public abstract function ToHtml();
