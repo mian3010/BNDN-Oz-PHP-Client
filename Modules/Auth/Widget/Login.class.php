@@ -4,19 +4,31 @@
  */
 class Auth_Widget_Login extends Widget_Container {
   public function __construct() {
-    //Username field
-    $username = new Widget_TextField("Username");
-    $username->id = $username->name = "login-username";
-    $this->widgets[] = $username;
-    //Password field
-    $password = new Widget_TextField("Password");
-    $password->id = $password->name = "login-username";
-    $this->widgets[] = $password;
+    //Login form
+    $f = new Widget_Form();
+    $f->id = "form-login";
+    $f->action = '/Auth/Authenticate';
+    $f->method = 'POST';
 
-    $this->AddOption("lol", "lol");
-    $this->AddOption("lol2", "lol2");
-    $this->AddOption("lol3", "lol3");
-    $this->AddOption("lol4", "lol4");
-    $this->AddOption("lol5", "lol5");
+    //Username field
+    $uw = new Widget_Wrapper();
+    $u = new Widget_TextField("Username");
+    $u->id = $u->name = "login-username";
+    $uw->widgets[] = $u;
+    //Password field
+    $pw = new Widget_Wrapper();
+    $p = new Widget_TextField("Password");
+    $p->id = $p->name = "login-password";
+    $pw->widgets[] = $p;
+    //Submit button
+    $s = new Widget_Button("Login");
+
+    //Add fields to form
+    $f->widgets[] = $uw;
+    $f->widgets[] = $pw;
+    $f->widgets[] = $s;
+
+    //Add form to pagae
+    $this->widgets[] = $f;
   }
 }
