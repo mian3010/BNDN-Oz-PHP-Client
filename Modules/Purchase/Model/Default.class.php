@@ -1,7 +1,7 @@
 <?php
 
 class Purchase_Model_Default extends CommonModel {
-  public function GetPurchases($username, $buyrent, $token, $info = 'more') {
+  public function GetPurchases($username, $token, $buyrent = "BR", $info = 'more') {
     $ws = new WebService('accounts/'.$username.'/purchases', 'GET');
     $ws->SetData(array(
       'info' => $info,
