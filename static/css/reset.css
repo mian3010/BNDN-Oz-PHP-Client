@@ -1,0 +1,164 @@
+/*********************************************************************************\
+*   Name:           CSS Reset                                                     *
+*   Author:         Philip Rasmussen (DK)                                         *
+*   Version:        1.0.0                                                         *
+*   Description:	This stylesheet attempts to reduce the difference between the *
+*                   default styles applied by the most popular web browsers.      *
+*   Author Email:   philip.jon.rasmussen@gmail.com                                *
+\*********************************************************************************/
+
+/* Not covered: ruby, rt, rp, time, details, summary, command, output, meter, progress, keygen, and all new input types*/
+
+/* HTML5 reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section{
+
+	display: block;
+}
+
+address, aside, audio, bdo, blockquote, body, canvas, caption, dd, dialog, div, dl, dt, embed, fieldset, figure, footer, form,
+h1, h2, h3, h4, h5, h6, header, hgroup, hr, html, iframe, input[type="radio"], input[type="checkbox"], li, map, menu, nav, noscript,
+object, ol, p, pre, section, table, td, th, ul, video {
+
+	vertical-align: baseline;
+	font-weight: inherit;
+	font-family: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	line-height: 1;
+	text-align: left;
+	border: 0 none;
+	outline: 0;
+	padding: 0;
+	margin: 0;
+}
+
+html {
+
+	font-size: 16px;
+	color: black;
+	font-family: "Times New Roman", Times, serif;
+}
+
+a, :link, :visited, ins, abbr, address, caption, cite, code, del, dfn, em, kbd, samp, s, strong, var {
+
+	font-weight: inherit;
+	font-style: inherit;
+	text-decoration: inherit;
+}
+	
+a[href] img, :link img, :visited img {
+
+	border: 0 none;
+}
+
+code, pre, samp {
+
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+}
+
+audio {
+
+	height: 24px;
+	width: 20em;
+}
+
+canvas, embed, object, iframe, textarea {
+
+	height: 20em;
+	width: 30em;
+}
+
+/* Inconsistence for buttons: Gecko uses border, Webkit uses padding to achieve space between content and border */
+button, input, textarea, select, optgroup, option {
+
+	font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+	font-style: normal;
+	font-size: 11px;
+	line-height: 1;
+	vertical-align: baseline;
+	margin: 0;
+}
+
+input[type="text"], input[type="password"] {
+	
+	padding: 3px 2px;
+	border: 1px solid #E0E0E0;
+}
+
+input[type="file"] {
+	
+	padding: 3px 2px;
+}
+
+input:required,
+input:required:invalid,
+textarea:required,
+textarea:required:invalid {
+
+	-moz-box-shadow: none;
+}
+
+textarea {
+
+	font-family: inherit;
+	font-size: 100%;
+	padding: 0;
+	border: 0;
+}
+
+option, optgroup, select  {
+	
+	padding: 0;
+}
+
+select[multiple] {
+
+	height: 9em;
+}
+
+optgroup > option {
+
+	padding-left: 20px;
+}
+
+table {  
+
+	border-collapse: collapse;  
+	border-spacing: 0;  
+}
+
+fieldset {
+
+	border: 2px groove #F0F0F0;
+	padding-left: 0.5em;
+}
+
+legend {
+
+	padding: 0 2px;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+
+	content: "";
+}
+
+blockquote, q {
+
+	quotes: "" "";
+}
+
+ul, ol {
+
+	list-style: none;
+}
+
+li {
+
+	list-style-type: none;
+}
+
+hr {
+
+	border: 1px #808080 inset;
+}
