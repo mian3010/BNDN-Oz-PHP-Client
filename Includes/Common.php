@@ -33,8 +33,10 @@ Widget::register();
 
 function RentItGoto($module, $method, $args = array()) {
   header("Location: ".UriController::GetAbsolutePath("/$module/$method/".implode("/", $args)));
+  exit;
 }
 
 function RentItError($module, $method, $message, $args = array()) {
   header("Location: ".UriController::GetAbsolutePath("/$module/$method/".implode("/", $args))."?message=".urlencode($message));
+  exit;
 }

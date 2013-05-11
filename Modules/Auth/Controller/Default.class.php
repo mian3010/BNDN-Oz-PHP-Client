@@ -6,6 +6,12 @@ class Auth_Controller_Default extends CommonController {
     return $widget;
   }
   public function Authenticate() {
+    if (!isset($_POST['tf_login-username']) ||
+        !isset($_POST['tf_login-password']) ||
+        empty($_POST['tf_login-username']) ||
+        empty($_POST['tf_login-password']))
+      RentItError('Auth', 'Login', 'Both username and password must be entered');
+
     $username = $_POST['tf_login-username'];
     $password = $_POST['tf_login-password'];
     $am = CommonModel::GetModel("Auth");
