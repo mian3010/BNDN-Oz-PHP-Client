@@ -149,6 +149,9 @@ class Common_Widget_Header extends Widget {
 		
 		if($alsoSelect){
 		
+			array_unshift($optionTexts, 'More...');
+			array_unshift($optionUrls, 'javascript:;');
+		
 			$selector = new Common_Widget_NavigationOption(array_combine($optionTexts, $optionUrls));
 			$result .= $selector->ToHtml();
 		}

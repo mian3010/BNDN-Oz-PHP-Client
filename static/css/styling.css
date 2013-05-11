@@ -219,13 +219,13 @@ textarea:focus:invalid,
 	color: #666666;
 }
 
-#main > article.simple > header > nav a {
+#main > article.simple > header > nav > * {
 
 	color: inherit;
 	margin: 0 16px;
 }
 
-#main > article.simple > header > nav a:last-child {
+#main > article.simple > header > nav > :last-child {
 
 	margin-right: 0;
 }

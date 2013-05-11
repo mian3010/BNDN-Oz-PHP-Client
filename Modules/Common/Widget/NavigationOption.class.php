@@ -13,7 +13,7 @@ class Common_Widget_NavigationOption extends Widget {
   
     $result = '<select class="navigation-option" onchange="location.href = this.options[this.selectedIndex].value">';
     
-    foreach($options as $text => $url) $result .= '<option value="' . $url . '">' . $text . '</option>';
+    foreach($this->options as $text => $url) $result .= '<option value="' . $url . '">' . $text . '</option>';
     
     return $result . '</select>';
   }
