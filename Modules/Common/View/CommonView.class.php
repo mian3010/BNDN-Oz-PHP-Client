@@ -31,7 +31,7 @@ class CommonView {
     $header = new Common_Widget_Header($css, $cssFiles, $js, $jsFiles);
     $header->SetTitle($this->container->GetTitle());
     
-    foreach($this->container->GetOptions() as $text => $url) $header.AddOptions($text, $url);
+    foreach($this->container->GetOptions() as $text => $url) $header->AddOption($text, $url);
         
     $headerHtml = $header->ToHtml();
     
