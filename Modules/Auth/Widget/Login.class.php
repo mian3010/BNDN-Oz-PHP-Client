@@ -7,7 +7,7 @@ class Auth_Widget_Login extends Widget_Container {
     //Login form
     $f = new Widget_Form();
     $f->id = "form-login";
-    $f->action = '/Auth/Authenticate';
+    $f->action = UriController::GetAbsolutePath('/Auth/Authenticate');
     $f->method = 'POST';
 
     //Username field
