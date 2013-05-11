@@ -19,11 +19,9 @@ abstract class Widget {
 
       //Path to class file
       $classFile = "Modules/Common/Widget/".substr($class, strlen($prefix)).".class.php";
-      if (file_exists($classFile)) {
-        //Include class file
-        require_once($classFile);
-        return TRUE;
-      }
+      
+      //Include the file
+      if (@include_once($classFile)) return TRUE;
     }
     //Class is not part of widgets
     return FALSE;
@@ -40,9 +38,10 @@ abstract class Widget {
   protected function GetAttributes(){
     $this->atrbs['id'] = $this->id;
     $this->atrbs['class'] = $this->GetClasses();
+    ksort($this->atrbs);
     $atrb = '';
     foreach ($this->atrbs as $key => $value) $atrb .= $key . '="' . $value . '" ';
-    return $atrb;
+    return trim($atrb);
   }
 
   protected function GetClasses() {
