@@ -13,11 +13,12 @@ class FrontController {
     //Get the container containing our view
     
     //Check if class exists
-    $widgetClass = $module."_Widget_".$method;
-    if (!class_exists($widgetClass)) throw new InvalidArgumentException("Module not found!");
+    $controllerClass = $module."_Controller_Default";
+    if (!class_exists($controllerClass)) throw new InvalidArgumentException("Module not found!");
 
     //Instantiate widget
-    $container = new $widgetClass();
+    $controller = new $controllerClass();
+    $container = call_user_func_array(array($controller, $method), UriController::RestOfArgs(2));
 
     //Create CommonView for rendering
     $view = new CommonView($container);
