@@ -3,6 +3,11 @@
 class UriController {
   public static function parseUri() {
     $args = explode("/", trim($_SERVER['REQUEST_URI'], "/"));
+    
+    $key = array_search("index.php", $args);
+    if($key !== false)
+      $args = array_slice($args, $key+1); // In case mod_rewrite is disabled and/or the application is not the document base
+    
     array_walk($args, function($v, $k) {
       $_GET[$k] = $v;
     });

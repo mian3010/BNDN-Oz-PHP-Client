@@ -4,3 +4,5 @@
 *.xml
 .project
 desktop.ini
+.DS_Store
+.com.apple.*

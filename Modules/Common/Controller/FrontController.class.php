@@ -9,7 +9,7 @@ class FrontController {
     
     $module = $_GET[0];
     $method = $_GET[1];
-
+    
     //Get the container containing our view
     
     //Check if class exists
