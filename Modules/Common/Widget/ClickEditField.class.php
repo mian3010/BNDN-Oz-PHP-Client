@@ -15,11 +15,13 @@ class Widget_ClickEditField extends Widget_Wrapper {
     $js = <<<JAVASCRIPT
       $(window).load(function() {
         $('.click-edit-field .field-value').click(function() {
-          $(this).css('display', 'none');
-          $(this).parent().find('.field')
-            .val($(this).text())
-            .css('display', '')
-            .focus();
+        if ( $(this).parent().find('.field').length) {
+            $(this).css('display', 'none');
+            $(this).parent().find('.field')
+              .val($(this).text())
+              .css('display', '')
+              .focus();
+          }
         });
         $('.click-edit-field .field').blur(function() {
           $(this).css('display', 'none');
@@ -61,7 +63,8 @@ CSS;
     $fi->style = "display:none;";
 
     //Add to wrapper
-    $this->widgets = array($fl, $fi);
+    $this->widgets[] = $fl;
+    if($this->readonly) $this->widgets[] = $fi;
 
     return parent::ToHtml();
   }
