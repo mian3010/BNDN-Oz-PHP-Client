@@ -1,25 +1,27 @@
 <?php
 
-class Widget_FixedWidget extends WidgetContainer {
+class Widget_FixedWidget extends Widget_Wrapper {
   private $top;
   private $left;
-  private $widget;
 
-  public function __construct($widget){
-	$this->widget = $widget;
-	$this->top = 0;
-	$this->left = 0;
+  public function __construct(){
+    $this->top = 0;
+    $this->left = 0;
   }
   
-  public function SetTop($top) {
-  	$this->top = $top;
-  }
-  
-  public function SetLeft($left) {
-  	$this->left = $left;
+  public function GetCss() {
+    $css = <<<CSS
+      .fixed-wrapper {
+        position: fixed;
+      }
+CSS;
+    $this->AddCss($css);
+    return parent::GetCss();
   }
   
   public function ToHtml() {
-  	return '<div style="position:fixed;top:' . $this->top . ';left:'. $this->left . ';">' . $this->widget->ToHtml() . '</div>';
+    $this->style="top:{$this->top};left:{$this->left};";
+    $this->classes[] = 'fixed-wrapper';
+  	return parent::ToHtml();
   }
 }
