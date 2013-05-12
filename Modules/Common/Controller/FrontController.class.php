@@ -4,6 +4,7 @@ class FrontController {
   public function __construct() {
   }
   public function init() {
+    session_start();
     //Parse the URI to GET variable
     UriController::parseUri();
     
