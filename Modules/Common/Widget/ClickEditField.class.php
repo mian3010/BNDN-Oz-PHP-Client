@@ -12,6 +12,8 @@ class Widget_ClickEditField extends Widget {
   }
   
   public function ToHtml() {
+    if(trim($this->value) == '') $this->AddCss('#' . $this->id . '{display:inline-block; height:1em; }');
+
     return 	'<label id="' . $this->id . '">' . $this->value . '</label>'
 			. '<input id="' . $this->id . '_entry" style="display:none;"></input>'
 			. '<script>'
