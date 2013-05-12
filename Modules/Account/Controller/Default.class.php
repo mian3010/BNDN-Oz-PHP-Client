@@ -98,8 +98,8 @@ class Account_Controller_Default extends CommonController {
 
   public function Dashboard(){
     if(isset($_SESSION['token']) && isset($_SESSION['username'])){
-      return null; //TODO
+      return new Account_Widget_AccountDashboard();
     } else
-        RentItError('Auth', 'Login', 'Please authenticate');
+      RentItError('Auth', 'Login', 'Please authenticate');
   }
 }
