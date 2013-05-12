@@ -101,8 +101,8 @@ class Widget_Header extends Widget {
 	
 		$result = '';
 		
-		foreach($cssFiles as $path) $result .= '<link rel="stylesheet" type="text/css" href="'. $this->expandCssPath($path) . '" />\n';
-		foreach($css as $code) $result .= '<style type="text/css">\n' . $code . '\n</style>\n';
+		foreach($cssFiles as $path) $result .= '<link rel="stylesheet" type="text/css" href="'. $this->expandCssPath($path) . '" />';
+		foreach($css as $code) $result .= '<style type="text/css">' . $code . '</style>';
 		
 		return $result;
 	}
@@ -111,8 +111,8 @@ class Widget_Header extends Widget {
 	
     $result = '';
 		
-		foreach($jsFiles as $path) $result .= '<script type="text/javascript" src="'. $this->expandJsPath($path) . '"></script>\n';
-		foreach($js as $code) $result .= '<script type="text/javascript">\n' . $code . '\n</script>\n';
+		foreach($jsFiles as $path) $result .= '<script type="text/javascript" src="'. $this->expandJsPath($path) . '"></script>';
+		foreach($js as $code) $result .= '<script type="text/javascript">' . $code . '</script>';
 		
 		return $result;
 	}
