@@ -3,17 +3,17 @@
 class Widget_ClickEditField extends Widget {
   public function __construct($value = ''){
     $this->value = $value;
-	  $this->handler = '';
+    $this->handler = '';
+    $this->setJs();
   }
   
   public function addHandler($handler) {
-  	$this->handler = $handler;
+    $this->handler = $handler;
+    $this->setJs();
   }
-  
-  public function ToHtml() {
-    return 	'<label id="' . $this->id . '">' . $this->value . '</label>'
-			. '<input id="' . $this->id . '_entry" style="display:none;"></input>'
-			. '<script>'
+
+  private function setJs() {
+    $js = ''
 			. '$("#'.$this->id.'").click(function() {'
 		    	. '$("#'.$this->id.'").css("display", "none");'
 		    	. '$("#'.$this->id.'_entry")'
@@ -27,7 +27,13 @@ class Widget_ClickEditField extends Widget {
 		    	. '.text($("#'.$this->id.'_entry").val())'
 		    	. '.css("display", "");'
 		    	. $this->handler
-	  		. '});'
-	  		. '</script>';
+	  		. '});';
+    $this->AddJs($js, "HandlerJs");
+  }
+  
+  public function ToHtml() {
+    $label = new Widget_Label($this->value);
+    $label->id = $this->id;
+    return 	$label->ToHtml().'<input id="' . $this->id . '_entry" style="display:none;"></input>';
   }
 }
