@@ -19,7 +19,7 @@ class CommonView {
   	$container = $this->container;
     $containerHtml = $this->RenderContainer();
     
-    $footer = new Common_Widget_Footer();
+    $footer = new Widget_Footer();
     $footerHtml = $footer->ToHtml();
     
     // $container is able to overwrite $footer
@@ -28,7 +28,7 @@ class CommonView {
     $js = $container->GetJs() + $footer->GetJs();
     $jsFiles = $container->GetJsFiles() + $footer->GetJsFiles();
     
-    $header = new Common_Widget_Header($css, $cssFiles, $js, $jsFiles);
+    $header = new Widget_Header($css, $cssFiles, $js, $jsFiles);
     $header->SetTitle($this->container->GetTitle());
     
     foreach($this->container->GetOptions() as $text => $url) $header->AddOption($text, $url);

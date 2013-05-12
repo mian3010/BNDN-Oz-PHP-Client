@@ -1,6 +1,6 @@
 <?php
 
-class Common_Widget_Header extends Widget {
+class Widget_Header extends Widget {
 
   	public function __construct($css = array(), $cssFiles = array(), $js = array(), $jsFiles = array()) {
   
@@ -109,7 +109,7 @@ class Common_Widget_Header extends Widget {
 	
 	private function produceJs($js, $jsFiles) {
 	
-		$result = '';
+    $result = '';
 		
 		foreach($jsFiles as $path) $result .= '<script type="text/javascript" src="'. $this->expandJsPath($path) . '"></script>\n';
 		foreach($js as $code) $result .= '<script type="text/javascript">\n' . $code . '\n</script>\n';
