@@ -36,8 +36,7 @@ class Product_Model_Default extends CommonModel {
    * @return Product
    */
   public function GetProduct($id, $token = null) {
-    $ws = new WebService('product', 'GET');
-    $data['id'] = $id;
+    $ws = new WebService('products/'.$id, 'GET');
     if($token!=null) $ws->SetToken($token);
     $object = $ws->Execute();
     $code = $ws->GetHttpStatusCode();
