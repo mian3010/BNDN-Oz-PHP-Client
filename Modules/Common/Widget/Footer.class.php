@@ -1,6 +1,6 @@
 <?php
 
-class Common_Widget_Footer extends Widget {
+class Widget_Footer extends Widget {
 
   public function __construct() {
   

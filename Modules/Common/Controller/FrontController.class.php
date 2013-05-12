@@ -4,6 +4,7 @@ class FrontController {
   public function __construct() {
   }
   public function init() {
+    session_start();
     //Parse the URI to GET variable
     UriController::parseUri();
     
@@ -14,7 +15,7 @@ class FrontController {
     
     //Check if class exists
     $controllerClass = $module."_Controller_Default";
-    if (!class_exists($controllerClass)) throw new InvalidArgumentException("Module not found!");
+    if (!class_exists($controllerClass)) throw new InvalidArgumentException("Module not found: ".$module." (".$controllerClass.")");
 
     //Instantiate widget
     $controller = new $controllerClass();

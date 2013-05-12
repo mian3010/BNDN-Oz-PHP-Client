@@ -3,7 +3,6 @@
 class Account_Controller_Default extends CommonController {
 
   public function __construct(){
-    parent::__construct();
     $this->accountModel = CommonModel::GetModel("Account");
   }
 
@@ -15,7 +14,7 @@ class Account_Controller_Default extends CommonController {
         if(isset($_SESSION['username']) && strtolower($_SESSION['username']) == strtolower($username)){
           $edit = TRUE;
         }
-        return new Account_Widget_ViewAccount($user, $edit);;
+        return new Account_Widget_ViewAccount($username, $user, $edit);;
       } else {
           RentItError('Auth', 'Login', 'Please authenticate');
       }

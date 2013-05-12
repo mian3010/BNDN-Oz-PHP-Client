@@ -1,13 +1,11 @@
 <?php
 
 class Widget_Slider extends WidgetContainer {
-  private $widget; // Shown within the slider
   private $class; // Rotation class
   private $btnClass; // Rotation class
   private $aniAtrb; // Height or width?
 
-  public function __construct($widget) {
-    $this->widget = $widget;
+  public function __construct() {
     $this->SlideUp();
   }
 
@@ -36,35 +34,35 @@ class Widget_Slider extends WidgetContainer {
   }
 
   public function ToHtml(){
-    return '<div id="sliderwrapper_' . $this->widget->id . '" class="' . $this->class . '"> <div id="slider_' . $this->widget->id . '">' . $this->widget->ToHtml() . ' </div><div id="sliderbutton_' . $this->widget->id . '" class="' . $this->btnClass . '"></div></div>
+    return '<div id="sliderwrapper_' . $this->id . '" class="' . $this->class . '"> <div id="slider_' . $this->id . '">' . $this->ChildrenToHtml() . ' </div><div id="sliderbutton_' . $this->id . '" class="' . $this->btnClass . '"></div></div>
       <script src="http://code.jquery.com/jquery-latest.js"></script>
       <script>
 
           $(document).ready(function(){
-            $("#sliderbutton_' . $this->widget->id . '").click(function () {
-              if ($("#sliderwrapper_' . $this->widget->id . '").' . $this->aniAtrb . '() == 0) {
-                $("#slider_' . $this->widget->id . '").css("display", "block");
-                $("#sliderwrapper_' . $this->widget->id . '").css("' . $this->aniAtrb . '", "auto");
-                var h = $("#sliderwrapper_' . $this->widget->id . '").' . $this->aniAtrb . '();
-                $("#sliderwrapper_' . $this->widget->id . '").css("' . $this->aniAtrb . '", "0");
-                $("#sliderwrapper_' . $this->widget->id . '").animate({ ' . $this->aniAtrb . ':h }, 500, function(){ $("#sliderbutton_' . $this->widget->id . '").removeClass("rotate"); });
+            $("#sliderbutton_' . $this->id . '").click(function () {
+              if ($("#sliderwrapper_' . $this->id . '").' . $this->aniAtrb . '() == 0) {
+                $("#slider_' . $this->id . '").css("display", "block");
+                $("#sliderwrapper_' . $this->id . '").css("' . $this->aniAtrb . '", "auto");
+                var h = $("#sliderwrapper_' . $this->id . '").' . $this->aniAtrb . '();
+                $("#sliderwrapper_' . $this->id . '").css("' . $this->aniAtrb . '", "0");
+                $("#sliderwrapper_' . $this->id . '").animate({ ' . $this->aniAtrb . ':h }, 500, function(){ $("#sliderbutton_' . $this->id . '").removeClass("rotate"); });
               } else {
-                $("#sliderwrapper_' . $this->widget->id . '").animate({ ' . $this->aniAtrb . ':0 }, 500, function(){ $("#sliderbutton_' . $this->widget->id . '").addClass("rotate");  $("#slider_' . $this->widget->id . '").css("display", "none"); });
+                $("#sliderwrapper_' . $this->id . '").animate({ ' . $this->aniAtrb . ':0 }, 500, function(){ $("#sliderbutton_' . $this->id . '").addClass("rotate");  $("#slider_' . $this->id . '").css("display", "none"); });
               }
             });
           });
       </script>
       <style>
-          #slider_' . $this->widget->id . '{
+          #slider_' . $this->id . '{
             border:solid 1px black;
             border-radius:5px;
           }
-          #sliderbutton_' . $this->widget->id . '{
+          #sliderbutton_' . $this->id . '{
             width: 0;
             height: 0;
             position: absolute;
           }
-          #sliderwrapper_' . $this->widget->id . '{
+          #sliderwrapper_' . $this->id . '{
             text-align:center;
             position:relative;
 
