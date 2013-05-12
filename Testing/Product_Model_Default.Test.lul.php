@@ -21,7 +21,8 @@ class Product_Model_Default_Test extends Testing_Base {
 	public function testGetProducts($token) {
 		$model = CommonModel::GetModel('Product');
 		$products = $model->GetProducts(null, null, false, 'id', $token);
-		$this->assertObjectHasAttribute('title', $products);
+		var_dump($products);
+		
 	}
 	
 	/**
@@ -30,7 +31,7 @@ class Product_Model_Default_Test extends Testing_Base {
 	public function testFailGetProducts($token) {
 		$this->setExpectedException('BadRequestException');
 		$model = CommonModel::GetModel('Product');
-		$products = $model->GetProducts(null, null, false, 'id', null);
+		$products = $model->GetProducts(null, null, true, 'id', null);
 	}
 	
 	/**
@@ -41,5 +42,14 @@ class Product_Model_Default_Test extends Testing_Base {
 		$model = CommonModel::GetModel('Product');
 		$product = $model->GetProduct(7, $token);
 		$this->assertObjectHasAttribute('title', $product);
+	}
+	
+	/**
+	 * @depends testGetMethod
+	 */
+	public function testGetMedia($token) {
+		$model = CommonModel::GetModel('Product');
+		$stream = $model->GetMedia(7, $token);
+		var_dump($stream);
 	}
 }
