@@ -10,10 +10,12 @@ class Account_Controller_Default extends CommonController {
     try {
       if(isset($_SESSION['token'])){
         $user = $this->accountModel->GetAccount($username, $_SESSION['token']->token);
+        $requester = $this->accountModel->GetAccount($_SESSION['username'], $_SESSION['token']->token);
         $edit = FALSE;
-        if(isset($_SESSION['username']) && strtolower($_SESSION['username']) == strtolower($username)){
+        if(isset($_SESSION['username']) && strtolower($_SESSION['username']) == strtolower($username))
           $edit = TRUE;
-        }
+        else if(strtolower($requester->type) == 'admin')
+          $edit = TRUE;
         return new Account_Widget_ViewAccount($username, $user, $edit);;
       } else {
           RentItError('Auth', 'Login', 'Please authenticate');
