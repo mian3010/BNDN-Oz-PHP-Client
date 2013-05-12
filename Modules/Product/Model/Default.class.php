@@ -1,5 +1,4 @@
 <?php
-
 class Product_Model_Default extends CommonModel {
 	
   /*
@@ -10,12 +9,26 @@ class Product_Model_Default extends CommonModel {
    * @return Array of Products
    */
   public function GetProducts($searchString, $types, $unpublished, $info, $token = null) {
-  	$ws = new WebService('GET','products?search='.$searchString.'&type='.$types.'&info='.$info.'unpublished='.$unpublished);
-  	if($token!=null) $ws.SetToken($token);
-  	$object = $ws.Execute();
-  	$code = $ws.GetHttpStatusCode();
-  	if($code==200) return $object;
-  	else throw $httpStatusCodeToExceptionMap[$code];
+  	$ws = new WebService('products', 'GET');
+  	$data = array();
+  	if($searchString!=null) {
+  		$data['search'] = $searchString;
+  	}
+  	if($types!=null) {
+  		$data['types'] = $types;
+  	}
+  	if($unpublished!=null) {
+  		$data['unpublished'] = $unpublished;
+  	}
+  	if($info!=null) {
+  		$data['info'] = $info;
+  	}
+  	if($token!=null) $ws->SetToken($token);
+  	$ws->SetData($data);
+  	$object = $ws->Execute();
+  	$code = $ws->GetHttpStatusCode();
+  	$this->ThrowExceptionIfError($code);
+  	return $object;
   }
 
   /*
@@ -23,11 +36,12 @@ class Product_Model_Default extends CommonModel {
    * @return Product
    */
   public function GetProduct($id, $token = null) {
-    $ws = new WebService('GET','product/'.$id);
-    if($token!=null) $ws.SetToken($token);
-    $object = $ws.Execute();
-    $code = $ws.GetHttpStatusCode();
-    ThrowExceptionIfError($code);
+    $ws = new WebService('product', 'GET');
+    $data['id'] = $id;
+    if($token!=null) $ws->SetToken($token);
+    $object = $ws->Execute();
+    $code = $ws->GetHttpStatusCode();
+    $this->ThrowExceptionIfError($code);
     return $object;
   }
 
@@ -36,11 +50,11 @@ class Product_Model_Default extends CommonModel {
    * @return array of strings
    */
   public function GetProductTypes() {
-    $ws = new WebService('GET','/product/types');
-    $ws.SetToken($token);
-    $object = $ws.Execute();
-    $code = $ws.GetHttpStatusCode();
-    ThrowExceptionIfError($code);
+    $ws = new WebService('/product/types', 'GET');
+    $ws->SetToken($token);
+    $object = $ws->Execute();
+    $code = $ws->GetHttpStatusCode();
+    $this->ThrowExceptionIfError($code);
     return $object;
   }
  
@@ -51,12 +65,12 @@ class Product_Model_Default extends CommonModel {
    * @param string $token
    */
   public function CreateProduct($provider, $product, $token) {
-    $ws = new WebService('POST', 'accounts/'.$provider.'/products');
-    $ws.SetToken($token);
-    $ws.SetData($product);
-    $ws.Execute();
-    $code = $ws.GetHttpStatusCode();
-    ThrowExceptionIfError($code);
+    $ws = new WebService('accounts/'.$provider.'/products', 'POST');
+    $ws->SetToken($token);
+    $ws->SetData($product);
+    $ws->Execute();
+    $code = $ws->GetHttpStatusCode();
+    $this->ThrowExceptionIfError($code);
   }
 
   /*
@@ -65,12 +79,12 @@ class Product_Model_Default extends CommonModel {
    * @param string $token
    */
   public function UpdateProduct($product, $token) {
-    $ws = new WebSerice('PUT', 'products/'.$product->id);
-    $ws.SetToken($token);
-    $ws.SetData($product);
-    $ws.Execute();
-    $code = $ws.GetHttpStatusCode();
-    ThrowExceptionIfError($code);
+    $ws = new WebSerice('products/'.$product->id, 'PUT');
+    $ws->SetToken($token);
+    $ws->SetData($product);
+    $ws->Execute();
+    $code = $ws->GetHttpStatusCode();
+    $this->ThrowExceptionIfError($code);
   }
 
   /*
@@ -80,14 +94,14 @@ class Product_Model_Default extends CommonModel {
    * @param string $token
    */
   public function UploadMedia($id, $file, $token) {
-    $ws = new WebService('POST', 'products/'.$id);
-    $ws.SetToken($token);
-    $ws.SetData($file);
-    $mime = setMime($file);
-    ws.SetContentType($mime);
-    $ws.Execute();
-    $code = $ws.GetHttpStatusCode();
-    ThrowExceptionIfError($code);
+    $ws = new WebService('products/'.$id, 'POST');
+    $ws->SetToken($token);
+    $ws->SetData($file);
+    $mime = $this->setMime($file);
+    $ws->SetContentType($mime);
+    $ws->Execute();
+    $code = $ws->GetHttpStatusCode();
+    $this->ThrowExceptionIfError($code);
   }
 
   /*
@@ -97,14 +111,14 @@ class Product_Model_Default extends CommonModel {
    * @param string $token
    */
   public function UploadThumbnail($id, $file, $token) {
-    $ws = new WebService('POST', 'products/'.$id.'/THUMBNAIL');
-    $ws.SetToken($token);
-    $ws.SetData($file);
-    $mime = setMime($file);
-    ws.SetContentType($mime);
-    $ws.Execute();
-    $code = $ws.GetHttpStatusCode();
-    ThrowExceptionIfError($code);
+    $ws = new WebService('products/'.$id.'/THUMBNAIL', 'POST');
+    $ws->SetToken($token);
+    $ws->SetData($file);
+    $mime = $this->setMime($file);
+    $ws->SetContentType($mime);
+    $ws->Execute();
+    $code = $ws->GetHttpStatusCode();
+    $this->ThrowExceptionIfError($code);
   }
 
   /*
@@ -114,11 +128,11 @@ class Product_Model_Default extends CommonModel {
    * @return image
    */
   public function GetThumbnail($id, $token = null) {
-    $ws = new WebService('GET', 'products/'.$id.'/THUMBNAIL');
-    if($token!=null) $ws.SetToken($token);
-    $thumb = $ws.Execute();
-    $code = $ws.GetHttpStatusCode();
-    ThrowExceptionIfError($code);
+    $ws = new WebService('products/'.$id.'/THUMBNAIL', 'GET');
+    if($token!=null) $ws->SetToken($token);
+    $thumb = $ws->Execute();
+    $code = $ws->GetHttpStatusCode();
+    $this->ThrowExceptionIfError($code);
     return $thumb;
   }
 
@@ -132,7 +146,7 @@ class Product_Model_Default extends CommonModel {
     $opts = array('http' =>array('method' =>'GET','header'=>'token:'.$token));
     $context = stream_context_create($opts);
     
-    $fp = fopen('http://rentit.itu.dk/RentIt27/RentItService.svc/products/'.$id,'r',$context);
+    $fp = fopen('http://rentit.itu.dk/RentIt27/RentItService.svc/products/'.$id,'r',true);
     return $fp;
   }
 
@@ -143,12 +157,12 @@ class Product_Model_Default extends CommonModel {
    * @param string $token
    */
   public function UpdateRating($id, $rating, $token) {
-    $ws = new WebService('PUT','products/'.$id.'/rating');
-    $ws.SetToken($token);
-    $ws.SetData($rating);
-    $ws.Execute();
-    $code = $ws.GetHttpStatusCode();
-    ThrowExceptionIfError($code);
+    $ws = new WebService('PUT','products/'.$id.'/rating', 'GET');
+    $ws->SetToken($token);
+    $ws->SetData($rating);
+    $ws->Execute();
+    $code = $ws->GetHttpStatusCode();
+    $this->ThrowExceptionIfError($code);
   }
 
   public function GetProductsByAccount($token) {

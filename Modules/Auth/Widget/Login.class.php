@@ -32,5 +32,6 @@ class Auth_Widget_Login extends Widget_Container {
 
     //Add form to page
     $this->widgets[] = $f;
+    $this->SetTitle("Login");
   }
 }
