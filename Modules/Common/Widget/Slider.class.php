@@ -7,6 +7,7 @@ class Widget_Slider extends WidgetContainer {
 
   public function __construct() {
     $this->SlideUp();
+    $this->classes[] = 'clearfix';
   }
 
   public function SlideRight(){
@@ -34,7 +35,7 @@ class Widget_Slider extends WidgetContainer {
   }
 
   public function ToHtml(){
-    return '<div id="sliderwrapper_' . $this->id . '" class="' . $this->class . '"> <div id="slider_' . $this->id . '">' . $this->ChildrenToHtml() . ' </div><div id="sliderbutton_' . $this->id . '" class="' . $this->btnClass . '"></div></div>
+    return '<div id="sliderwrapper_' . $this->id . '" class="' . $this->class . ' clearfix"> <div id="slider_' . $this->id . '">' . $this->ChildrenToHtml() . ' </div><div id="sliderbutton_' . $this->id . '" class="' . $this->btnClass . '"></div></div>
       <script src="http://code.jquery.com/jquery-latest.js"></script>
       <script>
 
