@@ -16,6 +16,7 @@ class Widget_Image extends Widget {
    * Resize the img defined in src using the width and height set.
    */
   private function resizeImage() {
+    if (!file_exists('cache')) mkdir('cache');
     $gdImg = $this->getImgAsGd();
     //This could return false if imagetype was not supported
     if ($gdImg == false) throw new ImageException("Image type not supported!");
