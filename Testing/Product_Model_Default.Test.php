@@ -1,6 +1,6 @@
 <?php
 require_once('Testing_Base.class.php');
-class Product_Model_Default extends Testing_Base {
+class Product_Model_Default_Test extends Testing_Base {
 	
 	public function testGetMethod() {
 		$ws = new WebService('auth', 'GET');
@@ -20,7 +20,7 @@ class Product_Model_Default extends Testing_Base {
 	 */
 	public function testGetProducts($token) {
 		$model = CommonModel::GetModel('Product');
-		$products = $model->GetProducts(null, null, true, 'id', $token);
+		$products = $model->GetProducts(null, null, false, 'id', $token);
 		$this->assertObjectHasAttribute('title', $products);
 	}
 	
@@ -28,7 +28,7 @@ class Product_Model_Default extends Testing_Base {
 	 * @depends testGetMethod
 	 */
 	public function testFailGetProducts($token) {
-		$this->setExpectedException('ForbiddenException');
+		$this->setExpectedException('BadRequestException');
 		$model = CommonModel::GetModel('Product');
 		$products = $model->GetProducts(null, null, false, 'id', null);
 	}
@@ -41,5 +41,5 @@ class Product_Model_Default extends Testing_Base {
 		$model = CommonModel::GetModel('Product');
 		$product = $model->GetProduct(7, $token);
 		$this->assertObjectHasAttribute('title', $product);
-		}
+	}
 }
