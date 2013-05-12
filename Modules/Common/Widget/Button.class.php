@@ -1,6 +1,6 @@
 <?php
 
-class Widget_Button extends Widget {
+class Widget_Button extends Widget_InputField {
   private $text;
 
   public function __construct($text = '') {
@@ -9,6 +9,6 @@ class Widget_Button extends Widget {
 
   public function ToHtml() {
     $this->type = "submit";
-    return '<input ' . $this->GetAttributes() . '/>';
+    return parent::ToHtml();
   }
 }
