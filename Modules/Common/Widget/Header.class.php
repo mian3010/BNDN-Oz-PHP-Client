@@ -7,7 +7,7 @@ class Widget_Header extends Widget {
   		foreach($css as $id => $styling) $this->AddCss($styling, $id);
   		foreach($cssFiles as $id => $path) $this->AddCssFile($path, $id);
   	
-  		foreach($js as $id => $styling) $this->AddJs($code, $id);
+  		foreach($js as $id => $code) $this->AddJs($code, $id);
   		foreach($jsFiles as $id => $path) $this->AddJsFile($path, $id);
   	}
 
@@ -41,7 +41,9 @@ class Widget_Header extends Widget {
     
         		<!-- Base styling which must come before any styling added by widget -->
         		<link rel="stylesheet" type="text/css" href="'. $this->expandCssPath('reset.css') . '" />
-        		<link rel="stylesheet" type="text/css" href="'. $this->expandCssPath('styling.css') . '" />
+            <link rel="stylesheet" type="text/css" href="'. $this->expandCssPath('styling.css') . '" />
+
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
         
         		' . $css . '
         		' . $js . '
