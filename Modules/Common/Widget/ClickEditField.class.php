@@ -1,36 +1,68 @@
 <?php
 
-class Widget_ClickEditField extends Widget {
-  public function __construct($value = ''){
+class Widget_ClickEditField extends Widget_Wrapper {
+  private $handler = '';
+  private $readonly;
+  private $label;
+  private $field = null;
+  private $value;
+  public function __construct($value = '', $readonly = false){
     $this->value = $value;
-	  $this->handler = '';
-    $this->AddJsFile('jquery-2.js');
+    $this->readonly = $readonly;
   }
-  
-  public function addHandler($handler) {
-  	$this->handler = $handler;
-  }
-  
-  public function ToHtml() {
-    if(trim($this->value) == '') $this->AddCss('#' . $this->id . '{display:inline-block; height:1em; }');
 
-    return 	'<label id="' . $this->id . '">' . $this->value . '</label>'
-			. '<input id="' . $this->id . '_entry" style="display:none;"></input>'
-			. '<script>'
-			. '$("#'.$this->id.'").click(function() {'
-		    	. '$("#'.$this->id.'").css("display", "none");'
-		    	. '$("#'.$this->id.'_entry")'
-		    	. '.val($("#'.$this->id.'").text())'
-		    	. '.css("display", "")'
-		    	. '.focus();'
-	    	. '});'
-			. '$("#'.$this->id.'_entry").blur(function() {'
-		    	. '$("#'.$this->id.'_entry").css("display", "none");'
-		    	. '$("#'.$this->id.'")'
-		    	. '.text($("#'.$this->id.'_entry").val())'
-		    	. '.css("display", "");'
-		    	. $this->handler
-	  		. '});'
-	  		. '</script>';
+  public function GetJs() {
+    $js = <<<JAVASCRIPT
+      $(window).load(function() {
+        $('.click-edit-field .field-value').click(function() {
+          $(this).css('display', 'none');
+          $(this).parent().find('.field')
+            .val($(this).text())
+            .css('display', '')
+            .focus();
+        });
+        $('.click-edit-field .field').blur(function() {
+          $(this).css('display', 'none');
+          $(this).parent().find('.field-value')
+            .text($(this).val())
+            .css('display', '')
+        });
+      });
+JAVASCRIPT;
+    $this->AddJs($js);
+    return parent::GetJs();
+  }
+
+  public function GetCss() {
+    $css = <<<CSS
+      .click-edit-field.empty .field-value {
+        display: inline-block;
+        height: 1em;
+        width: 150px;
+      }
+      .click-edit-field {
+        display: inline-block;
+      }
+CSS;
+    $this->AddCss($css);
+    return parent::GetCss();
+  }
+
+  public function ToHtml() {
+    $this->classes[] = 'click-edit-field';
+    if (trim($this->value) == '') $this->classes[] = 'empty';
+
+    //Edit field
+    $fl = new Widget_Label($this->value);
+    $fl->classes[] = 'field-value';
+    if ($this->field == null) $fi = new Widget_InputField($this->value);
+    else $fi = $this->field;
+    $fi->classes[] = 'field';
+    $fi->style = "display:none;";
+
+    //Add to wrapper
+    $this->widgets = array($fl, $fi);
+
+    return parent::ToHtml();
   }
 }

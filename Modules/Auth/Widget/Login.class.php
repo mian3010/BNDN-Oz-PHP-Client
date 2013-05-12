@@ -12,12 +12,14 @@ class Auth_Widget_Login extends Widget_Container {
 
     //Username field
     $uw = new Widget_Wrapper();
-    $u = new Widget_TextField("Username");
+    $u = new Widget_InputField();
+    $u->label = "Username";
     $u->id = $u->name = "login-username";
     $uw->widgets[] = $u;
     //Password field
     $pw = new Widget_Wrapper();
-    $p = new Widget_TextField("Password");
+    $p = new Widget_InputField("password");
+    $p->label = "Password";
     $p->id = $p->name = "login-password";
     $pw->widgets[] = $p;
     //Submit button
@@ -30,5 +32,6 @@ class Auth_Widget_Login extends Widget_Container {
 
     //Add form to page
     $this->widgets[] = $f;
+    $this->SetTitle("Login");
   }
 }
