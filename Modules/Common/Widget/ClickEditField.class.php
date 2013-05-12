@@ -4,7 +4,7 @@ class Widget_ClickEditField extends Widget {
   public function __construct($value = ''){
     $this->value = $value;
 	  $this->handler = '';
-    $this->AddJsFile('/static/js/jquery-2.js');
+    $this->AddJsFile('jquery-2.js');
   }
   
   public function addHandler($handler) {
