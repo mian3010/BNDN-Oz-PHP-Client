@@ -1,48 +1,70 @@
 <?php
 
 class Widget_ClickEditField extends Widget {
-  private $handler;
-  public function __construct($value = ''){
+  private $handler = '';
+  private $readonly;
+  private $label;
+  private $field = null;
+  private $value;
+  public function __construct($value = '', $readonly = false){
     $this->value = $value;
-    $this->handler = '';
-  }
-  
-  public function addHandler($handler) {
-    $this->handler = $handler;
+    $this->readonly = $readonly;
   }
 
   public function GetJs() {
-    $js = '$(window).load(function() {'
-      . '$(".clickeditfield").click(function() {'
-		    	. '$(this).css("display", "none");'
-		    	. '$(this).next(".entry")'
-		    	. '.val($(this).text())'
-		    	. '.css("display", "")'
-		    	. '.focus();'
-	    	. '});'
-			. '$(".clickeditfield").next(".entry").blur(function() {'
-		    	. '$(this).css("display", "none");'
-		    	. '$(this).prev(".clickeditfield")'
-		    	. '.text($(this).val())'
-		    	. '.css("display", "");'
-		    	. $this->handler
-     	  		. '});});';
-      $this->AddJs($js);
+    $js = <<<JAVASCRIPT
+      $(window).load(function() {
+        $('.click-edit-field .field-value').click(function() {
+          $(this).css('display', 'none');
+          $(this).parent().find('.field')
+            .val($(this).text())
+            .css('display', '')
+            .focus();
+        });
+        $('.click-edit-field .field').blur(function() {
+          $(this).css('display', 'none');
+          $(this).parent().find('.field-value')
+            .text($(this).val())
+            .css('display', '')
+        });
+      });
+JAVASCRIPT;
+    $this->AddJs($js);
     return parent::GetJs();
   }
 
   public function GetCss() {
-    $this->AddCss('.clickeditfield.empty {display:inline-block; height:1em; }');
+    $css = <<<CSS
+      .click-edit-field.empty .field-value {
+        display: inline-block;
+        height: 1em;
+        width: 150px;
+      }
+      .click-edit-field {
+        display: inline-block;
+      }
+CSS;
+    $this->AddCss($css);
     return parent::GetCss();
   }
 
   public function ToHtml() {
-    $label = new Widget_Label($this->value);
-    $label->classes = array('clickeditfield');
+    $w = new Widget_Wrapper();
+    $w->classes[] = 'click-edit-field';
+    if (trim($this->value) == '') $w->classes[] = 'empty';
 
-    $this->classes = array('entry');
-    if(trim($this->value) == '') $this->classes[] = 'empty';
-    $this->style = 'display:none;';
-    return 	$label->ToHtml().'<input '.$this->GetAttributes().'></input>';
+    //Edit field
+    $fl = new Widget_Label($this->value);
+    $fl->classes[] = 'field-value';
+    if ($this->field == null) $fi = new Widget_InputField($this->value);
+    else $fi = $this->field;
+    $fi->classes[] = 'field';
+    $fi->style = "display:none;";
+
+    //Add to wrapper
+    $w->widgets[] = $fl;
+    $w->widgets[] = $fi;
+
+    return $w->ToHtml();
   }
 }
