@@ -286,3 +286,7 @@ html[xmlns] .clearfix {
 * html .clearfix {
     height: 1%;
 }
+
+.inline{
+    display:inline-block;
+}
