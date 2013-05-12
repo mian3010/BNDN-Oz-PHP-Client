@@ -11,17 +11,18 @@ class Account_Controller_Default extends CommonController {
     try {
       if(isset($_SESSION['token'])){
         $user = $this->accountModel->GetAccount($username, $_SESSION['token']->token);
+        $edit = FALSE;
         if(isset($_SESSION['username']) && strtolower($_SESSION['username']) == strtolower($username)){
-          return null; //TODO own view
+          $edit = TRUE;
         }
-        return null; //TODO auth view
+        return new Account_Widget_ViewAccount($user, $edit);;
       } else {
-        return null; //TODO Goto auth
+          RentItError('Auth', 'Login', 'Please authenticate');
       }
     } catch (UnauthorizedException $e) {
-      //TODO
+        RentItError('Auth', 'Login', 'Please authenticate');
     } catch (Exception $e){
-      //TODO
+        RentItError('Account', 'Dashboard', 'Server error');
     }
   }
 
@@ -33,9 +34,9 @@ class Account_Controller_Default extends CommonController {
       }
       return null; //TODO unauth view
     } catch (UnauthorizedException $e) {
-      //TODO
+        RentItError('Auth', 'Login', 'Please authenticate');
     } catch (Exception $e){
-      //TODO
+        RentItError('Account', 'Dashboard', 'Server error');
     }
   }
 
@@ -50,12 +51,12 @@ class Account_Controller_Default extends CommonController {
         $accounts = $this->accountModel->GetAccounts($types, $incBanned, 'more', $_SESSION['token']->token);
         return null; //TODO
       } else {
-        //TODO Goto auth
+          RentItError('Auth', 'Login', 'Please authenticate');
       }
     } catch (UnauthorizedException $e) {
-      //TODO
+        RentItError('Auth', 'Login', 'Please authenticate');
     } catch (Exception $e){
-      //TODO
+      RentItError('Account', 'Dashboard', 'Server error');
     }
   }
 
@@ -67,9 +68,9 @@ class Account_Controller_Default extends CommonController {
     try{
       $this->accountModel->UpdateAccount($username, $info, $_SESSION['token']->token);
     } catch (UnauthorizedException $e){
-      //TODO Goto auth
+        RentItError('Auth', 'Login', 'Please authenticate');
     } catch (Exception $e){
-      //TODO
+      RentItError('Account', 'Dashboard', 'Server error');
     }
     return $this->View($username);
   }
@@ -89,9 +90,9 @@ class Account_Controller_Default extends CommonController {
         $this->accountModel->CreateAccount($username, $info);
       }
     } catch (UnauthorizedException $e){
-      //TODO Goto auth
+        RentItError('Auth', 'Login', 'Please authenticate');
     } catch (Exception $e){
-      //TODO
+      RentItError('Account', 'Dashboard', 'Server error');
     }
     return $this->Dashboard($username);
   }
@@ -100,6 +101,6 @@ class Account_Controller_Default extends CommonController {
     if(isset($_SESSION['token']) && isset($_SESSION['username'])){
       return null; //TODO
     } else
-      return null; //TODO goto auth
+        RentItError('Auth', 'Login', 'Please authenticate');
   }
 }
