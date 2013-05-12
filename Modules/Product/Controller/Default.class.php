@@ -29,24 +29,17 @@ class Product_Controller_Default extends CommonController {
 	
 	/**
 	 * 
-	 * @param unknown $searchString
-	 * @param unknown $types
-	 * @param unknown $unpublished
-	 * @param unknown $info
+	 * @param string $searchString
+	 * @param string $types
+	 * @param booleain $unpublished
+	 * @param string $info
 	 * @return Product_Widget_ViewProductList
 	 */
-	public function ViewProducts($searchString, $types, $unpublished, $info) {
+	public function ViewProductList($searchString = null, $types = null, $unpublished = false) {
 		try {
-			if($info!='id' || $info!='more' || $info!='detailed') {
-				RentItError('Product', 'ViewProducts', 'Internal error');
-			}
-			else if($unpublished!=false or $unpublished!=true) {
-				RentItError('Product', 'ViewProducts', 'Internal error');
-			}
-			else {
-				$products = $this->productModel->getProducts($searchString, $types, $unpublished, $info, $this->getToken());
-				return new Product_Widget_ViewProductList($products);
-			}
+			$info = 'detailed';	
+			$products = $this->productModel->getProducts($searchString, $types, $unpublished, $info, $this->getToken());
+			return new Product_Widget_ViewProductList($products);
 		} catch (BadRequestException $e) {
 			RentItError('Product', 'ViewProducts', 'Internal error');
 		} catch (ForbiddenException $e) {
@@ -54,6 +47,27 @@ class Product_Controller_Default extends CommonController {
 		} catch (ServerErrorException $e) {
 			RentItError('Product', '', 'Server error');
 		}
+	}
+	
+	/**
+	 * 
+	 * @param string $searchString
+	 * @param string $types
+	 * @param string $unpublished
+	 * @return Product_Widget_ViewProductList
+	 */
+	public function SearchProducts($searchString = null, $types = null, $unpublished = false) {
+		try {
+			$info = 'detailed';
+			$products = $this->productModel->getProducts($searchString, $types, $unpublished, $info, $this->getToken());
+			return new Product_Widget_ViewProductList($products);
+		} catch (BadRequestException $e) {
+			RentItError('Product', 'ViewProducts', 'Internal error');
+		} catch (ForbiddenException $e) {
+			RentItError($module, $method, $message);
+		} catch (ServerErrorException $e) {
+			RentItError('Product', '', 'Server error');
+		}		
 	}
 	
 	/**
@@ -94,11 +108,11 @@ class Product_Controller_Default extends CommonController {
 					$this->productModel->CreateProduct($_SESSION['username'], $product, $this->getToken());
 					return null;
 				} catch(BadRequestException $e) {
-				
+					RentItError('Product', 'CreateProduct', 'Something went wrong, please try again');	
 				} catch (ForbiddenException $e) {
-			
+					RentItError('Auth', 'Login', 'Login has expired');
 				} catch (NotFoundException $e) {
-			
+					RentItError('Product', 'CreateProduct', 'Server error');
 				} catch (RequestEntityTooLargeException $e) {
 			
 				}
@@ -128,14 +142,10 @@ class Product_Controller_Default extends CommonController {
 						return null;
 					}
 				}
-			} catch(BadRequestException $e) {
-		
-			} catch (ForbiddenException $e) {
-				
 			} catch (NotFoundException $e) {
-				
-			} catch (RequestEntityTooLargeException $e) {
-				
+				RentItError('Product', 'UpdateProduct', 'The given product does not belong to you');	
+			} catch (Exception $e) {
+				RentItError('Product', 'UpdateProduct', 'Server errror');
 			}
 		} else {
 			if(isset($_SESSION['token'])) {
@@ -196,7 +206,28 @@ class Product_Controller_Default extends CommonController {
 	
 	/**
 	 * 
-	 * @return unknown|NULL
+	 * @param int $id
+	 * @return Product_Widget_ViewRating
+	 */
+	public function ViewRating($id) {
+		if(isset($_POST['rating'])) {
+			if(isset($_SESSION['token'])) {
+				try{
+					$this->productModel->UpdateRating($id, $_POST['rating'], $this->getToken());
+				} catch (Exception $e) {
+					
+				}
+			}
+		} else {
+			$product = $this->productModel->GetProduct($id, $this->getToken);
+			$rating = $product->rating;
+			return new Product_Widget_ViewRating($rating);
+		}
+	}
+	
+	/**
+	 * 
+	 * @return token|NULL
 	 */	
 	private function getToken() {
 		if(isset($_SESSION['token'])) {
@@ -206,6 +237,10 @@ class Product_Controller_Default extends CommonController {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return object $user
+	 */
 	private function getUser() {
 		if(getToken!=null) {
 			$accountModel = CommonModel::GetModel('Account');
