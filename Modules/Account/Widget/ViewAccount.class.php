@@ -5,10 +5,10 @@
 class Account_Widget_ViewAccount extends Widget_Wrapper {
   public function __construct($username, $user, $editable = FALSE, $newAccount = FALSE) {
     $this->classes[] = "clearfix";
+    $this->classes[] = "inline";
     $this->AddCss(
       '#' . $this->id . '{ width:100% }
       .editField{ width:150px; }
-      .inline{ display:inline-block; }
       ');
 
     $this->SetTitle($username);
@@ -28,12 +28,12 @@ class Account_Widget_ViewAccount extends Widget_Wrapper {
       /// Left slider if own
       $leftWrapper = new Widget_Wrapper();
       $leftWrapper->classes[] = 'inline';
-      $leftWrapper->AddCss('#' . $leftWrapper->id . '{ float:left; width:200px; }');
+      $leftWrapper->AddCss('#' . $leftWrapper->id . '{ float:left; }');
 
       // Name
       $cName = new Widget_Wrapper();
       $lName = new Widget_Label('Name ');
-      $fName = new Widget_ClickEditField(isset($user->name) ? $user->name : '');
+      $fName = new Widget_ClickEditField(isset($user->name) ? $user->name : '', $editable);
       $fName->name = 'name';
       $fName->classes[] = 'editField';
       $cName->widgets += array($lName, $fName);
@@ -42,7 +42,7 @@ class Account_Widget_ViewAccount extends Widget_Wrapper {
       // Email
       $cMail = new Widget_Wrapper();
       $lMail = new Widget_Label('Email ');
-      $fMail = new Widget_ClickEditField(isset($user->email) ? $user->email : '');
+      $fMail = new Widget_ClickEditField(isset($user->email) ? $user->email : '', $editable);
       $fMail->name = 'mail';
       $fMail->classes[] = 'editField';
       $cMail->widgets += array($lMail, $fMail);
@@ -51,7 +51,7 @@ class Account_Widget_ViewAccount extends Widget_Wrapper {
       // Address
       $cAddress = new Widget_Wrapper();
       $lAddress = new Widget_Label('Address ');
-      $fAddress = new Widget_ClickEditField(isset($user->adress) ? $user->adress : '');
+      $fAddress = new Widget_ClickEditField(isset($user->adress) ? $user->adress : '', $editable);
       $fAddress->name = 'address';
       $fAddress->classes[] = 'editField';
       $cAddress->widgets += array($lAddress, $fAddress);
@@ -60,7 +60,7 @@ class Account_Widget_ViewAccount extends Widget_Wrapper {
       // Zipcode
       $cZip = new Widget_Wrapper();
       $lZip = new Widget_Label('Zipcode ');
-      $fZip = new Widget_ClickEditField(isset($user->postal) ? $user->postal: '');
+      $fZip = new Widget_ClickEditField(isset($user->postal) ? $user->postal: '', $editable);
       $fZip->name = 'postal';
       $fZip->classes[] = 'editField';
       $cZip ->widgets += array($lZip, $fZip);
@@ -68,7 +68,7 @@ class Account_Widget_ViewAccount extends Widget_Wrapper {
 
       // Change password
       $cPassword = new Widget_Wrapper();
-      $fPassword = new Widget_ClickEditField('Change password ');
+      $fPassword = new Widget_ClickEditField('Change password ', $editable);
       $fPassword->name = 'password';
       $fPassword->classes[] = 'editField';
       $cPassword->widgets[] = $fPassword;
@@ -87,8 +87,9 @@ class Account_Widget_ViewAccount extends Widget_Wrapper {
     $cAbout->classes[] = 'inline';
     $fAbout = new Widget_ClickEditField(isset($user->about) ? $user->about : '', $editable);
     $fAbout->name = 'about';
-    $cAbout->SetTitle('About me');
-    $cAbout->AddCss('.title{ color: #CA4700; }');
+    $fAbout->AddCss('#' . $fAbout->id . '{ border:dashed 1px black; }');
+    $cAbout->wrapperTitle = 'About me';
+    $cAbout->AddCss('.wrapperTitle{ color: #CA4700; }');
     $cAbout->widgets[] = $fAbout;
     $this->widgets[] = $cAbout;
 
@@ -98,7 +99,7 @@ class Account_Widget_ViewAccount extends Widget_Wrapper {
     /// Right element
     $rightWrapper = new Widget_Wrapper();
     $rightWrapper->classes[] = 'inline';
-    $rightWrapper->AddCss('#' . $rightWrapper->id . '{ float:right; width:200px; }');
+    $rightWrapper->AddCss('#' . $rightWrapper->id . '{ float:right; width:200px; border:dashed 1px black; }');
 
     // Type
     $cType = new Widget_Wrapper();
