@@ -7,6 +7,6 @@ class Widget_Wrapper extends WidgetContainer {
     else
       $t = '';
 
-    return '<div ' . $this->GetAttributes() . $this->GetClasses() . '">' . $t . $this->ChildrenToHtml().'</div>';
+    return '<div ' . $this->GetAttributes() . '">'.$this->ChildrenToHtml().'</div>';
   }
 }

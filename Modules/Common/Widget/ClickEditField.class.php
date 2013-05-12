@@ -1,6 +1,6 @@
 <?php
 
-class Widget_ClickEditField extends Widget {
+class Widget_ClickEditField extends Widget_Wrapper {
   private $handler = '';
   private $readonly;
   private $label;
@@ -49,9 +49,8 @@ CSS;
   }
 
   public function ToHtml() {
-    $w = new Widget_Wrapper();
-    $w->classes[] = 'click-edit-field';
-    if (trim($this->value) == '') $w->classes[] = 'empty';
+    $this->classes[] = 'click-edit-field';
+    if (trim($this->value) == '') $this->classes[] = 'empty';
 
     //Edit field
     $fl = new Widget_Label($this->value);
@@ -62,9 +61,8 @@ CSS;
     $fi->style = "display:none;";
 
     //Add to wrapper
-    $w->widgets[] = $fl;
-    $w->widgets[] = $fi;
+    $this->widgets = array($fl, $fi);
 
-    return $w->ToHtml();
+    return parent::ToHtml();
   }
 }
