@@ -1,53 +1,106 @@
 <?php
 
 class Account_Controller_Default extends CommonController {
-  /*
-   * Get array of accounts
-   * @param $types String defining the types of users to get. A = Admin, C = 
-   * Customer, P = Content Provider
-   * @param $incBanned Whether or not banned should be included
-   * @param $info What info should be returned. String containing either 
-   * "username", "more" or "detailed"
-   * @return Array of users
-   */
-  public function GetAccounts($incAdmin, $incCustomer, $incProvider, $incBanned, $info) {
-    throw new NotImplementedException();
+
+  public function __construct(){
+    parent::__construct();
+    $this->accountModel = CommonModel::GetModel("Account");
   }
 
-  /*
-   * Get a single account by username
-   * @param $username The username to get account by
-   * @return The user
-   */
-  public function GetAccount($username) {
-    throw new NotImplementedException();
+  public function View($username){
+    try {
+      if(isset($_SESSION['token'])){
+        $user = $this->accountModel->GetAccount($username, $_SESSION['token']->token);
+        $edit = FALSE;
+        if(isset($_SESSION['username']) && strtolower($_SESSION['username']) == strtolower($username)){
+          $edit = TRUE;
+        }
+        return new Account_Widget_ViewAccount($user, $edit);;
+      } else {
+          RentItError('Auth', 'Login', 'Please authenticate');
+      }
+    } catch (UnauthorizedException $e) {
+        RentItError('Auth', 'Login', 'Please authenticate');
+    } catch (Exception $e){
+        RentItError('Account', 'Dashboard', 'Server error');
+    }
   }
 
-  /*
-   * Create an account
-   * @param $username The username of the new account
-   * @param $info The array containing the info of the user
-   * @return The new user on success
-   */
-  public function CreateAccount($username, $info) {
-    throw new NotImplementedException();
+  public function Create(){
+    try {
+      if(isset($_SESSION['token']) && isset($_SESSION['username'])){
+        $user = $this->accountModel->GetAccount($_SESSION['username'], $_SESSION['token']->token);
+        if(strtolower($user->type) == 'admin') return null; //TODO admin view
+      }
+      return null; //TODO unauth view
+    } catch (UnauthorizedException $e) {
+        RentItError('Auth', 'Login', 'Please authenticate');
+    } catch (Exception $e){
+        RentItError('Account', 'Dashboard', 'Server error');
+    }
   }
 
-  /*
-   * Update an account
-   * @param $username The username of the account to update
-   * @param $info The array containing the info to update
-   * @return The updated user
-   */
-  public function UpdateAccount($username, $info) {
-    throw new NotImplementedException();
+  public function ListView($types = 'PC', $incBanned = FALSE){
+    try {
+      if(isset($_SESSION['token']) && isset($_SESSION['username'])){
+        $user = $this->accountModel->GetAccount($_SESSION['username'], $_SESSION['token']->token);
+        if(strtolower($user->type) != 'admin') {
+          $types = str_ireplace('a', '', $types);
+          $incBanned = FALSE;
+        }
+        $accounts = $this->accountModel->GetAccounts($types, $incBanned, 'more', $_SESSION['token']->token);
+        return null; //TODO
+      } else {
+          RentItError('Auth', 'Login', 'Please authenticate');
+      }
+    } catch (UnauthorizedException $e) {
+        RentItError('Auth', 'Login', 'Please authenticate');
+    } catch (Exception $e){
+      RentItError('Account', 'Dashboard', 'Server error');
+    }
   }
 
-  /*
-   * Get a list of countries supported
-   * @return An array of countries supported
-   */
-  public function GetCountries() {
-    throw new NotImplementedException();
+  public function SaveAccountChanges($username){
+    //TODO
+    // Build info array
+    $info = array();
+
+    try{
+      $this->accountModel->UpdateAccount($username, $info, $_SESSION['token']->token);
+    } catch (UnauthorizedException $e){
+        RentItError('Auth', 'Login', 'Please authenticate');
+    } catch (Exception $e){
+      RentItError('Account', 'Dashboard', 'Server error');
+    }
+    return $this->View($username);
+  }
+
+  public function SaveNewAccount($username){
+    //TODO
+    // Build info array
+    $info = array();
+
+    try{
+      if(isset($_SESSION['token']))
+        $this->accountModel->CreateAccount($username, $info, $_SESSION['token']->token);
+      else{
+        if(isset($info['type']))
+          if($info['type']!='Customer')
+            return null; //TODO
+        $this->accountModel->CreateAccount($username, $info);
+      }
+    } catch (UnauthorizedException $e){
+        RentItError('Auth', 'Login', 'Please authenticate');
+    } catch (Exception $e){
+      RentItError('Account', 'Dashboard', 'Server error');
+    }
+    return $this->Dashboard($username);
+  }
+
+  public function Dashboard(){
+    if(isset($_SESSION['token']) && isset($_SESSION['username'])){
+      return null; //TODO
+    } else
+        RentItError('Auth', 'Login', 'Please authenticate');
   }
 }

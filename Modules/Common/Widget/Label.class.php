@@ -1,6 +1,6 @@
 <?php
 
-class Common_Widget_Label extends Widget {
+class Widget_Label extends Widget {
   private $text;
 
   public function __construct($text = '') {
