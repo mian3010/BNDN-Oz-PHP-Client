@@ -26,9 +26,10 @@ class UriController {
     
     	$key = array_search("index.php", $args);
     	if($key === false) return '/';
-    	else return '/' . implode('/', array_slice($args, 0, $key+$inclAppBase));
+    	else return '/' . implode('/', array_slice($args, 0, $key+$inclAppBase)) . '/';
   }
+  
   public static function GetAbsolutePath($relative) {
-    return "/".trim(self::GetBasePath(true).$relative, "/").'/';
+    return "/".trim(self::GetBasePath(true) . trim($relative, "/"), "/").'/';
   }
 }

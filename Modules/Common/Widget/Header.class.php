@@ -14,6 +14,9 @@ class Widget_Header extends Widget {
  	public function ToHtml() {
   
     	$pageClass = $this->producePageClass();
+    	
+    	$notifications = new Widget_Notifications();
+    	$notificationsHtml = $notifications->ToHtml();
     
     	$menuLinks = '';
     	$menuLinks .= $this->produceLink('Product/Browse', 'Browse', 'Browse', 1);
@@ -56,6 +59,7 @@ class Widget_Header extends Widget {
                     		' . $menuLinks . '
                 		</nav>
             		</header>
+            		' . $notificationsHtml . '
             		<section id="main">
                 		<article class="simple">
                     		<header>
