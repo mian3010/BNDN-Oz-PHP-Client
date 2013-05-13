@@ -90,7 +90,7 @@ class Widget_Image extends Widget {
    * Get the filename of the resized image
    */
   public function getResFilename() {
-    $name = str_replace('/', '_', $this->imgSrc);
+    $name = str_replace(array('/', ':'), '_', $this->imgSrc);
     return "cache/{$name}_{$this->width}x{$this->height}".image_type_to_extension($this->type);
   }
 
