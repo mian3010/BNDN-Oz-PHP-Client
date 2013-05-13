@@ -83,25 +83,28 @@ class Account_Controller_Default extends CommonController {
     RentItGoto('Account', 'View/' . $username);
   }
 
-  public function SaveNewAccount(){ //TODO Check username is set
+  public function SaveNewAccount(){
     // Build info array
     $info = array();
+    file_put_contents('test.txt', print_r($_POST, TRUE));
     foreach ($_POST as $k => $v){
       $info[$k] = $v;
     }
 
     try{
-      if(isset($_SESSION['token']))
-        $this->accountModel->CreateAccount($username, $info, $_SESSION['token']->token);
-      else{
-        RentItError('Auth', 'Login', 'Please authenticate');
-      }
+      if(!isset($info['username']))
+        RentItError('Account', 'Create', 'Please fillout username');
+      if(!isset($info['password']))
+        RentItError('Account', 'Create', 'Please fillout password');
+      if(!isset($info['type']) || trim($info['type'])=='')
+        $info['type'] = 'Customer';
+      $this->accountModel->CreateAccount($info['username'], $info, $_SESSION['token']->token);
     } catch (UnauthorizedException $e){
-        RentItError('Account', 'View/' . $username, 'Permission denied');
+        RentItError('Account', 'Create/', 'Permission denied');
     } catch (Exception $e){
       RentItError('Account', 'Dashboard', 'Server error');
     }
-    RentItGoto('Account', 'Dashboar');
+    RentItGoto('Account', 'View/' . $info['username']);
   }
 
   public function Dashboard(){

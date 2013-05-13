@@ -34,11 +34,20 @@ class Account_Widget_CreateAccount extends Widget_Form {
     $cEmail->widgets += array($lEmail, $fEmail);
     $this->widgets[] = $cEmail;
 
+    // Password
+    $cPassword = new Widget_Wrapper();
+    $lPassword = new Widget_Label('Password ');
+    $fPassword = new Widget_ClickEditField('');
+    $fPassword->name = 'password';
+    $fPassword->classes[] = 'editField';
+    $cPassword->widgets += array($lPassword, $fPassword);
+    $this->widgets[] = $cPassword;
+
     // Type
     if($admin){
       $cType = new Widget_Wrapper();
       $lType = new Widget_Label('Account type ');
-      $fType = new Widget_ClickEditField('');
+      $fType = new Widget_ClickEditField('Customer');
       $fType->name = 'type';
       $fType->classes[] = 'editField';
       $cType->widgets += array($lType, $fType);
