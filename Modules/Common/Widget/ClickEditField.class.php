@@ -57,10 +57,13 @@ CSS;
     //Edit field
     $fl = new Widget_Label($this->value);
     $fl->classes[] = 'field-value';
-    if ($this->field == null) $fi = new Widget_InputField($this->value);
+    if ($this->field == null) $fi = new Widget_InputField();
     else $fi = $this->field;
+    $fi->value = $this->value;
     $fi->classes[] = 'field';
     $fi->style = "display:none;";
+    $fi->name = $this->name;
+    $this->name = '';
 
     //Add to wrapper
     $this->widgets[] = $fl;
