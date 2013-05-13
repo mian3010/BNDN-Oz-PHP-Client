@@ -27,41 +27,48 @@ class Purchase_Controller_Default extends CommonController {
   public function BuyRent($product) {
     //Testing
     $prm = CommonModel::GetModel("Product");
-    $product = $prm->GetProduct(8, $_SESSION['token']->token);
+    $product = $prm->GetProduct(12, $_SESSION['token']->token);
 
     $container = new Widget_Wrapper();
     $pm = CommonModel::GetModel("Purchase");
 
     $bPurchases = $pm->GetPurchases($_SESSION['username'], $_SESSION['token']->token, "B");
-    $bought = null;
-    foreach ($bPurchases as $bPurchase)
-      if ($bPurchase->product == $product->id) {
-        $bought = $bPurchase;
+    if ($product->price->buy > 0) {
+      $bought = null;
+      foreach ($bPurchases as $bPurchase)
+        if ($bPurchase->product == $product->id) {
+          $bought = $bPurchase;
         break;
-      }
-    
+        }
+    } else $bought = false;
+  
     $rPurchases = $pm->GetPurchases($_SESSION['username'], $_SESSION['token']->token, "R");
-    $rentet = null;
-    foreach ($rPurchases as $rPurchase)
-      if ($rPurchase->product == $product->id) {
-        $bought = $rPurchase;
-        break;
-      }
+    if ($product->price->rent > 0) {
+      $rentet = null;
+      foreach ($rPurchases as $rPurchase)
+        if ($rPurchase->product == $product->id && strtotime($rPurchase->expires) > time()) {
+          $rentet = $rPurchase;
+          break;
+        }
+    } else $rentet = false;
 
-    if ($bought == null)
-      $b = new Purchase_Widget_Buy($product->price->buy);
-    else
-      $b = new Purchase_Widget_Bought($bought);
-    if ($bought == null && $rentet = null)
-      $r = new Purchase_Widget_Rent($product->price->buy);
-    else if ($bought == null)
-      $r = new Purchase_Widget_Rentet($rentet);
-    else
-      $r = null;
-
+    if ($bought !== false) {
+      if ($bought == null)
+        $b = new Purchase_Widget_Buy($product->price->buy);
+      else
+        $b = new Purchase_Widget_Bought($bought);
+    } else $b = new Purchase_Widget_NotBuyable();
     $container->widgets[] = $b;
-    if ($r != null) $container->widgets[] = $r;
+    if ($bought != null) return $container;
 
+
+    if ($rentet !== false) {
+      if ($bought == null && $rentet == null)
+        $r = new Purchase_Widget_Rent($product->price->rent);
+      else if ($bought == null)
+        $r = new Purchase_Widget_Rentet($rentet);
+    } else $r = new Purchase_Widget_NotRentable();
+    $container->widgets[] = $r;
     return $container;
   }
 }
