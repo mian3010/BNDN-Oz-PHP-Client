@@ -2,15 +2,13 @@
 /*
  * Buy/Rent widget
  */
-class Purchase_Widget_Rentet extends Widget_Wrapper {
+class Purchase_Widget_Bought extends Widget_Wrapper {
   public function __construct($purchase) {
     $w = new Widget_Wrapper();
     $b = new Widget_ThreePartButton("", "&nbsp;", "Download product", "&nbsp;");
     $w->widgets[] = $b;
-    $l = new Widget_Label("Expires: ");
-    $d = new Widget_Date($purchase->expires);
+    $l = new Widget_Label("Expires: Never");
     $this->widgets[] = $w;
     $this->widgets[] = $l;
-    $this->widgets[] = $d;
   }
 }
