@@ -92,12 +92,12 @@ class Account_Widget_ViewAccount extends Widget_Form {
     /// Right element
     $rightWrapper = new Widget_Wrapper();
     $rightWrapper->classes[] = 'inline';
-    $rightWrapper->AddCss('#' . $rightWrapper->id . '{ float:right; width:200px; border:dashed 1px black; }');
+    $rightWrapper->AddCss('#' . $rightWrapper->id . '{ float:right; width:280px; border:dashed 1px black; }');
 
     /// Picture
     $img = new Widget_Image('static/img/accountThumb.jpg');
-    $img->height = '80px';
-    $img->width = '50px';
+    $img->height = '180';
+    $img->width = '280';
     $rightWrapper->widgets[] = $img;
 
     // Type
