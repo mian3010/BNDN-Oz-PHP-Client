@@ -36,7 +36,33 @@ function RentItGoto($module, $method, $args = array()) {
   exit;
 }
 
-function RentItError($module, $method, $message, $args = array()) {
-  header("Location: ".UriController::GetAbsolutePath("/$module/$method/".implode("/", $args))."?message=".urlencode($message));
-  exit;
+function RentItError($message) {
+	
+	if($_SESSION['errors'] == null){
+		
+		$_SESSION['errors'] = array();
+	}
+	
+	$_SESSION['errors'][] = $message;
+}
+
+function RentItInfo($message) {
+
+	if($_SESSION['info'] == null){
+	
+		$_SESSION['info'] = array();
+	}
+	
+	$_SESSION['info'][] = $message;
+}
+
+
+function RentItSuccess($message) {
+
+	if($_SESSION['successes'] == null){
+	
+		$_SESSION['successes'] = array();
+	}
+	
+	$_SESSION['successes'][] = $message;
 }

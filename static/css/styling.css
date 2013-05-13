@@ -120,6 +120,53 @@ textarea:focus:invalid,
 	padding-top: 8px;
 }
 
+/* NOTIFICATIONS */
+
+#site > #notifications {
+
+	margin-top: -10px;
+	position: relative;
+	z-index: -1;
+}
+
+#site > #notifications > ul {
+
+	min-width: 1036px;
+	padding: 5px 0;
+	margin-bottom: 3px;
+}
+
+#site > #notifications > ul:last-child {
+
+	margin-bottom: 0;
+}
+
+#site > #notifications > ul.error {
+
+	background-color: #A63400;
+}
+
+#site > #notifications > ul.info {
+
+	background-color: #216477;
+}
+
+#site > #notifications > ul.success {
+
+	background-color: #2F8F00;
+}
+
+#site > #notifications > ul > li {
+
+	margin: 0 auto 8px;
+	width: 1000px;
+}
+
+#site > #notifications > ul > li:last-child {
+
+	margin-bottom: 0;
+}
+
 /* FOOTER */
 
 #site > footer {
