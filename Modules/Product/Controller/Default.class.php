@@ -198,7 +198,7 @@ class Product_Controller_Default extends CommonController {
 	public function StreamProduct($id) {
 		if(isset($_SESSION['token'])) {
 			$stream = $this->productModel->GetMedia($id, $this->getToken());
-			return new StreamProduct($stream);
+			return new Product_Widget_StreamProduct($stream);
 		} else {
 			RentItError('Auth', 'Login', 'Authentication needed');
 		}
