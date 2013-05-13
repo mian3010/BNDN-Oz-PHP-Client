@@ -3,11 +3,11 @@
 class Product_Widget_StreamProduct extends Widget_Container {
 	
 	public function __construct($stream, $type) {
-		if(stristr($type, 'video')) {
+		if(stristr($type, 'video') || stristr($type, 'film')) {
 			$vs = new Widget_Video($stream);
-			$vs->ToHtml();
+			echo $vs->ToHtml();
 		}
-		else if(stritr($type, 'audio')) {
+		else if(stristr($type, 'audio')) {
 			
 		}
 		else if(stristr($type, 'music')) {
