@@ -93,13 +93,16 @@ class Account_Widget_ViewAccount extends Widget_Wrapper {
     $cAbout->widgets[] = $fAbout;
     $this->widgets[] = $cAbout;
 
-    /// Picture
-
-
     /// Right element
     $rightWrapper = new Widget_Wrapper();
     $rightWrapper->classes[] = 'inline';
     $rightWrapper->AddCss('#' . $rightWrapper->id . '{ float:right; width:200px; border:dashed 1px black; }');
+
+    /// Picture
+    $img = new Widget_Image('static/img/accountThumb.jpg');
+    $img->height = '80px';
+    $img->width = '50px';
+    $rightWrapper->widgets[] = $img;
 
     // Type
     $cType = new Widget_Wrapper();
