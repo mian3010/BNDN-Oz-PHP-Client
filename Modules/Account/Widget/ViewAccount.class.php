@@ -14,9 +14,10 @@ class Account_Widget_ViewAccount extends Widget_Wrapper {
     $this->SetTitle($username);
     var_dump($user);
     /// Options
-    /// Form
+    $this->AddOption('Dashboard', 'Account/Dashboard');
 
     if($editable){
+      /// Form
       $f = new Widget_Form();
       $f->id = "form-account";
       if($newAccount)
