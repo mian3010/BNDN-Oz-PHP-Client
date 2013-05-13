@@ -64,7 +64,7 @@ CSS;
 
     //Add to wrapper
     $this->widgets[] = $fl;
-    if($this->readonly) $this->widgets[] = $fi;
+    if(!$this->readonly) $this->widgets[] = $fi;
 
     return parent::ToHtml();
   }
