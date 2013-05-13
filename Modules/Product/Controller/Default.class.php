@@ -197,13 +197,26 @@ class Product_Controller_Default extends CommonController {
 	 */
 	public function StreamProduct($id) {
 		if(isset($_SESSION['token'])) {
-			$stream = $this->productModel->GetMedia($id, $this->getToken());
+			$streamURL = UriController::GetAbsolutePath("/Product/GetStreamFileContent/" . $id);
 			$product = $this->productModel->GetProduct($id, $this->getToken());
 			$type = $product->type;
-			return new StreamProduct($stream, $type);
+			return new Product_Widget_StreamProduct($streamURL, $type);
 		} else {
 			RentItError('Auth', 'Login', 'Authentication needed');
 		}
+	}
+
+	public function GetStreamFileContent($id) {
+		if(isset($_SESSION['token'])) {
+			$stream = $this->productModel->GetMedia($id, $this->getToken());
+			while ($data = fread($stream, 8192)) {
+				echo $data;
+			}
+			fclose($stream);
+		} else {
+			RentItError('Auth', 'Login', 'Authentication needed');
+		}
+		exit();
 	}
 	
 	/**
@@ -233,7 +246,7 @@ class Product_Controller_Default extends CommonController {
 	 */	
 	private function getToken() {
 		if(isset($_SESSION['token'])) {
-			return $_SESSION['token'];
+			return $_SESSION['token']->token;
 		} else {
 			return null;
 		}

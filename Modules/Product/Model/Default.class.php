@@ -142,10 +142,10 @@ class Product_Model_Default extends CommonModel {
    * @return unknown $media
    */
   public function GetMedia($id, $token) {
-    $opts = array('http' =>array('method' =>'GET','header'=>'token:'.$token->token));
+    $opts = array('http' =>array('method' =>'GET','header'=>'token:'.$token));
     $context = stream_context_create($opts);
-    
-    $fp = fopen('http://rentit.itu.dk/RentIt27/RentItService.svc/products/'.$id,'r',true);
+	
+    $fp = fopen('http://rentit.itu.dk/RentIt27/RentItService.svc/accounts/'.$_SESSION['username'].'/purchases/'.$id.'/media',r,false, $context);
     return $fp;
   }
 
