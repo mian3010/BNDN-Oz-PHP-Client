@@ -1,11 +1,13 @@
 <?php
 
-class Product_Widget_ViewThumbnail extends Widget_Container {
-		public function __construct($id) {
-			$thumb = new Widget_Image("http://rentit.itu.dk/RentIt27/RentItService.svc/products/".$id."/thumbnail");
-			$thumb->width = 100;
-			$thumb->height = 100;
-				
-			$this->widgets[] = $thumb;
-		}
+class Product_Widget_ViewThumbnail extends Widget_Image {
+  public function __construct($id) {
+    try {
+      parent::__construct(WebService::GetAbsolute("/products/".$id."/thumbnail"));
+    } catch (ImageException $e) {
+      parent::_construct('static/img/accountThumb.jpg');
+    }
+    $this->width = 100;
+    $this->height = 100;
+  }
 }
