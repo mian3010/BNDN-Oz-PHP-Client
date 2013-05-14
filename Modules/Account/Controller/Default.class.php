@@ -15,7 +15,7 @@ class Account_Controller_Default extends CommonController {
           $edit = TRUE;
         else if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'admin')
           $edit = TRUE;
-        return new Account_Widget_ViewAccount($username, $user, $edit);;
+        return new Account_Widget_ViewAccount($username, $user, $edit);
       } else {
         RentItError('Please authenticate');
         RentItGoto("Auth", "Login");
