@@ -217,9 +217,9 @@ class Product_Controller_Default extends CommonController {
 			$transaction = $pm->GetPurchase($_SESSION['username'], $this->getToken(), $tId);
 			$pId = $transaction->product;
 			
-			$type = $this->productModel->GetProductType($pId, $this->getToken());
+			$product = $this->productModel->GetProduct($pId, $this->getToken());
 			
-			return new Product_Widget_StreamProduct($streamURL, $type);
+			return new Product_Widget_StreamProduct($streamURL, $product);
 		} else {
 			RentItError('Authentication needed');
 			RentItGoto('Auth', 'Login');
@@ -237,13 +237,10 @@ class Product_Controller_Default extends CommonController {
 					break;
 			}
 				
-			
-			 
 			$stream = $this->productModel->GetMedia($id, $this->getToken());
 			while ($data = fread($stream, 8192)) {
 				echo $data;	
 			}
-			
 			fclose($stream);
 		} else {
 			RentItError('Authentication needed');
