@@ -20,7 +20,7 @@ class Widget_Notifications extends Widget {
   		
   			$html .= '<ul class="error">';
   			
-  			while($msg = array_shift($errors)) $html .= '<li>Error: ' . $msg . '</li>';
+  			while(($msg = array_shift($errors)) !== NULL) $html .= '<li>Error: ' . $msg . '</li>';
   			
   			$html .= '</ul>';
   		}
@@ -29,7 +29,7 @@ class Widget_Notifications extends Widget {
   		
   			$html .= '<ul class="info">';
   			
-  			while($msg = array_shift($info)) $html .= '<li>Info: ' . $msg . '</li>';
+  			while(($msg = array_shift($info)) !== NULL) $html .= '<li>Info: ' . $msg . '</li>';
   			
   			$html .= '</ul>';
   		}
@@ -38,7 +38,7 @@ class Widget_Notifications extends Widget {
   		
   			$html .= '<ul class="success">';
   			
-  			while($msg = array_shift($successes)) $html .= '<li>Success: ' . $msg . '</li>';
+  			while(($msg = array_shift($successes)) !== NULL) $html .= '<li>Success: ' . $msg . '</li>';
   			
   			$html .= '</ul>';
   		}
