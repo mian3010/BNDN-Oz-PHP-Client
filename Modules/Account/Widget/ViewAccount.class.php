@@ -142,7 +142,6 @@ class Account_Widget_ViewAccount extends Widget_Form {
     $fAbout->name = 'about';
     //$fAbout->AddCss('#' . $fAbout->id . '{ border:dashed 1px black; }');
     $cAbout->wrapperTitle = 'About me';
-    $cAbout->AddCss('.wrapperTitle{ color: #CA4700; }');
     $cAbout->classes[] = 'hasALittleBitOfPadding';
     $cAbout->widgets[] = $fAbout;
 
