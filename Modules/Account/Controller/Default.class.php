@@ -18,12 +18,15 @@ class Account_Controller_Default extends CommonController {
           $edit = TRUE;
         return new Account_Widget_ViewAccount($username, $user, $edit);;
       } else {
-          RentItError('Auth', 'Login', 'Please authenticate');
+        RentItError('Please authenticate');
+        RentItGoto("Auth", "Login");
       }
     } catch (UnauthorizedException $e) {
-        RentItError('Auth', 'Login', 'Please authenticate');
+      RentItError('Please authenticate');
+      RentItGoto("Auth", "Login");
     } catch (Exception $e){
-        RentItError('Account', 'Dashboard', 'Server error');
+      RentItError('Server error');
+      RentItGoto("Account", "Dashboard");
     }
   }
 
@@ -36,9 +39,11 @@ class Account_Controller_Default extends CommonController {
       }
       return new Account_Widget_CreateAccount($admin);
     } catch (UnauthorizedException $e) {
-        RentItError('Auth', 'Login', 'Please authenticate');
+      RentItError('Please authenticate');
+      RentItGoto("Auth", "Login");
     } catch (Exception $e){
-        RentItError('Account', 'Dashboard', 'Server error');
+      RentItError('Server error');
+      RentItGoto("Account", "Dashboard");
     }
   }
 
@@ -53,12 +58,15 @@ class Account_Controller_Default extends CommonController {
         $accounts = $this->accountModel->GetAccounts($types, $incBanned, 'more', $_SESSION['token']->token);
         return null; //TODO
       } else {
-          RentItError('Auth', 'Login', 'Please authenticate');
+        RentItError('Please authenticate');
+        RentItGoto("Auth", "Login");
       }
     } catch (UnauthorizedException $e) {
-        RentItError('Auth', 'Login', 'Please authenticate');
+      RentItError('Please authenticate');
+      RentItGoto("Auth", "Login");
     } catch (Exception $e){
-      RentItError('Account', 'Dashboard', 'Server error');
+      RentItError('Server error');
+      RentItGoto("Account", "Dashboard");
     }
   }
 
@@ -73,12 +81,15 @@ class Account_Controller_Default extends CommonController {
       if(isset($_SESSION['token']))
         $this->accountModel->UpdateAccount($username, $info, $_SESSION['token']->token);
       else{
-        RentItError('Auth', 'Login', 'Please authenticate');
+        RentItError('Please authenticate');
+        RentItGoto("Auth", "Login");
       }
     } catch (UnauthorizedException $e){
-        RentItError('Auth', 'Login', 'Please authenticate');
+      RentItError('Please authenticate');
+      RentItGoto("Auth", "Login");
     } catch (Exception $e){
-      RentItError('Account', 'Dashboard', 'Server error');
+      RentItError('Server error');
+      RentItGoto("Account", "Dashboard");
     }
     RentItGoto('Account', 'View/' . $username);
   }
@@ -93,16 +104,19 @@ class Account_Controller_Default extends CommonController {
 
     try{
       if(!isset($info['username']))
-        RentItError('Account', 'Create', 'Please fillout username');
+        RentItError('Please fillout username');
       if(!isset($info['password']))
-        RentItError('Account', 'Create', 'Please fillout password');
+        RentItError('Please fillout password');
       if(!isset($info['type']) || trim($info['type'])=='')
         $info['type'] = 'Customer';
+      RentItGoto("Account", "Create");
       $this->accountModel->CreateAccount($info['username'], $info, $_SESSION['token']->token);
     } catch (UnauthorizedException $e){
-        RentItError('Account', 'Create/', 'Permission denied');
+      RentItError('Permission denied');
+      RentItGoto("Account", "Create");
     } catch (Exception $e){
-      RentItError('Account', 'Dashboard', 'Server error');
+      RentItError('Server error');
+      RentItGoto("Account", "Dashboard");
     }
     RentItGoto('Account', 'View/' . $info['username']);
   }
@@ -110,7 +124,9 @@ class Account_Controller_Default extends CommonController {
   public function Dashboard(){
     if(isset($_SESSION['token']) && isset($_SESSION['username'])){
       return new Account_Widget_AccountDashboard();
-    } else
-      RentItError('Auth', 'Login', 'Please authenticate');
+    } else {
+      RentItError('Please authenticate');
+      RentItGoto("Auth", "Login");
+    }
   }
 }

@@ -9,8 +9,10 @@ class Auth_Controller_Default extends CommonController {
     if (!isset($_POST['login-username']) ||
         !isset($_POST['login-password']) ||
         empty($_POST['login-username']) ||
-        empty($_POST['login-password']))
-      RentItError('Auth', 'Login', 'Both username and password must be entered');
+        empty($_POST['login-password']))  {
+          RentItError('Both username and password must be entered');
+          RentItGoto("Auth", "Login");
+        }
 
     $username = $_POST['login-username'];
     $password = $_POST['login-password'];
@@ -20,9 +22,10 @@ class Auth_Controller_Default extends CommonController {
       $_SESSION['username'] = $username;
       RentItGoto('Account', 'Dashboard');
     } catch (UnauthorizedException $e) {
-      RentItError('Auth', 'Login', 'Credentials supplied was wrong.');
+      RentItError('Credentials supplied was wrong.');
     } catch (Exception $e) {
-      RentItError('Auth', 'Login', 'Server error. Please try again later.');
+      RentItError('Server error. Please try again later.');
     }
+    RentItGoto('Auth', 'Login');
   }
 }
