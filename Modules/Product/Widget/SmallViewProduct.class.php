@@ -4,7 +4,7 @@
  * Get a small Widget of Product for showing in a list
  */
 class Product_Widget_SmallViewProduct extends Widget_Wrapper {
-  public function __construct($product) {
+  public function __construct($product, $buy = null, $rent = null) {
     $this->classes[] = 'clearfix';
     $this->classes[] = 'small-product';
     $css = <<<CSS
@@ -31,7 +31,7 @@ CSS;
     $tx->classes[] = 'small-product-text';
 
     $pCont = new Purchase_Controller_Default();
-    $br = $pCont->BuyRent($product);
+    $br = $pCont->BuyRent($product, $buy, $rent);
     $br->classes[] = 'right';
 
     $w = new Widget_Wrapper();
