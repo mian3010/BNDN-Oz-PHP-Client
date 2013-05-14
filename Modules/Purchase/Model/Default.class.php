@@ -22,6 +22,14 @@ class Purchase_Model_Default extends CommonModel {
     return $object;
   }
 
+  public function GetPurchaseByPid($username, $token, $pId) {
+    $purchases = $this->GetPurchases($username, $token);
+    foreach ($purchases as $purchase) {
+      if ($purchase->id == $pId) return $purchase;
+    }
+    return null;
+  }
+
   public function CreatePurchases($username, $purchases, $token) {
     $ws = new WebService('accounts/'.$username.'/purchases', 'POST');
     $ws->SetData($purchases);
