@@ -21,7 +21,6 @@ class Widget_Image extends Widget {
    * Resize the img defined in src using the width and height set.
    */
   private function resizeImage() {
-    var_dump("called");
     if (!file_exists('cache')) mkdir('cache');
     $gdImg = $this->getImgAsGd();
     if ($gdImg == false) throw new ImageException("Image type not supported!");
@@ -98,7 +97,7 @@ class Widget_Image extends Widget {
   public function getResFilename() {
     $this->ext = pathinfo($this->imgSrc, PATHINFO_EXTENSION);
     $name = str_replace(array('/', ':'), '_', $this->imgSrc);
-    return "cache/{$name}_{$this->width}x{$this->height}".$this->ext;
+    return "cache/{$name}_{$this->width}x{$this->height}.".$this->ext;
   }
 
   private function fileExists() {
