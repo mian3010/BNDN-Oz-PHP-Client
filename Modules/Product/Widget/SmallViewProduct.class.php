@@ -25,14 +25,7 @@ CSS;
     $this->AddCss($css);
     $this->wrapperTitle = $product->title;
 
-    try {
-      $t = new Widget_Image(WebService::GetAbsolute("/products/".$product->id."/thumbnail"));
-    } catch (ImageException $e) {
-      $t = new Widget_Image('static/img/accountThumb.jpg');
-    }
-    $t->height = 100;
-    $t->width = 100;
-    $t->classes[] = 'left';
+    $t = new Product_Widget_ViewThumbnail($product->id);
 
     $tx = new Widget_Text($product->description);
     $tx->classes[] = 'small-product-text';
