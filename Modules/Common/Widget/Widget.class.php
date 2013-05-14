@@ -61,22 +61,22 @@ abstract class Widget {
     return trim($classesStr);
   }
 
-  protected function AddJs($js, $id = null) {
+  public function AddJs($js, $id = null) {
     if ($id == null) $id = md5($js);
     $this->js[$id] = $js;
   }
 
-  protected function AddCss($css, $id = null) {
+  public function AddCss($css, $id = null) {
     if ($id == null) $id = md5($css);
     $this->css[$id] = $css;
   }
 
-  protected function AddJsFile($path, $id = null) {
+  public function AddJsFile($path, $id = null) {
     if ($id == null) $id = $path;
     $this->jsFiles[$id] = $path;
   }
   
-  protected function AddCssFile($path, $id = null) {
+  public function AddCssFile($path, $id = null) {
     if ($id == null) $id = $path;
     $this->cssFiles[$id] = $path;
   }

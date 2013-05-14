@@ -31,12 +31,20 @@ class Purchase_Controller_Default extends CommonController {
   }
 
   public function BuyRent($product) {
-    //Testing
-    $prm = CommonModel::GetModel("Product");
-    $product = $prm->GetProduct(12, $_SESSION['token']->token);
-
     $container = new Widget_Wrapper();
-    $pm = CommonModel::GetModel("Purchase");
+    $container->classes[] = 'buy-rent';
+    $css = <<<CSS
+      .buy-rent {
+        width: 100px;
+        height: 100px;
+      }
+      .buy-rent > div {
+        text-align: center;
+        margin: 15px 0;
+      }
+CSS;
+    $container->AddCss($css);
+    $pm = $this->purchaseModel;
 
     $bPurchases = $pm->GetPurchases($_SESSION['username'], $_SESSION['token']->token, "B");
     if ($product->price->buy > 0) {
