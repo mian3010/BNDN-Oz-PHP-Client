@@ -210,7 +210,7 @@ class Product_Controller_Default extends CommonController {
 		if(isset($_SESSION['token'])) {
 			$stream = $this->productModel->GetMedia($id, $this->getToken());
 			while ($data = fread($stream, 8192)) {
-				echo $data;
+				echo $data;	
 			}
 			fclose($stream);
 		} else {
