@@ -17,7 +17,7 @@ class Credits_Widget_BuyCredits extends Widget_Container {
   $t = new Widget_ThreePartButton("", $input->ToHtml(), "&nbsp", "C");
   $t->classes[] = 'inline';
   $t->classes[] = 'hasALittleBitOfPadding';
-  $t->disable = "true";
+  $t->disabled = TRUE;
   
   $cw = new Widget_Wrapper();
   $cw->classes[] = 'hasALittleBitOfPadding';

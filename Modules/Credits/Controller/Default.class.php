@@ -22,10 +22,11 @@ class Credits_Controller_Default extends CommonController {
             try {
               $r = $this->creditsModel->UpdateCredits($_SESSION['token']->token, $credits);
               // Check for errors
-              if(r == 1) {
+              if(r == FALSE) {
                 RentItError('Some error occured');
               }
             } catch (Exception $e) {
+              RentItError("Error :/ --> $e");
               RentItError('Server error. Please try again later.');
             }
           } else {
@@ -48,9 +49,10 @@ class Credits_Controller_Default extends CommonController {
    */
   public function GetCredits() {
   	if(isset($_SESSION['token'])){
-		$am = CommonModel::GetModel("Account");
-		$c = $am->GetAccount($_SESSION['username'], $_SESSION['token']->token)->credits;
-		return new Credits_Widget_ViewCredits($c);
+		  $am = CommonModel::GetModel("Account");
+      $a = $am->GetAccount($_SESSION['username'], $_SESSION['token']->token);
+		  $c = $a->credits;
+		  return new Credits_Widget_ViewCredits($c);
 	}
   }
 }
