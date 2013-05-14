@@ -296,8 +296,4 @@ class Product_Controller_Default extends CommonController {
 			return $user;
 		}
   }
-
-  public function SmallViewProduct() {
-    return new Product_Widget_SmallViewProduct();
-  }
 }
