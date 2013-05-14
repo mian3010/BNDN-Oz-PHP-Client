@@ -3,12 +3,12 @@
 class Auth_Widget_Loggedin extends Widget_Wrapper {
   public function __construct($username) {
     // Title = username
-    $this->wrapperTitle = $username;
+    //$this->wrapperTitle = $username;
 
     // Wrapper
     $wrap = new Widget_Wrapper();
     $wrap->classes[] = 'hasALittleBitOfPadding';
-    $this->AddCss('#' . $wrap->id . '{ border: 1px dashed black }');
+    //$this->AddCss('#' . $wrap->id . '{ border: 1px dashed black }');
     $this->widgets[] = $wrap;
 
     // Edit profile

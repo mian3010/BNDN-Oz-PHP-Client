@@ -14,7 +14,7 @@ class Auth_Widget_Login extends Widget_Container {
     $uw = new Widget_Wrapper();
     $ul = new Widget_Label('Username ');
     $ul->classes[] = 'inline';
-    $ul->AddCss('#' . $ul->id . '{ width:60px; }');
+    $ul->AddCss('#' . $ul->id . '{ width:80px; }');
     $u = new Widget_InputField();
     $uw->classes[] = 'hasALittleBitOfPadding';
     $u->name = "login-username";
@@ -24,7 +24,7 @@ class Auth_Widget_Login extends Widget_Container {
     $pw = new Widget_Wrapper();
     $pl = new Widget_Label('Password ');
     $pl->classes[] = 'inline';
-    $pl->AddCss('#' . $pl->id . '{ width:60px; }');
+    $pl->AddCss('#' . $pl->id . '{ width:80px; }');
     $p = new Widget_InputField("password");
     $pw->classes[] = 'hasALittleBitOfPadding';
     $p->name = "login-password";
@@ -33,7 +33,7 @@ class Auth_Widget_Login extends Widget_Container {
     //Submit button
     $sw = new Widget_Wrapper();
     $s = new Widget_Button("Login");
-    $s->AddCss('#' . $s->id . '{ width:60px; }');
+    $s->AddCss('#' . $s->id . '{ width:80px; }');
     $s->classes[] = 'inline';
     $s->classes[] = 'hasALittleBitOfPadding';
     $sw->widgets[] = $s;
