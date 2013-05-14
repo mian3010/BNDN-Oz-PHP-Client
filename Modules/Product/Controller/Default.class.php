@@ -14,18 +14,33 @@ class Product_Controller_Default extends CommonController {
 	 * @param string $id
 	 * @return Product_Widget_ViewProduct
 	 */
-	public function View($id = null) {
+	public function View($id = 0) {
+    if($id == 0){
+      RentItError('Product not found');
+      RentItGoto('Product', 'Browse');
+    }
 		try {
-			$product = $this->productModel->GetProduct($id, $this->getToken());
-			return new Product_Widget_ViewProduct($product);
+      if(!isset($_SESSION['token'])) {
+        RentItError('Please authenticate');
+        RentItGoto('Auth', 'Login');
+      }
+			$product = $this->productModel->GetProduct($id, $_SESSION['token']->token);
+      if($product == null) {
+        RentItError('Product not found');
+        RentItGoto('Product', 'Browse');
+      }
+      $edit = FALSE;
+      if((isset($_SESSION['username'])) && strtolower($_SESSION['username']) == $product->owner) $edit = TRUE;
+      elseif(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'admin') $edit = TRUE;
+			return new Product_Widget_ViewProduct($product, $edit);
 		} catch (ForbiddenException $e) {
-			RentItError('Product not found');
+			  RentItError('Product not found');
 		} catch (NotFoundException $e) {
-			RentItError('Product not found');
+			  RentItError('Product not found');
 		} catch (Exception $e) {
-			RentItError('Server error');
+			  RentItError('Server error');
 		}
-		RentItGoto('Product', '');
+	RentItGoto('Product', 'Browse');
 	}
 	
 	/**
@@ -68,8 +83,8 @@ class Product_Controller_Default extends CommonController {
       RentItError('Internal error');
       RentItGoto("Product", "ViewProducts");
 		} catch (ForbiddenException $e) {
-      RentItError($message);
-      RentItGoto($module, $method);
+      //RentItError($message);
+      //RentItGoto($module, $method);
 		} catch (ServerErrorException $e) {
       RentItError('Server error');
       RentItGoto("Product", "");
@@ -87,6 +102,7 @@ class Product_Controller_Default extends CommonController {
 	 * 
 	 */
 	public function CreateProduct() {
+    /*
 		if(isset($_POST['submit'])) {
 			if(!isset($_POST['title'])) {
 				
@@ -136,7 +152,7 @@ class Product_Controller_Default extends CommonController {
 					return new Product_Widget_CreateProduct($types);
 				}
 			}
-		}
+		}*/
 	}
 	
 	/**
@@ -149,7 +165,7 @@ class Product_Controller_Default extends CommonController {
 				if(isset($_SESSION['token'])) {
 					$user = $this->getToken();
 					if($user->type=='contentProvider') {
-						$this->productModel->UpdateProduct($product, $this->getToken());
+						//$this->productModel->UpdateProduct($product, $this->getToken());
 						return null;
 					}
 				}
