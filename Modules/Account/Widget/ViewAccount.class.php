@@ -141,7 +141,7 @@ class Account_Widget_ViewAccount extends Widget_Form {
     $fAbout = new Widget_ClickEditField(isset($user->about) ? $user->about : '', !$editable);
     $fAbout->name = 'about';
     //$fAbout->AddCss('#' . $fAbout->id . '{ border:dashed 1px black; }');
-    $cAbout->wrapperTitle = 'About me<br />';
+    $cAbout->wrapperTitle = 'About me';
     $cAbout->AddCss('.wrapperTitle{ color: #CA4700; }');
     $cAbout->classes[] = 'hasALittleBitOfPadding';
     $cAbout->widgets[] = $fAbout;
