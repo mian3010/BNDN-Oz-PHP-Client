@@ -240,6 +240,7 @@ textarea:focus:invalid,
 
 	width: 1000px;
 	margin: 70px auto 0;
+    position: relative;
 }
 
 #main > article.simple > header {
@@ -292,6 +293,9 @@ textarea:focus:invalid,
 	padding: 21px 27px;
 	text-align: justify;
 	line-height: 190%;
+    position: absolute;
+    left: 0;
+    right: 0;
 }
 
 #main > article.simple > section p {

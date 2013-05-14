@@ -10,11 +10,10 @@ class Account_Controller_Default extends CommonController {
     try {
       if(isset($_SESSION['token'])){
         $user = $this->accountModel->GetAccount($username, $_SESSION['token']->token);
-        $requester = $this->accountModel->GetAccount($_SESSION['username'], $_SESSION['token']->token);
         $edit = FALSE;
         if(isset($_SESSION['username']) && strtolower($_SESSION['username']) == strtolower($username))
           $edit = TRUE;
-        else if(strtolower($requester->type) == 'admin')
+        else if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'admin')
           $edit = TRUE;
         return new Account_Widget_ViewAccount($username, $user, $edit);;
       } else {
@@ -35,8 +34,7 @@ class Account_Controller_Default extends CommonController {
     try {
       $admin = FALSE;
       if(isset($_SESSION['token']) && isset($_SESSION['username'])){
-        $user = $this->accountModel->GetAccount($_SESSION['username'], $_SESSION['token']->token);
-        if(strtolower($user->type) == 'admin') $admin = TRUE;
+        if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'admin') $admin = TRUE;
       }
       return new Account_Widget_CreateAccount($admin);
     } catch (UnauthorizedException $e) {
@@ -48,11 +46,10 @@ class Account_Controller_Default extends CommonController {
     }
   }
 
-  public function ListView($types = 'PC', $incBanned = FALSE){
+  public function ListView($types = 'PC', $incBanned = FALSE){ //TODO
     try {
       if(isset($_SESSION['token']) && isset($_SESSION['username'])){
-        $user = $this->accountModel->GetAccount($_SESSION['username'], $_SESSION['token']->token);
-        if(strtolower($user->type) != 'admin') {
+        if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'admin'){
           $types = str_ireplace('a', '', $types);
           $incBanned = FALSE;
         }
@@ -74,7 +71,7 @@ class Account_Controller_Default extends CommonController {
   public function SaveAccountChanges($username){
     // Build info array
     $info = array();
-    file_put_contents('test.txt', print_r($_POST, TRUE));
+    //file_put_contents('test.txt', print_r($_POST, TRUE));
     foreach ($_POST as $k => $v){
       if(trim($v) != '' && (strtolower(trim($v)) != 'change password'))
         $info[$k] = $v;
@@ -98,22 +95,27 @@ class Account_Controller_Default extends CommonController {
   }
 
   public function SaveNewAccount(){
+    $error = FALSE;
+    if(!isset($_POST['username'])){
+      RentItError('Please fillout username');
+      $error = TRUE;
+    }
+    if(!isset($_POST['password'])){
+      RentItError('Please fillout password');
+      $error = TRUE;
+    }
+    if($error) RentItGoto("Account", "Create");
     // Build info array
     $info = array();
-    file_put_contents('test.txt', print_r($_POST, TRUE));
+    //file_put_contents('test.txt', print_r($_POST, TRUE));
     foreach ($_POST as $k => $v){
-      if(!strtolower(trim($v)) == 'change password')
+      if(trim($v) != '' && !strtolower(trim($v)) != 'change password')
       $info[$k] = $v;
     }
 
     try{
-      if(!isset($info['username']))
-        RentItError('Please fillout username');
-      if(!isset($info['password']))
-        RentItError('Please fillout password');
       if(!isset($info['type']) || trim($info['type'])=='')
         $info['type'] = 'Customer';
-      RentItGoto("Account", "Create");
       $this->accountModel->CreateAccount($info['username'], $info, $_SESSION['token']->token);
     } catch (UnauthorizedException $e){
       RentItError('Permission denied');
