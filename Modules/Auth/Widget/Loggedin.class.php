@@ -16,7 +16,7 @@ class Auth_Widget_Loggedin extends Widget_Wrapper {
     $hEdit = new Widget_Link('/Account/View/' . $username);
     $lEdit = new Widget_Label('Edit profile');
     $hEdit->widgets[] = $lEdit;
-    $hEdit->classes[] = 'hasALittleBitOfPadding';
+    $wEdit->classes[] = 'hasALittleBitOfPadding';
     $hEdit->AddCss('#' . $hEdit->id . '{ margin-left:7px; }');
     $wEdit->widgets[] = $hEdit;
     $wrap->widgets[] = $wEdit;
@@ -35,7 +35,7 @@ class Auth_Widget_Loggedin extends Widget_Wrapper {
     $hCred = new Widget_Link('/Credits/BuyCredits');
     $lCred = new Widget_Label('Buy more credits');
     $hCred->widgets[] = $lCred;
-    $hCred->classes[] = 'hasALittleBitOfPadding';
+    $wCred->classes[] = 'hasALittleBitOfPadding';
     $hCred->AddCss('#' . $hCred->id . '{ margin-left:7px; }');
     $wCred->widgets[] = $hCred;
     $wrap->widgets[] = $wCred;
@@ -45,7 +45,7 @@ class Auth_Widget_Loggedin extends Widget_Wrapper {
     $hLog = new Widget_Link('/Auth/Logout');
     $lLog = new Widget_Label('Log out');
     $hLog->widgets[] = $lLog;
-    $hLog->classes[] = 'hasALittleBitOfPadding';
+    $wLog->classes[] = 'hasALittleBitOfPadding';
     $hLog->AddCss('#' . $hLog->id . '{ margin-left:7px; }');
     $wLog->widgets[] = $hLog;
     $wrap->widgets[] = $wLog;

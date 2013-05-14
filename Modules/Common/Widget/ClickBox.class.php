@@ -48,6 +48,15 @@ CSS;
           $(this).parent().find(".clickBox").addClass("clicked");
         }
       });
+      $('body').click(function(e) { /* click document to hide */
+        if ($('.clickBox').hasClass('clicked')) {
+          if ($(e.target).hasClass('clickBoxLabel')) return;
+          if ($(e.target).hasClass('clickBox')) return;
+          if ($(e.target).parents('.clickBox').length) return;
+          $('.clickBox').removeClass('clicked');
+          $('.clickBox').addClass('unclicked');
+        }
+      });
     });
 JAVASCRIPT;
     $this->AddJs($js);
