@@ -68,7 +68,7 @@ class Widget_Header extends Widget {
                             		' . $pageLinks . '
                         		</nav>
                     		</header>
-                    		<section>';
+                    		<section class="clearfix">';
 	}
 	
 	public function SetTitle($title){
