@@ -6,22 +6,25 @@ class Widget_Image extends Widget {
   private $imgWidth;
   private $imgSrc;
   private $gdImg;
-  public function __construct($src) {
+  public function __construct($src, $altSrc = null) {
     $this->imgSrc = $src;
+    $this->altSrc = $altSrc;
+  }
+
+  private function findImgSize() {
     list($this->imgWidth, $this->imgHeight, $this->type) = @getimagesize($this->imgSrc);
-    $this->width = $this->imgWidth;
-    $this->height = $this->imgHeight;
-    //Try creating gd-image. This is done so that widgets using this can check if image is right
-    $this->gdImg = $this->getImgAsGd();
-    if ($this->gdImg == false) throw new ImageException("Image type not supported!");
+    if ($this->width == NULL) $this->width = $this->imgWidth;
+    if ($this->height == NULL) $this->height = $this->imgHeight;
   }
 
   /**
    * Resize the img defined in src using the width and height set.
    */
   private function resizeImage() {
+    var_dump("called");
     if (!file_exists('cache')) mkdir('cache');
-    $gdImg = $this->gdImg;
+    $gdImg = $this->getImgAsGd();
+    if ($gdImg == false) throw new ImageException("Image type not supported!");
     //This could return false if imagetype was not supported
     //Get the dimensions of the temp image
     list($rw, $rh) = $this->getImgSize();
@@ -93,12 +96,26 @@ class Widget_Image extends Widget {
    * Get the filename of the resized image
    */
   public function getResFilename() {
+    $this->ext = pathinfo($this->imgSrc, PATHINFO_EXTENSION);
     $name = str_replace(array('/', ':'), '_', $this->imgSrc);
-    return "cache/{$name}_{$this->width}x{$this->height}".image_type_to_extension($this->type);
+    return "cache/{$name}_{$this->width}x{$this->height}".$this->ext;
+  }
+
+  private function fileExists() {
+    return file_exists($_SERVER["DOCUMENT_ROOT"].$this->getResFilename());
   }
 
   public function ToHtml() {
-    if (!file_exists($this->getResFilename())) $this->resizeImage();
+    if (!$this->fileExists()) {
+      $this->findImgSize();
+      if ($this->imgWidth == NULL) {
+        $this->imgSrc = $this->altSrc;
+        if (!$this->fileExists()) {
+          $this->findImgSize();
+          $this->resizeImage();
+        }
+      } else $this->resizeImage();
+    }
     $this->src = $this->getResFilename();
     return '<img '.$this->GetAttributes().' />';
   }
