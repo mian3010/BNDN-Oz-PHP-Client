@@ -44,9 +44,8 @@ class Product_Controller_Default extends CommonController {
 		} catch (BadRequestException $e) {
       RentItError('Internal error');
       RentItGoto("Product", "ViewProducts");
-		} catch (ForbiddenException $e) {
-      RentItError($message);
-      RentItGoto($module, $method);
+    } catch (ForbiddenException $e) {
+      //TODO
 		} catch (ServerErrorException $e) {
       RentItError('Server error');
       RentItGoto("Product", "");
