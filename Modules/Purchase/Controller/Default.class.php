@@ -72,10 +72,4 @@ CSS;
     $container->widgets[] = $r;
     return $container;
   }
-
-  public function Test() {
-    $pm = CommonModel::GetModel("Purchase");
-    $purchase = $pm->GetPurchase($_SESSION["username"], $_SESSION['token']->token, 8);
-    return new Purchase_Widget_SmallViewPurchase($purchase);
-  }
 }
