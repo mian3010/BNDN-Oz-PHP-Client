@@ -337,3 +337,6 @@ html[xmlns] .clearfix {
 .inline{
     display:inline-block;
 }
+.hasALittleBitOfPadding{ padding:3px; }
+.left { float: left; }
+.right { float: right; }
