@@ -5,11 +5,15 @@ class Widget_Image extends Widget {
   private $imgHeight;
   private $imgWidth;
   private $imgSrc;
+  private $gdImg;
   public function __construct($src) {
     $this->imgSrc = $src;
-    list($this->imgWidth, $this->imgHeight, $this->type) = getimagesize($this->imgSrc);
+    list($this->imgWidth, $this->imgHeight, $this->type) = @getimagesize($this->imgSrc);
     $this->width = $this->imgWidth;
     $this->height = $this->imgHeight;
+    //Try creating gd-image. This is done so that widgets using this can check if image is right
+    $this->gdImg = $this->getImgAsGd();
+    if ($this->gdImg == false) throw new ImageException("Image type not supported!");
   }
 
   /**
@@ -17,9 +21,8 @@ class Widget_Image extends Widget {
    */
   private function resizeImage() {
     if (!file_exists('cache')) mkdir('cache');
-    $gdImg = $this->getImgAsGd();
+    $gdImg = $this->gdImg;
     //This could return false if imagetype was not supported
-    if ($gdImg == false) throw new ImageException("Image type not supported!");
     //Get the dimensions of the temp image
     list($rw, $rh) = $this->getImgSize();
     //Scale the image according to temp dimensions
