@@ -8,15 +8,13 @@ class Widget_Link extends WidgetContainer {
   public function ToHtml() {
   	$js = <<<JS
       $(function () {
-    	$('#$this->id').on("click", function (e) {
-        	if($this->disable) {
-        		e.preventDefault();
-        	}
-    	});
-	});
-	
+    	  $('#$this->id').on("click", function (e) {
+        	e.preventDefault();
+    	  });
+	    });
 JS;
-	$this->AddJs($js);
+
+	  if ($this->disabled == TRUE) $this->AddJs($js);
 	
     return '<a ' . $this->GetAttributes() . '>' . $this->ChildrenToHtml() . '</a>';
   }
