@@ -48,7 +48,7 @@ class Account_Controller_Default extends CommonController {
     }
   }
 
-  public function ListView($types = 'PC', $incBanned = FALSE){
+  public function ListView($types = 'PC', $incBanned = FALSE){ //TODO
     try {
       if(isset($_SESSION['token']) && isset($_SESSION['username'])){
         $user = $this->accountModel->GetAccount($_SESSION['username'], $_SESSION['token']->token);
@@ -98,22 +98,27 @@ class Account_Controller_Default extends CommonController {
   }
 
   public function SaveNewAccount(){
+    $error = FALSE;
+    if(!isset($_POST['username'])){
+      RentItError('Please fillout username');
+      $error = TRUE;
+    }
+    if(!isset($_POST['password'])){
+      RentItError('Please fillout password');
+      $error = TRUE;
+    }
+    if($error) RentItGoto("Account", "Create");
     // Build info array
     $info = array();
     file_put_contents('test.txt', print_r($_POST, TRUE));
     foreach ($_POST as $k => $v){
-      if(!strtolower(trim($v)) == 'change password')
+      if(trim($v) != '' && !strtolower(trim($v)) != 'change password')
       $info[$k] = $v;
     }
 
     try{
-      if(!isset($info['username']))
-        RentItError('Please fillout username');
-      if(!isset($info['password']))
-        RentItError('Please fillout password');
       if(!isset($info['type']) || trim($info['type'])=='')
         $info['type'] = 'Customer';
-      RentItGoto("Account", "Create");
       $this->accountModel->CreateAccount($info['username'], $info, $_SESSION['token']->token);
     } catch (UnauthorizedException $e){
       RentItError('Permission denied');
