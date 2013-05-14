@@ -12,6 +12,14 @@ class Purchase_Model_Default extends CommonModel {
     $this->ThrowExceptionIfError($ws->GetHttpStatusCode());
     return $purchases;
   }
+  
+  public function GetPurchase($username, $token, $tId) {
+    $ws = new WebService('accounts/'.$username.'/purchases/'.$tId, 'GET');
+    $ws->SetToken($token);
+    $purchase = $ws->Execute();
+    $this->ThrowExceptionIfError($ws->GetHttpStatusCode());
+    return $purchase;
+  }
 
   public function CreatePurchases($username, $purchases, $token) {
     $ws = new WebService('accounts/'.$username.'/purchases', 'POST');
