@@ -129,7 +129,38 @@ class Account_Controller_Default extends CommonController {
 
   public function Dashboard(){
     if(isset($_SESSION['token']) && isset($_SESSION['username'])){
-      return new Account_Widget_AccountDashboard();
+      $pum = CommonModel::GetModel("Purchase");
+      $prm = CommonModel::GetModel("Product");
+      $purchases = $pum->GetPurchases($_SESSION['username'], $_SESSION['token']->token);
+      //Save all products associated with purchases here
+      $products = array();
+      //List of ids that has been bought
+      $buys = array();
+      //Lit of ids that has been rentet
+      $rents = array();
+      //Go through purchases
+      foreach ($purchases as $purchase) {
+        //If product has not been loaded before, do it.
+        if (!isset($products[$purchase->product])) {
+          $products[$purchase->product] = array(
+            'product'  => $prm->GetProduct($purchase->product),
+            'buy' => null,
+            'rent' => null,
+          );
+        }
+
+        //If this purchase is a buy, put it in buys, and put purchase in buy for the product
+        if ($purchase->type == "B") {
+          $buys[] = $purchase->product;
+          $products[$purchase->product]["buy"] = $purchase;
+        }
+        //If this purchase is a rent, put it in rents, and put purchase in rent for the product
+        else if ($purchase->type == "R") {
+          $rents[] = $purchase->product;
+          $products[$purchase->product]["rent"] = $purchase;
+        }
+      }
+      return new Account_Widget_AccountDashboard($purchases, $products, $buys, $rents);
     } else {
       RentItError('Please authenticate');
       RentItGoto("Auth", "Login");
