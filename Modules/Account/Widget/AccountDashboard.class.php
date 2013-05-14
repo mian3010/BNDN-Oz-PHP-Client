@@ -15,7 +15,7 @@ class Account_Widget_AccountDashboard extends Widget_Wrapper {
     foreach ($rents as $rent) {
       $rw->widgets[] = new Product_Widget_SmallViewProduct($products[$rent]["product"], $products[$rent]["buy"], $products[$rent]["rent"]);
     }
-
+    
     $sl = new Widget_Slider();
     $sl->SlideRight();
 
