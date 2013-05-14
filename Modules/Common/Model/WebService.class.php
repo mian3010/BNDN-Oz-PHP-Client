@@ -53,4 +53,8 @@ class WebService {
     }
     return implode("&", $datas);
   }
+
+  public static function GetAbsolute($relative) {
+    return self::$webServiceUri.ltrim($relative, "/");
+  }
 }
