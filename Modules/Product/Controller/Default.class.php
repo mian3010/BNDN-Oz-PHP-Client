@@ -195,12 +195,14 @@ class Product_Controller_Default extends CommonController {
 	 * @param unknown $id
 	 * @return StreamProduct
 	 */
-	public function StreamProduct($id) {
+	public function StreamProduct($tId) {
 		if(isset($_SESSION['token'])) {
-			$streamURL = UriController::GetAbsolutePath("/Product/GetStreamFileContent/" . $id);
-			$product = $this->productModel->GetProduct($id, $this->getToken());
-			$type = $product->type;
-			return new Product_Widget_StreamProduct($streamURL, $type);
+			$streamURL = UriController::GetAbsolutePath("/Product/GetStreamFileContent/" . $tId);
+			
+			//$transaction = // Somehow get the transation with the given id
+			/*$product = $this->productModel->GetProduct($transaction->product, $this->getToken());
+			$type = $product->type;*/
+			return new Product_Widget_StreamProduct($streamURL, "ebook");
 		} else {
 			RentItError('Auth', 'Login', 'Authentication needed');
 		}
@@ -208,10 +210,15 @@ class Product_Controller_Default extends CommonController {
 
 	public function GetStreamFileContent($id) {
 		if(isset($_SESSION['token'])) {
+			/*
+			 * Some way of finding the mime-type of the file and set it in the header
+			 * header("Content-Type: application/pdf");
+			 */
 			$stream = $this->productModel->GetMedia($id, $this->getToken());
 			while ($data = fread($stream, 8192)) {
 				echo $data;	
 			}
+			
 			fclose($stream);
 		} else {
 			RentItError('Auth', 'Login', 'Authentication needed');
