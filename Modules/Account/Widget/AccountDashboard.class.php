@@ -4,6 +4,8 @@
  */
 class Account_Widget_AccountDashboard extends Widget_Wrapper {
   public function __construct($purchases, $products, $buys, $rents) {
+    $this->SetTitle("Dashboard");
+    $this->AddOption("View profile", "Account/View/".$_SESSION['username']);
     $brw = new Widget_Wrapper();
     $bw = new Widget_Wrapper();
     $bw->wrapperTitle = "Buys";

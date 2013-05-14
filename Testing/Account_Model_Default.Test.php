@@ -39,7 +39,7 @@ class Account_Model_Default_Test extends Testing_Base {
     $token = $am->GetToken("Lynette", "Awesome");
 
     $acm = CommonModel::GetModel("Account");
-    $accounts = $acm->GetAccount('Cus', $token->token);
+    $accounts = $acm->GetAccount('cl', $token->token);
 
     $this->assertTrue($accounts !== null);
     $this->assertObjectHasAttribute('email', $accounts);

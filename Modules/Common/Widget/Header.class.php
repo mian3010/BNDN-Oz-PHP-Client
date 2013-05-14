@@ -20,6 +20,22 @@ class Widget_Header extends Widget {
     
     	$menuLinks = '';
     	$menuLinks .= $this->produceLink('Product/Browse', 'Browse', 'Browse', 1);
+
+      $ac = new Auth_Controller_Default();
+      $login = $ac->Login();
+      $username = 'Login';
+      if(isset($_SESSION['username'])) $username = $_SESSION['username'];
+      $mouse = new Widget_ClickBox($username);
+      $mouse->widgets[] = $login;
+      $mouse->AddCss('#' . $mouse->id . '{ float:right; }');
+
+      foreach ($mouse->GetCss() as $css) $this->AddCss($css);
+      foreach ($mouse->GetJs() as $js) $this->AddJs($js);
+      $menuLinks .= $mouse->ToHtml();
+      //$wMouse->value = 'hejsa';
+      //$wMouse->widgets[] = $mouse;
+      //$menuLinks .= $wMouse->ToHtml();
+
     	
     	// Should be invisible if not logged in with a proper role
     	// $menuLinks .= $this->produceLink('URL_HERE', 'My RentIt', 'MyRentIt', 1);

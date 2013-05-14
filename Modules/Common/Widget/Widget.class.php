@@ -37,8 +37,9 @@ abstract class Widget {
   
   	// Set default id if none has been set the first time it is get
   	if($k == 'id' && (!isset($this->atrbs[$k]) || $this->atrbs[$k] == null)){
-  	
-  		$shortName = array_pop(explode('_', get_class($this)));
+
+      $tmp = explode('_', get_class($this));
+  		$shortName = array_pop($tmp);
   		
   		$this->id = uniqid($shortName . '_');
   	}

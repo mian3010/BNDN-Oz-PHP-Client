@@ -13,7 +13,8 @@ class Product_Widget_SmallViewProduct extends Widget_Wrapper {
         margin-right: 100px;
       }
       .small-product {
-        width: 463px;
+        width: 453px;
+        margin-right: 10px;
       }
       .small-product-inner {
         border: 1px dashed #000;

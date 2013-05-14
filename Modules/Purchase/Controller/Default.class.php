@@ -35,6 +35,7 @@ class Purchase_Controller_Default extends CommonController {
 
   public function BuyRent($product, $buy = null, $rent = null) {
     $container = new Widget_Wrapper();
+    if (!isset($_SESSION['token'])) return $container;
     $container->classes[] = 'buy-rent';
     $css = <<<CSS
       .buy-rent {

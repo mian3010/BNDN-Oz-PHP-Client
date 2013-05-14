@@ -11,7 +11,6 @@ class Account_Widget_ViewAccount extends Widget_Form {
       ');
 
     $this->SetTitle($username);
-    var_dump($user);
     /// Options
     $this->AddOption('Dashboard', 'Account/Dashboard');
 

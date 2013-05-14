@@ -94,7 +94,7 @@ textarea:focus:invalid,
 	padding: 0 18px 0 36px;
 }
 
-#site > header nav a {
+#site > header nav > a {
 
 	font-family: "Kozuka Gothic Pro", "Trebuchet MS";
 	font-size: 14px;
@@ -105,16 +105,14 @@ textarea:focus:invalid,
 	margin: 0 19px;
 }
 
-#site > header nav a:hover {
+#site > header nav > a:hover {
 
 	padding-bottom: 1px;
 	border-bottom: 2px solid #3A7AC2;
 }
 
 #site > header nav form {
-
 	display: inline-block;
-	float: right;
 	
 	vertical-align: middle;
 	padding-top: 8px;
@@ -293,9 +291,8 @@ textarea:focus:invalid,
 	padding: 21px 27px;
 	text-align: justify;
 	line-height: 190%;
-    position: absolute;
-    left: 0;
-    right: 0;
+
+  width: 100%;
 }
 
 #main > article.simple > section p {
