@@ -9,16 +9,32 @@ class Credits_Controller_Default extends CommonController {
    * Add credits to an account
    * @param $amount Amount of credits to be added
    */
-  public function UpdateCredits($amount) {
-    	if(isset($_SESSION['token'])){
-    		//$r = $this->creditsModel->UpdateCredits($_SESSION['token']->token, $amount);
-		}
+  public function UpdateCredits() {
+  	if(isset($_SESSION['token'])){
+      // Check for empty
+      if (!isset($_POST['credits']) || empty($_POST['credits']))  {
+        RentItError('Please insert number');
+      } else {
+          $credits = $_POST['credits'];
+          // Check for negative - negative = no good
+          if($credits >= 0) {
+            // Add the credits!
+            $r = $this->creditsModel->UpdateCredits($_SESSION['token']->token, $credits);
+            // Check for errors
+            if(r == 1) {
+              RentItError('Some error occured');
+            }
+          } else {
+            RentItError('Please insert a positive number');
+          }
+        }
+      }
+    RentItGoto("Credits", "GetCredits");
   }
   
   public function buyCredits() {
   	if(isset($_SESSION['token'])){
     		return new Credits_Widget_BuyCredits();
-    	
 		}
   }
 
