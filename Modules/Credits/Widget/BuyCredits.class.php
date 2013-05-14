@@ -8,10 +8,13 @@ class Credits_Widget_BuyCredits extends Widget_Container {
  	
 	$input = new Widget_InputField();
 	
-	$t = new Widget_ThreePartButton("", $input->ToHtml(), "2", "3");
+	$t = new Widget_ThreePartButton("", $input->ToHtml(), "&nbsp", "C");
 	$t->disable = "true";
-	$this->widgets[] = $t;
 	
-	$this->widgets[] = new Widget_Button("Buy");
+	$link = new Widget_Link("");
+	$link->widgets[] = new Widget_Label("Buy now!");
+	
+	$this->widgets[] = $t;
+	$this->widgets[] = $link;
   }
 }
