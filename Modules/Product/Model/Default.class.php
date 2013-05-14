@@ -43,6 +43,11 @@ class Product_Model_Default extends CommonModel {
     $this->ThrowExceptionIfError($code);
     return $object;
   }
+  
+  public function GetProductType($pId, $token = null) {
+  	$object = $this->GetProduct($pId, $token);
+    return $object->type;
+  }
 
   /*
    * Get list of Product types

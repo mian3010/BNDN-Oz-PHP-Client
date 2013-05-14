@@ -1,27 +1,33 @@
 <?php
 
 class Purchase_Controller_Default extends CommonController {
+	
+	public function __construct() {
+		$this->purchaseModel = CommonModel::GetModel('Purchase');
+	}
+	
   /*
    * Get a list of Purchases?
    */
-  public function GetPurchases() {
-    throw new NotImplementedException();
+  public function GetPurchases($buyrent = "BR", $info = 'more') {
+    return $this->purchaseModel->GetPurchases($_SESSION['username'], $_SESSION['token'], $buyrent, $info);
   }
 
   /*
    * Make purchases
-   * @param $ids Array of product ids
+   * @param $ids A comma seperated list of product ids
    */
   public function CreatePurchases($ids) {
-    throw new NotImplementedException();
+  	$pIds = explode(",", $ids);
+    return $this->purchaseModel->CreatePurchases($_SESSION['username'], $pIds, $_SESSION['token']);
   }
 
   /*
-   * Get a single purchase?
+   * Get a single purchase
    * @param $id Purchase id
    */
-  public function GetPurchase($id) {
-    throw new NotImplementedException();
+  public function GetPurchase($tId) {
+    return $this->purchaseModel->GetPurchase($_SESSION['username'], $tId, $_SESSION['token']);
   }
 
   public function BuyRent($product) {
