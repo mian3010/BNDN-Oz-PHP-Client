@@ -291,6 +291,8 @@ textarea:focus:invalid,
 	padding: 21px 27px;
 	text-align: justify;
 	line-height: 190%;
+
+  width: 100%;
 }
 
 #main > article.simple > section p {
