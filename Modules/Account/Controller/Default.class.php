@@ -73,8 +73,10 @@ class Account_Controller_Default extends CommonController {
   public function SaveAccountChanges($username){
     // Build info array
     $info = array();
+    file_put_contents('test.txt', print_r($_POST, TRUE));
     foreach ($_POST as $k => $v){
-      $info[$k] = $v;
+      if(trim($v) != '' && (strtolower(trim($v)) != 'change password'))
+        $info[$k] = $v;
     }
 
     try{
@@ -99,6 +101,7 @@ class Account_Controller_Default extends CommonController {
     $info = array();
     file_put_contents('test.txt', print_r($_POST, TRUE));
     foreach ($_POST as $k => $v){
+      if(!strtolower(trim($v)) == 'change password')
       $info[$k] = $v;
     }
 
