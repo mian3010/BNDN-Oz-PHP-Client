@@ -19,12 +19,13 @@ class Product_Controller_Default extends CommonController {
 			$product = $this->productModel->GetProduct($id, $this->getToken());
 			return new Product_Widget_ViewProduct($product);
 		} catch (ForbiddenException $e) {
-			RentItError('Product', '', 'Product not found');
+			RentItError('Product not found');
 		} catch (NotFoundException $e) {
-			RentItError('Product', '', 'Product not found');
+			RentItError('Product not found');
 		} catch (Exception $e) {
-			RentItError('Product', '', 'Server error');
+			RentItError('Server error');
 		}
+		RentItGoto('Product', '');
 	}
 	
 	/**
@@ -41,11 +42,14 @@ class Product_Controller_Default extends CommonController {
 			$products = $this->productModel->getProducts($searchString, $types, $unpublished, $info, $this->getToken());
 			return new Product_Widget_ViewProductList($products);
 		} catch (BadRequestException $e) {
-			RentItError('Product', 'ViewProducts', 'Internal error');
+      RentItError('Internal error');
+      RentItGoto("Product", "ViewProducts");
 		} catch (ForbiddenException $e) {
-			RentItError($module, $method, $message);
+      RentItError($message);
+      RentItGoto($module, $method);
 		} catch (ServerErrorException $e) {
-			RentItError('Product', '', 'Server error');
+      RentItError('Server error');
+      RentItGoto("Product", "");
 		}
 	}
 	
@@ -62,11 +66,14 @@ class Product_Controller_Default extends CommonController {
 			$products = $this->productModel->getProducts($searchString, $types, $unpublished, $info, $this->getToken());
 			return new Product_Widget_ViewProductList($products);
 		} catch (BadRequestException $e) {
-			RentItError('Product', 'ViewProducts', 'Internal error');
+      RentItError('Internal error');
+      RentItGoto("Product", "ViewProducts");
 		} catch (ForbiddenException $e) {
-			RentItError($module, $method, $message);
+      RentItError($message);
+      RentItGoto($module, $method);
 		} catch (ServerErrorException $e) {
-			RentItError('Product', '', 'Server error');
+      RentItError('Server error');
+      RentItGoto("Product", "");
 		}		
 	}
 	
@@ -90,7 +97,8 @@ class Product_Controller_Default extends CommonController {
 				$product->type = $_POST['type'];
 				if(isset($_POST['buyable'])) {
 					if($_POST['buyPrice']<0) {
-						RentItError('Product', 'CreateProduct', 'Price must not be negative');
+						RentItError('Price must not be negative');
+						RentItGoto('Product', 'CreateProduct');
 					}
 					else {
 						$product->buyPrice = $_POST['buyPrice'];
@@ -98,7 +106,8 @@ class Product_Controller_Default extends CommonController {
 				}
 				if(isset($_POST['rentable'])) {
 					if($_POST['rentPrice']<0) {
-						RentItError('Product', 'CreateProduct', 'Price must not be negative');
+            RentItError('Price must not be negative');
+						RentItGoto('Product', 'CreateProduct');
 					}
 					else {
 						$product->rentPrice = $_POST['rentPrice'];
@@ -108,11 +117,14 @@ class Product_Controller_Default extends CommonController {
 					$this->productModel->CreateProduct($_SESSION['username'], $product, $this->getToken());
 					return null;
 				} catch(BadRequestException $e) {
-					RentItError('Product', 'CreateProduct', 'Something went wrong, please try again');	
+					RentItError('Something went wrong, please try again');	
+					RentItGoto('Product', 'CreateProduct');	
 				} catch (ForbiddenException $e) {
-					RentItError('Auth', 'Login', 'Login has expired');
+					RentItError('Login has expired');
+					RentItGoto('Auth', 'Login');
 				} catch (NotFoundException $e) {
-					RentItError('Product', 'CreateProduct', 'Server error');
+					RentItError('Server error');
+					RentItGoto('Product', 'CreateProduct');
 				} catch (RequestEntityTooLargeException $e) {
 			
 				}
@@ -143,10 +155,11 @@ class Product_Controller_Default extends CommonController {
 					}
 				}
 			} catch (NotFoundException $e) {
-				RentItError('Product', 'UpdateProduct', 'The given product does not belong to you');	
+				RentItError('The given product does not belong to you');	
 			} catch (Exception $e) {
-				RentItError('Product', 'UpdateProduct', 'Server errror');
+				RentItError('Server errror');
 			}
+			RentItGoto('Product', 'UpdateProduct');
 		} else {
 			if(isset($_SESSION['token'])) {
 				$user = $this->getUser();
@@ -155,7 +168,8 @@ class Product_Controller_Default extends CommonController {
 					return new Product_Widget_EditProduct($product);
 				}			
 			} else {
-				RentItError('Auth', 'Login', 'Authentication needed');
+				RentItError('Authentication needed');
+				RentItGoto('Auth', 'Login');
 			}
 		}
 	}
@@ -204,7 +218,8 @@ class Product_Controller_Default extends CommonController {
 			$type = $product->type;*/
 			return new Product_Widget_StreamProduct($streamURL, "ebook");
 		} else {
-			RentItError('Auth', 'Login', 'Authentication needed');
+			RentItError('Authentication needed');
+			RentItGoto('Auth', 'Login');
 		}
 	}
 
@@ -221,7 +236,8 @@ class Product_Controller_Default extends CommonController {
 			
 			fclose($stream);
 		} else {
-			RentItError('Auth', 'Login', 'Authentication needed');
+			RentItError('Authentication needed');
+			RentItError('Auth', 'Login');
 		}
 		exit();
 	}
