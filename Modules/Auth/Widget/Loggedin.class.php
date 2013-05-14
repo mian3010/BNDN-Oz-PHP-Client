@@ -24,8 +24,10 @@ class Auth_Widget_Loggedin extends Widget_Wrapper {
 
     // Credits
     $wC = new Widget_Wrapper();
+    $wC->classes[] = 'hasALittleBitOfPadding';
+    $wC->AddCss('#' . $wC->id . '{ margin-left:7px; }');
     $cc = new Credits_Controller_Default();
-    //$wC->widgets[] = $cc->GetCredits();
+    $wC->widgets[] = $cc->GetCredits();
     $wrap->widgets[] = $wC;
 
     // Buy credits
