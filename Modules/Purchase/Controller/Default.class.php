@@ -10,7 +10,8 @@ class Purchase_Controller_Default extends CommonController {
    * Get a list of Purchases?
    */
   public function GetPurchases($buyrent = "BR", $info = 'more') {
-    return $this->purchaseModel->GetPurchases($_SESSION['username'], $_SESSION['token'], $buyrent, $info);
+    $p = $this->purchaseModel->GetPurchases($_SESSION['username'], $_SESSION['token']->token, $buyrent, $info);    
+    return new Purchase_Widget_ViewPurchases($p);
   }
 
   /*
@@ -18,8 +19,9 @@ class Purchase_Controller_Default extends CommonController {
    * @param $ids A comma seperated list of product ids
    */
   public function CreatePurchases($ids) {
-  	$pIds = explode(",", $ids);
-    return $this->purchaseModel->CreatePurchases($_SESSION['username'], $pIds, $_SESSION['token']);
+  	//$pIds = explode(",", $ids);
+    //return $this->purchaseModel->CreatePurchases($_SESSION['username'], $pIds, $_SESSION['token']);
+    //return Purchase_Widget_
   }
 
   /*
@@ -27,7 +29,8 @@ class Purchase_Controller_Default extends CommonController {
    * @param $id Purchase id
    */
   public function GetPurchase($tId) {
-    return $this->purchaseModel->GetPurchase($_SESSION['username'], $tId, $_SESSION['token']);
+    //return $this->purchaseModel->GetPurchase($_SESSION['username'], $tId, $_SESSION['token']);
+    return Purchase_Widget_ViewPurchase();
   }
 
   public function BuyRent($product, $buy = null, $rent = null) {
