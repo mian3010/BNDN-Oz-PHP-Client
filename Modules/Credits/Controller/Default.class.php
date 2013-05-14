@@ -19,10 +19,14 @@ class Credits_Controller_Default extends CommonController {
           // Check for negative - negative = no good
           if($credits >= 0) {
             // Add the credits!
-            $r = $this->creditsModel->UpdateCredits($_SESSION['token']->token, $credits);
-            // Check for errors
-            if(r == 1) {
-              RentItError('Some error occured');
+            try {
+              $r = $this->creditsModel->UpdateCredits($_SESSION['token']->token, $credits);
+              // Check for errors
+              if(r == 1) {
+                RentItError('Some error occured');
+              }
+            } catch (Exception $e) {
+              RentItError('Server error. Please try again later.');
             }
           } else {
             RentItError('Please insert a positive number');
