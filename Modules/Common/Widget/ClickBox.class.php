@@ -48,7 +48,7 @@ CSS;
           $(this).parent().find(".clickBox").addClass("clicked");
         }
       });
-      $('body').click(function(e) {
+      $('body').click(function(e) { /* click document to hide */
         if ($('.clickBox').hasClass('clicked')) {
           if ($(e.target).hasClass('clickBoxLabel')) return;
           if ($(e.target).hasClass('clickBox')) return;
