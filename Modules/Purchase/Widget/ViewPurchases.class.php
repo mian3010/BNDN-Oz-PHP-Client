@@ -11,7 +11,7 @@ class Purchase_Widget_ViewPurchases extends Widget_Container {
   
   public function ToHtml() {
     $t = new Widget_Table();
-    $t->class = 'greatTable';
+    $t->classes[] = 'greatTable';
     
     // Make header;
     $hr = new Widget_TableRow();
@@ -34,8 +34,10 @@ class Purchase_Widget_ViewPurchases extends Widget_Container {
   public function GetCss() {
     $css = <<<CSS
       .greatTable{
-        border-collapse: none; 
-        border-spacing: 5px;
+        border-collapse: separate; 
+        border-spacing: 15px;
+        border-style:solid;
+        border-width: 15px;
       }
 CSS;
     $this->AddCss($css);
