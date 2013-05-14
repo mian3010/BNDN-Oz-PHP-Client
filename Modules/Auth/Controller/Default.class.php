@@ -21,6 +21,11 @@ class Auth_Controller_Default extends CommonController {
     try {
       $_SESSION['token'] = $am->GetToken($username, $password);
       $_SESSION['username'] = $username;
+      // Save type in session
+      $am = CommonModel::GetModel("Account");
+      $user = $am->GetAccount($username, $_SESSION[token]->token);
+      $_SESSION['type'] = $user->type;
+
       RentItGoto('Account', 'Dashboard');
     } catch (UnauthorizedException $e) {
       RentItError('Credentials supplied was wrong.');
