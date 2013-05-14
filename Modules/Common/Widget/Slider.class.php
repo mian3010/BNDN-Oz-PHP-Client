@@ -53,12 +53,10 @@ class Widget_Slider extends Widget_Wrapper {
         position: absolute;
       }
       .right{
-        margin-left:auto;
         margin-right:0;
        }
        .left{
         margin-left:0;
-        margin-right:auto;
        }
       .top{
         margin-left:auto;
