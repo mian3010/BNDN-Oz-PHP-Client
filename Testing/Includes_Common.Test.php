@@ -5,7 +5,7 @@ class Includes_Common_Test extends Testing_Base {
   public function testRentItError(){
   
   	// Initiate
-  	unset($_SESSION['errors']);
+  	if (isset($_SESSION['errors'])) unset($_SESSION['errors']);
   	
   	// Test values
   	$testValues = array('error1', 'error2');
@@ -19,7 +19,7 @@ class Includes_Common_Test extends Testing_Base {
   public function testRentItInfo(){
   
   	// Initiate
-  	unset($_SESSION['info']);
+  	if (isset($_SESSION['info'])) unset($_SESSION['info']);
   	
   	// Test values
   	$testValues = array('info1', 'info2');
@@ -33,7 +33,7 @@ class Includes_Common_Test extends Testing_Base {
   public function testRentItSuccess(){
   
   	// Initiate
-  	unset($_SESSION['successes']);
+  	if (isset($_SESSION['successes'])) unset($_SESSION['successes']);
   	
   	// Test values
   	$testValues = array('success1', 'success2');
@@ -54,7 +54,7 @@ class Includes_Common_Test extends Testing_Base {
   	RentItSuccess('message6');
   	
   	$notifications = new Widget_Notifications();
-  	$notifications.ToHtml(); // Clears the messages?
+  	$notifications->ToHtml(); // Clears the messages?
   	
   	$this->assertEmpty($_SESSION['errors'], 'Error messages not removed!');
   	$this->assertEmpty($_SESSION['info'], 'Info messages not removed!');
