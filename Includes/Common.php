@@ -31,7 +31,9 @@ require_once("Modules/Common/Model/JsonParser.class.php");
 //Widget should register own autoloader
 Widget::register();
 
-function RentItGoto($module, $method, $args = array()) {
+function RentItGoto($module = '', $method = '', $args = array()) {
+  if($module == '')
+    RentItGoto('Product', 'ViewProductList');
   header("Location: ".UriController::GetAbsolutePath("/$module/$method/".implode("/", $args)));
   exit;
 }

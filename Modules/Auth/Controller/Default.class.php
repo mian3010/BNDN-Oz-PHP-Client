@@ -2,10 +2,16 @@
 
 class Auth_Controller_Default extends CommonController {
   public function Login() {
-    if(isset($_SESSION['token']))
-      return new Auth_Widget_Loggedin();
+    if(isset($_SESSION['token']) && (isset($_SESSION['username'])))
+      return new Auth_Widget_Loggedin($_SESSION['username']);
     return new Auth_Widget_Login();
   }
+
+  public function LogOut(){ //
+    session_destroy();
+    RentItGoto();
+  }
+
   public function Authenticate() {
     if (!isset($_POST['login-username']) ||
         !isset($_POST['login-password']) ||

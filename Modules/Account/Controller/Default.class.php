@@ -26,7 +26,7 @@ class Account_Controller_Default extends CommonController {
     } catch (Exception $e){
       RentItError('Server error');
       RentItError(print_r($e, TRUE));
-      RentItGoto("Account", "Dashboard");
+      RentItGoto();
     }
   }
 
@@ -42,7 +42,7 @@ class Account_Controller_Default extends CommonController {
       RentItGoto("Auth", "Login");
     } catch (Exception $e){
       RentItError('Server error');
-      RentItGoto("Account", "Dashboard");
+      RentItGoto();
     }
   }
 
@@ -64,7 +64,7 @@ class Account_Controller_Default extends CommonController {
       RentItGoto("Auth", "Login");
     } catch (Exception $e){
       RentItError('Server error');
-      RentItGoto("Account", "Dashboard");
+      RentItGoto();
     }
   }
 
@@ -89,7 +89,7 @@ class Account_Controller_Default extends CommonController {
       RentItGoto("Auth", "Login");
     } catch (Exception $e){
       RentItError('Server error');
-      RentItGoto("Account", "Dashboard");
+      RentItGoto();
     }
     RentItGoto('Account', 'View/' . $username);
   }
@@ -122,7 +122,7 @@ class Account_Controller_Default extends CommonController {
       RentItGoto("Account", "Create");
     } catch (Exception $e){
       RentItError('Server error');
-      RentItGoto("Account", "Dashboard");
+      RentItGoto();
     }
     RentItGoto('Account', 'View/' . $info['username']);
   }

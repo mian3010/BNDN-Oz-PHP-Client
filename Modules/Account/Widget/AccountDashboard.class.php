@@ -15,12 +15,17 @@ class Account_Widget_AccountDashboard extends Widget_Wrapper {
     foreach ($rents as $rent) {
       $rw->widgets[] = new Product_Widget_SmallViewProduct($products[$rent]["product"], $products[$rent]["buy"], $products[$rent]["rent"]);
     }
+
+    $sl = new Widget_Slider();
+    $sl->SlideRight();
+
+    foreach ($purchases as $purchase) {
+      $sl->widgets[] = new Purchase_Widget_SmallViewPurchase($purchase);
+    }
+
+    $brw->widgets[] = $sl;
     $brw->widgets[] = $bw;
     $brw->widgets[] = $rw;
     $this->widgets[] = $brw;
-/*
-    var_dump($productsRentet);
-
-    var_dump($purchases);*/
   }
 }

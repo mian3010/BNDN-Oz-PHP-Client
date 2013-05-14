@@ -10,7 +10,7 @@ class FrontController {
     
     $module = $_GET[0];
     $method = $_GET[1];
-    if (empty($module)) RentItGoto("Account", "Dashboard");
+    if (empty($module)) RentItGoto();
     
     //Get the container containing our view
     
