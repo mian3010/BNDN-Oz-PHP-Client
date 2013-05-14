@@ -26,6 +26,7 @@ class Account_Controller_Default extends CommonController {
       RentItGoto("Auth", "Login");
     } catch (Exception $e){
       RentItError('Server error');
+      RentItError(print_r($e, TRUE));
       RentItGoto("Account", "Dashboard");
     }
   }
