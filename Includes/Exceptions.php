@@ -48,3 +48,5 @@ class GatewayTimeoutException extends Exception
 {}
 class HttpVersionNotSupportedException extends Exception
 {}
+class ImageException extends Exception
+{}
