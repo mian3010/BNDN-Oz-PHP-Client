@@ -67,63 +67,63 @@ class Widget_Slider extends Widget_Wrapper {
         margin-right:auto;
       }
       .rightBtn.rotate {
-        left: -8px;
-        border-right: 8px solid black;
-        border-bottom: 8px solid transparent;
-        border-top: 8px solid transparent;
+        left: -10px;
+        border-right: 10px solid black;
+        border-bottom: 12px solid transparent;
+        border-top: 12px solid transparent;
         border-left: 0px solid transparent;
       }
       .leftBtn.rotate {
-        right: -8px;
-        border-left: 8px solid black;
-        border-bottom: 8px solid transparent;
-        border-top: 8px solid transparent;
+        right: -10px;
+        border-left: 10px solid black;
+        border-bottom: 12px solid transparent;
+        border-top: 12px solid transparent;
         border-right: 0px solid transparent;
       }
       .topBtn.rotate {
         margin-top: 0px;
-        border-left: 8px solid transparent;
-        border-top: 8px solid black;
-        border-right: 8px solid transparent;
+        border-left: 12px solid transparent;
+        border-top: 10px solid black;
+        border-right: 12px solid transparent;
         border-bottom: 0px solid transparent;
       }
       .bottomBtn.rotate {
         margin-top: 0px;
-        border-left: 8px solid transparent;
-        border-bottom: 8px solid black;
-        border-right: 8px solid transparent;
+        border-left: 12px solid transparent;
+        border-bottom: 10px solid black;
+        border-right: 12px solid transparent;
         border-top: 0px solid transparent;
       }
       .rightBtn{
-        border-left: 8px solid black;
-        border-bottom: 8px solid transparent;
-        border-top: 8px solid transparent;
+        border-left: 10px solid black;
+        border-bottom: 12px solid transparent;
+        border-top: 12px solid transparent;
         left: 0;
         top: 50%;
-        margin-top: -8px;
+        margin-top: -12px;
       }
       .leftBtn{
-        border-right: 8px solid black;
-        border-bottom: 8px solid transparent;
-        border-top: 8px solid transparent;
+        border-right: 10px solid black;
+        border-bottom: 12px solid transparent;
+        border-top: 12px solid transparent;
         right: 0px;
         top: 50%;
-        margin-top: -8px;
+        margin-top: -12px;
       }
       .topBtn{
-        border-left: 8px solid transparent;
-        border-bottom: 8px solid black;
-        border-right: 8px solid transparent;
+        border-left: 12px solid transparent;
+        border-bottom: 10px solid black;
+        border-right: 12px solid transparent;
         right:50%;
-        margin-right:-8px;
-        margin-top: -8px;
+        margin-right: -12px;
+        margin-top: -10px;
       }
       .bottomBtn{
-        border-left: 8px solid transparent;
-        border-top: 8px solid black;
-        border-right: 8px solid transparent;
+        border-left: 12px solid transparent;
+        border-top: 10px solid black;
+        border-right: 12px solid transparent;
         right:50%;
-        margin-right:-8px;
+        margin-right:-12px;
         top:0px;
         margin-top: 0px;
       }
