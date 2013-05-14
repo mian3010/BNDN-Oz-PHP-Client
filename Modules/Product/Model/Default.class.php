@@ -132,7 +132,7 @@ class Product_Model_Default extends CommonModel {
    * @return image
    */
   public function GetThumbnail($id, $token = null) {
-    $ws = new WebService('products/'.$id.'/THUMBNAIL', 'GET');
+    $ws = new WebService('products/'.$id.'/thumbnail', 'GET');
     if($token!=null) $ws->SetToken($token);
     $thumb = $ws->Execute();
     $code = $ws->GetHttpStatusCode();
