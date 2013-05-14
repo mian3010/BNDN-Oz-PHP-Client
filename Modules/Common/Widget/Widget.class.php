@@ -43,7 +43,7 @@ abstract class Widget {
   		$this->id = uniqid($shortName . '_');
   	}
   
-    return $this->atrbs[$k];
+    return @$this->atrbs[$k];
   }
 
   protected function GetAttributes(){
