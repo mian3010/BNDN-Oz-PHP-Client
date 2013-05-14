@@ -39,6 +39,7 @@ function RentItGoto($module = '', $method = '', $args = array()) {
 }
 
 function RentItError($message) {
+  if (!isset($_SESSION['errors'])) $_SESSION['errors'] = array();
 	
 	if($_SESSION['errors'] == null){
 		
@@ -49,6 +50,7 @@ function RentItError($message) {
 }
 
 function RentItInfo($message) {
+  if (!isset($_SESSION['info'])) $_SESSION['info'] = array();
 
 	if($_SESSION['info'] == null){
 	
@@ -60,6 +62,7 @@ function RentItInfo($message) {
 
 
 function RentItSuccess($message) {
+  if (!isset($_SESSION['successes'])) $_SESSION['successes'] = array();
 
 	if($_SESSION['successes'] == null){
 	
