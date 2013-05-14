@@ -2,8 +2,9 @@
 
 class Auth_Controller_Default extends CommonController {
   public function Login() {
-    $widget = new Auth_Widget_Login();
-    return $widget;
+    if(isset($_SESSION['token']))
+      return new Auth_Widget_Loggedin();
+    return new Auth_Widget_Login();
   }
   public function Authenticate() {
     if (!isset($_POST['login-username']) ||
