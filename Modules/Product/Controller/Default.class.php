@@ -48,10 +48,10 @@ class Product_Controller_Default extends CommonController {
 	 * @param string $info
 	 * @return Product_Widget_ViewProducts
 	 */
-	public function ViewAll($searchString = null, $types = null, $unpublished = false) {
+	public function ViewAll() {
 		try {
 			$info = 'detailed';	
-			$products = $this->productModel->getProducts($searchString, $types, $unpublished, $info, $this->getToken());
+      $products = $this->productModel->getProducts($this->getToken(), null, null, null, 'detailed');
 			return new Product_Widget_ViewProducts($products);
 		} catch (BadRequestException $e) {
       RentItError('Internal error');
@@ -100,7 +100,7 @@ class Product_Controller_Default extends CommonController {
     $pm = $this->productModel;
     $productTypes = $pm->GetProductTypes();
     foreach ($productTypes as $productType) {
-      $products = array_slice($pm->GetProducts(null, $productType), 0,4);
+      $products = array_slice($pm->GetProducts(null, null, $productType), 0,4);
       $w->widgets[] = new Product_Widget_ViewType($productType, $products);
     }
     return $w;
@@ -108,7 +108,7 @@ class Product_Controller_Default extends CommonController {
 
   public function ViewType($productType) {
     $pm = $this->productModel;
-    $products = $pm->GetProducts(null, $productType);
+    $products = $pm->GetProducts(null, null, $productType);
     return new Product_Widget_ViewType($productType, $products);
   }
 	

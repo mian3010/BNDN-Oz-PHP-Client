@@ -8,7 +8,7 @@ class Product_Model_Default extends CommonModel {
    * @param $info Level of detail
    * @return Array of Products
    */
-  public function GetProducts($searchString, $types, $unpublished = null, $info = 'more', $token = null) {
+  public function GetProducts($token, $searchString = null, $types = null, $unpublished = null, $info = 'more') {
   	$ws = new WebService('products', 'GET');
   	$data = array();
   	if($searchString!=null) {
@@ -19,7 +19,8 @@ class Product_Model_Default extends CommonModel {
   	}
   	if($unpublished!=null) {
   		$data['unpublished'] = $unpublished;
-  	}
+    }
+    $data['info'] = $info;
   	if($token!=null) $ws->SetToken($token);
   	$ws->SetData($data);
   	$object = $ws->Execute();

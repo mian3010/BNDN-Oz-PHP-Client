@@ -16,6 +16,8 @@ class Product_Widget_SmallViewProduct extends Widget_Wrapper {
       .small-product {
         width: 453px;
         margin-right: 10px;
+        margin: 10px 20px;
+        position: relative;
       }
       .small-product-inner {
         border: 1px dashed #000;
@@ -23,12 +25,20 @@ class Product_Widget_SmallViewProduct extends Widget_Wrapper {
       .small-product-inner img {
         margin-right: 10px;
       }
+      .small-product-rating {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
 CSS;
     $this->AddCss($css);
     $this->wrapperTitle = $product->title;
 
     $t = new Product_Widget_ViewThumbnail($product->id);
     $t->classes[] = 'left';
+
+    $r = new Product_Widget_ViewRating($product);
+    $r->classes[] = 'small-product-rating';
 
     $tx = new Widget_Text($product->description);
     $tx->classes[] = 'small-product-text';
@@ -41,6 +51,7 @@ CSS;
     $w->classes[] = 'small-product-inner';
     $w->classes[] = 'hasALittleBitOfPadding';
 
+    $w->widgets[] = $r;
     $w->widgets[] = $t;
     $w->widgets[] = $br;
     $w->widgets[] = $tx;
