@@ -14,7 +14,7 @@ class Account_Widget_SmallViewAccount extends Widget_Wrapper {
         margin-right: 100px;
       }
       .small-account {
-        width: 295px;
+        width: 453px;
         margin: 10px 10px 10px 0;
         position: relative;
       }
@@ -33,7 +33,10 @@ CSS;
     $t->classes[] = 'left';
     $tw->widgets = array($t);
 
-    $tx = new Widget_Text(isset($account->about_me) ? $account->about_me : '');
+    $tx = new Widget_Wrapper();
+    $tx1 = new Widget_Paragraph("Email: ".(isset($account->email) ? $account->email : ''));
+    $tx2 = new Widget_Paragraph("Type: ".(isset($account->type) ? $account->type : ''));
+    $tx->widgets = array($tx1, $tx2);
     $tx->classes[] = 'small-account-text';
 
     $w = new Widget_Wrapper();
