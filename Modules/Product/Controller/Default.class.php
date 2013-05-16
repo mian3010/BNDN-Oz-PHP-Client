@@ -15,7 +15,6 @@ class Product_Controller_Default extends CommonController {
 	 * @return Product_Widget_ViewProduct
 	 */
   public function View($id = 0) {
-    return new Product_Widget_ViewRating();
     if($id == 0){
       RentItError('Product not found');
       RentItGoto('Product', 'ViewTypes');
