@@ -45,13 +45,13 @@ class Product_Controller_Default extends CommonController {
 	 * @param string $types
 	 * @param booleain $unpublished
 	 * @param string $info
-	 * @return Product_Widget_ViewProductList
+	 * @return Product_Widget_ViewProducts
 	 */
-	public function ViewProductList($searchString = null, $types = null, $unpublished = false) {
+	public function ViewAll($searchString = null, $types = null, $unpublished = false) {
 		try {
 			$info = 'detailed';	
 			$products = $this->productModel->getProducts($searchString, $types, $unpublished, $info, $this->getToken());
-			return new Product_Widget_ViewProductList($products);
+			return new Product_Widget_ViewProducts($products);
 		} catch (BadRequestException $e) {
       RentItError('Internal error');
       RentItGoto("Product", "ViewProducts");
@@ -68,13 +68,13 @@ class Product_Controller_Default extends CommonController {
 	 * @param string $searchString
 	 * @param string $types
 	 * @param string $unpublished
-	 * @return Product_Widget_ViewProductList
+	 * @return Product_Widget_ViewProducts
 	 */
 	public function SearchProducts($searchString = null, $types = null, $unpublished = false) {
 		try {
 			$info = 'detailed';
 			$products = $this->productModel->getProducts($searchString, $types, $unpublished, $info, $this->getToken());
-			return new Product_Widget_ViewProductList($products);
+			return new Product_Widget_ViewProducts($products);
 		} catch (BadRequestException $e) {
       RentItError('Internal error');
       RentItGoto("Product", "ViewProducts");
@@ -92,7 +92,24 @@ class Product_Controller_Default extends CommonController {
 	 */
 	public function GetProductTypes() {
 		return $this->productModel->GetTypes();
-	}
+  }
+
+  public function ViewTypes() {
+    $w = new Widget_Wrapper();
+    $pm = $this->productModel;
+    $productTypes = $pm->GetProductTypes();
+    foreach ($productTypes as $productType) {
+      $products = array_slice($pm->GetProducts(null, $productType), 0,4);
+      $w->widgets[] = new Product_Widget_ViewType($productType, $products);
+    }
+    return $w;
+  }
+
+  public function ViewType($productType) {
+    $pm = $this->productModel;
+    $products = $pm->GetProducts(null, $productType);
+    return new Product_Widget_ViewType($productType, $products);
+  }
 	
 	/**
 	 * 
