@@ -30,13 +30,17 @@ class Widget_Image extends Widget {
     list($rw, $rh) = $this->getImgSize();
     //Scale the image according to temp dimensions
     $gdResTmp = $this->createTransparent($rw, $rh);
+    imagealphablending($gdResTmp, false);
     imagecopyresampled($gdResTmp,$gdImg, 0, 0, 0, 0, $rw, $rh, $this->imgWidth, $this->imgHeight);
+    imagesavealpha($gdResTmp, true);
     //Set start position for copying image over
     $x0 = ($rw - $this->width) / 2;
     $y0 = ($rh - $this->height) / 2;
     //Copy image to end result
     $gdRes = $this->createTransparent($this->width, $this->height);
+    imagealphablending($gdRes, false);
     imagecopy($gdRes, $gdResTmp, 0, 0, $x0, $y0, $this->width, $this->height);
+    imagesavealpha($gdRes, true);
     //Save the image
     $this->saveImg($gdRes);
     //Cleanup
@@ -46,9 +50,9 @@ class Widget_Image extends Widget {
   }
 
   private function createTransparent($x, $y) { 
-    $imageOut = imagecreate($x, $y);
-    $colourBlack = imagecolorallocate($imageOut, 0, 0, 0);
-    imagecolortransparent($imageOut, $colourBlack);
+    $imageOut = imagecreatetruecolor($x, $y);
+/*    $colourBlack = imagecolorallocate($imageOut, 0, 0, 0);
+imagecolortransparent($imageOut, $colourBlack);*/
     return $imageOut;
   }
 
