@@ -29,7 +29,7 @@ class Product_Widget_StreamProduct extends Widget_Container {
     $thumb->height = 300;
 		$slider->widgets[] = $thumb;
 
-    $rate = new Product_Widget_ViewRating($product);
+    $rate = new Product_Widget_ViewRating($product, 27, 27);
     $rate->classes[] = 'hasALittleBitOfPadding';
     $rate->classes[] = 'meta';
     $slider->widgets[] = $rate;
