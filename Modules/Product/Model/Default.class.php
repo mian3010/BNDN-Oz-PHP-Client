@@ -175,10 +175,9 @@ class Product_Model_Default extends CommonModel {
    * @return string mime
    */
   private function setMime($file) {
-  	$mime;
   	$finfo = finfo_open(FILEINFO_MIME_TYPE);
   	$mime = finfo_file($finfo, $file);
-  	$finfo_close($finfo);
+  	$finfo->close($finfo);
   	return $mime;
   }
 }
