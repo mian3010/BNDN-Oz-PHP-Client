@@ -41,7 +41,7 @@ CSS;
     $r = new Product_Widget_ViewRating($product);
     $r->classes[] = 'small-product-rating';
 
-    $tx = new Widget_Text($product->description);
+    $tx = new Widget_Text(isset($product->description) ? $product->description : '');
     $tx->classes[] = 'small-product-text';
 
     $pCont = new Purchase_Controller_Default();
