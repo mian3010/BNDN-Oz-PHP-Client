@@ -15,10 +15,13 @@ class Widget_ClickBox extends Widget_Wrapper {
     .clickBoxWrapper{
       margin-top: 13px;
       text-align: right;
+      width: 300px;
+      position: relative;
     }
     .clickBox{
       padding:10px;
-      position:relative;
+      position:absolute;
+      right: 0;
       border: {$this->border};
       background: black;
       border-radius: 8px;

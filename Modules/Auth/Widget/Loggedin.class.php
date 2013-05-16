@@ -8,8 +8,17 @@ class Auth_Widget_Loggedin extends Widget_Wrapper {
     // Wrapper
     $wrap = new Widget_Wrapper();
     $wrap->classes[] = 'hasALittleBitOfPadding';
-    //$this->AddCss('#' . $wrap->id . '{ border: 1px dashed black }');
     $this->widgets[] = $wrap;
+    
+    // Dashboard
+    $wDash = new Widget_Wrapper();
+    $hDash = new Widget_Link('/Account/Dashboard');
+    $lDash = new Widget_Label('Dashboard');
+    $hDash->widgets[] = $lDash;
+    $wDash->classes[] = 'hasALittleBitOfPadding';
+    $hDash->AddCss('#' . $hDash->id . '{ margin-left:7px; }');
+    $wDash->widgets[] = $hDash;
+    $wrap->widgets[] = $wDash;
 
     // Edit profile
     $wEdit = new Widget_Wrapper();
@@ -39,7 +48,7 @@ class Auth_Widget_Loggedin extends Widget_Wrapper {
     $hCred->AddCss('#' . $hCred->id . '{ margin-left:7px; }');
     $wCred->widgets[] = $hCred;
     $wrap->widgets[] = $wCred;
-
+    
     // Logout
     $wLog = new Widget_Wrapper();
     $hLog = new Widget_Link('/Auth/Logout');

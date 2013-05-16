@@ -15,14 +15,6 @@ class Product_Widget_ViewType extends Widget_Wrapper {
       .product-type {
         position: relative;
       }
-      .more-link {
-        font-size: 15px;
-        color: #0f0;
-        font-weight: bold;
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-      }
 CSS;
     $this->AddCss($css);
     $this->wrapperTitle = ucfirst($type);

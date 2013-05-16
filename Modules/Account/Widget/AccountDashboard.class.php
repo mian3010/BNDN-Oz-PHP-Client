@@ -23,6 +23,11 @@ class Account_Widget_AccountDashboard extends Widget_Wrapper {
     }
     
     $sl = new Widget_Slider();
+    $l = new Widget_Link('Purchase/View');
+    $ll = new Widget_Label('View purchases');
+    $l->classes[] = 'more-link';
+    $l->widgets[] = $ll;
+    $sl->widgets[] = $l;
     $sl->SlideRight();
 
     foreach ($purchases as $purchase) {

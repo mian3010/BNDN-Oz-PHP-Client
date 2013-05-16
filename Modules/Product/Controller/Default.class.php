@@ -247,7 +247,7 @@ class Product_Controller_Default extends CommonController {
 	 * @param unknown $id
 	 * @return StreamProduct
 	 */
-	public function StreamProduct($tId) {
+	public function Stream($tId) {
 		if(isset($_SESSION['token'])) {
 			$streamURL = UriController::GetAbsolutePath("/Product/GetStreamFileContent/" . $tId);
 			
