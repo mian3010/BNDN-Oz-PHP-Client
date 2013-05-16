@@ -115,58 +115,18 @@ class Product_Controller_Default extends CommonController {
 	 * 
 	 */
 	public function CreateProduct() {
-    /*
-		if(isset($_POST['submit'])) {
-			if(!isset($_POST['title'])) {
-				
-			} else {
-				$product->title = $_POST['title'];
-				$product->description = $_POST['description'];
-				$product->type = $_POST['type'];
-				if(isset($_POST['buyable'])) {
-					if($_POST['buyPrice']<0) {
-						RentItError('Price must not be negative');
-						RentItGoto('Product', 'CreateProduct');
-					}
-					else {
-						$product->buyPrice = $_POST['buyPrice'];
-					}
-				}
-				if(isset($_POST['rentable'])) {
-					if($_POST['rentPrice']<0) {
-            RentItError('Price must not be negative');
-						RentItGoto('Product', 'CreateProduct');
-					}
-					else {
-						$product->rentPrice = $_POST['rentPrice'];
-					}
-				}
-				try {
-					$this->productModel->CreateProduct($_SESSION['username'], $product, $this->getToken());
-					return null;
-				} catch(BadRequestException $e) {
-					RentItError('Something went wrong, please try again');	
-					RentItGoto('Product', 'CreateProduct');	
-				} catch (ForbiddenException $e) {
-					RentItError('Login has expired');
-					RentItGoto('Auth', 'Login');
-				} catch (NotFoundException $e) {
-					RentItError('Server error');
-					RentItGoto('Product', 'CreateProduct');
-				} catch (RequestEntityTooLargeException $e) {
-			
-				}
-			}
-		} else {
-			if(isset($_SESSION['token'])) {
-				$user = $this->getToken();
-				if($user->type=='contentProvider') {
-					$types = $this->productModel->GetTypes();
-					return new Product_Widget_CreateProduct($types);
-				}
-			}
-		}*/
+    if(isset($_SESSION['token']))
+      if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'content provider'){
+        return new Product_Widget_CreateProduct();
+      } else {
+        RentItError('Please authenticate as Content Provider');
+        RentItGoto('Auth', 'Login');
+      }
 	}
+
+  public function SaveNewProduct(){ //TODO
+
+  }
 	
 	/**
 	 * 
