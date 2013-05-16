@@ -41,14 +41,13 @@ abstract class Widget {
       $tmp = explode('_', get_class($this));
   		$shortName = array_pop($tmp);
   		
-  		$this->id = uniqid($shortName . '_');
+      $this->id = uniqid($shortName . '_');
   	}
   
     return @$this->atrbs[$k];
   }
 
   protected function GetAttributes(){
-    $this->atrbs['id'] = $this->id;
     $this->atrbs['class'] = $this->GetClasses();
     ksort($this->atrbs);
     $atrb = '';
