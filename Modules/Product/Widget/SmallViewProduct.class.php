@@ -28,6 +28,7 @@ CSS;
     $this->wrapperTitle = $product->title;
 
     $t = new Product_Widget_ViewThumbnail($product->id);
+    $t->classes[] = 'left';
 
     $tx = new Widget_Text($product->description);
     $tx->classes[] = 'small-product-text';
