@@ -63,9 +63,9 @@ class Product_Widget_ViewRating extends Widget_Wrapper {
 
     for ($i = -5; $i < 0; $i++) {
       $bhw = new Widget_Link('Product/Rate/'.$product->id.'/'.$i);
-      $bhw->classes[] = 'bad-hover-'.$i;
+      $bhw->classes[] = 'bad-hover-'.abs($i);
       $bhw->classes[] = 'f-wrapper bad-hover';
-      $bhw->AddCss('.bad-hover-'.$i.' { width: '.(100/5*abs($i)).'%; }');
+      $bhw->AddCss('.bad-hover-'.abs($i).' { width: '.(100/5*abs($i)).'%; }');
       $bw->widgets[] = $bhw;
     }
     $this->AddCss('.bad-hover { right: 0; left: auto; background: none; }');
