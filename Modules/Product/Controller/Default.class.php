@@ -61,7 +61,25 @@ class Product_Controller_Default extends CommonController {
       RentItError('Server error');
       RentItGoto("Product", "");
 		}
-	}
+  }
+
+  public function Rate($productId, $rating) {
+    $pm = $this->productModel;
+		try {
+      $pm->UpdateRating($productId, $rating, $_SESSION['token']->token);
+      RentItSuccess("You rated this product with ".$rating);
+      RentItGoto("Product", "View", array($productId));
+		} catch (BadRequestException $e) {
+      RentItError('Internal error');
+      RentItGoto("Product", "View", array($productId));
+    } catch (ForbiddenException $e) {
+      RentItError('Please authenticate');
+      RentItGoto("Product", "View", array($productId));
+		} catch (ServerErrorException $e) {
+      RentItError('Server error');
+      RentItGoto("Product", "View", array($productId));
+		}
+  }
 	
 	/**
 	 * 

@@ -158,9 +158,11 @@ class Product_Model_Default extends CommonModel {
    * @param string $token
    */
   public function UpdateRating($id, $rating, $token) {
-    $ws = new WebService('PUT','products/'.$id.'/rating', 'GET');
+    $ws = new WebService('products/'.$id.'/rating', 'PUT');
     $ws->SetToken($token);
-    $ws->SetData($rating);
+    $ratingD = new StdClass();
+    $ratingD->rating = $rating;
+    $ws->SetData($ratingD);
     $ws->Execute();
     $code = $ws->GetHttpStatusCode();
     $this->ThrowExceptionIfError($code);
