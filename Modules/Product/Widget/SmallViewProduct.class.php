@@ -44,7 +44,7 @@ CSS;
     $tx = new Widget_Text(isset($product->description) ? $product->description : '');
     $tx->classes[] = 'small-product-text';
 
-    if (strtolower($_SESSION['type']) == 'customer') {
+    if (isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'customer') {
       $pCont = new Purchase_Controller_Default();
       $br = $pCont->BuyRent($product, $buy, $rent);
       $br->classes[] = 'right';
