@@ -97,7 +97,7 @@ abstract class Widget {
     return $this->cssFiles;
   }
   
-  protected function AddOption($text, $url) {
+  public function AddOption($text, $url) {
   
   	$this->options[$text] = $url;
   }
@@ -107,7 +107,7 @@ abstract class Widget {
   	return $this->options;
   }
   
-  protected function SetTitle($title) {
+  public function SetTitle($title) {
   
   	$this->title = $title;
   }
