@@ -165,6 +165,7 @@ class Product_Controller_Default extends CommonController {
 
         $id = $this->productModel->CreateProduct($_SESSION['username'], $info, $_SESSION['token']->token);
 
+        RentItSuccess('Product created');
         RentItGoto('Product', 'View/'.$id->id);
       }
     } else {
@@ -207,6 +208,7 @@ class Product_Controller_Default extends CommonController {
       RentItError('Server error');
       RentItGoto();
     }
+    RentItSuccess('Product has been updated');
     RentItGoto('Product', 'View/' . $info['id']);
 	}
 	

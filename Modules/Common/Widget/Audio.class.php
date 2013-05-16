@@ -7,6 +7,6 @@ class Widget_Audio extends WidgetContainer {
 	}
 	
 	public function ToHtml() {
-		return '<audio controls><source src='.$this->source.'></audio>';
+		return '<audio controls ' . $this->GetAttributes() . '><source src='.$this->source.'></audio>';
 	}
 }

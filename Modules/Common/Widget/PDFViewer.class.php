@@ -7,6 +7,6 @@ class Widget_PDFViewer extends WidgetContainer {
 	}
 	
 	public function ToHtml() {
-		return '<iframe src='.$this->source.'></iframe>';
+		return '<iframe ' . $this->GetAttributes() . ' src='.$this->source.'></iframe>';
 	}
 }
