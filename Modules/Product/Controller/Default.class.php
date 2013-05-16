@@ -50,7 +50,7 @@ class Product_Controller_Default extends CommonController {
 	public function ViewAll() {
 		try {
 			$info = 'detailed';	
-      $products = $this->productModel->getProducts($this->getToken(), null, null, null, 'detailed');
+      $products = $this->productModel->getProducts($this->getToken());
 			return new Product_Widget_ViewProducts($products);
 		} catch (BadRequestException $e) {
       RentItError('Internal error');
