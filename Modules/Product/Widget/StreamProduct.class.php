@@ -5,8 +5,8 @@ class Product_Widget_StreamProduct extends Widget_Container {
 	public function __construct($src, $product) {
 		$this->SetTitle($product->title);
     $this->AddCss('
-    .meta{ margin-top:25px; }
-    .desc{ word-wrap:normal; width: 280px; }
+      .meta{ margin-top:25px; }
+      .desc{ word-wrap:normal; width: 280px; }
     ');
 		$type = $product->type;
 
