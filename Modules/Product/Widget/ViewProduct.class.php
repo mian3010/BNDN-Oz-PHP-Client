@@ -16,6 +16,7 @@ class Product_Widget_ViewProduct extends Widget_Form {
     $this->AddCss(
       '#' . $this->id . '{ width:100%; position: relative; }
       .editField{ width:150px; }
+      .meta{ margin-top:25px; }
       ');
 
     $this->SetTitle($product->title);
@@ -118,10 +119,16 @@ class Product_Widget_ViewProduct extends Widget_Form {
     }
 
     // Rating widget
-    //$rightWrapper->widgets[] = $pc->ViewRating($product->id);
+    $rate = new Product_Widget_ViewRating($product);
+    $rate->classes[] = 'hasALittleBitOfPadding';
+    $rate->classes[] = 'meta';
+    $rightWrapper->widgets[] = $rate;
+
 
     // Buy/Rent widget
     $br = $puc->BuyRent($product);
+    $br->classes[] = 'hasALittleBitOfPadding';
+    $br->classes[] = 'meta';
     $rightWrapper->widgets[] = $br;
 
     $wrapper->widgets[] = $rightWrapper;

@@ -69,9 +69,10 @@ class Product_Model_Default extends CommonModel {
     $ws = new WebService('accounts/'.$provider.'/products', 'POST');
     $ws->SetToken($token);
     $ws->SetData($product);
-    $ws->Execute();
+    $data = $ws->Execute();
     $code = $ws->GetHttpStatusCode();
     $this->ThrowExceptionIfError($code);
+    return $data;
   }
 
   /*

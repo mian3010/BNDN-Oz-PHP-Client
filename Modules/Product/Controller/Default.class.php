@@ -116,59 +116,44 @@ class Product_Controller_Default extends CommonController {
 	/**
 	 * 
 	 */
-	public function CreateProduct() {
-    /*
-		if(isset($_POST['submit'])) {
-			if(!isset($_POST['title'])) {
-				
-			} else {
-				$product->title = $_POST['title'];
-				$product->description = $_POST['description'];
-				$product->type = $_POST['type'];
-				if(isset($_POST['buyable'])) {
-					if($_POST['buyPrice']<0) {
-						RentItError('Price must not be negative');
-						RentItGoto('Product', 'CreateProduct');
-					}
-					else {
-						$product->buyPrice = $_POST['buyPrice'];
-					}
-				}
-				if(isset($_POST['rentable'])) {
-					if($_POST['rentPrice']<0) {
-            RentItError('Price must not be negative');
-						RentItGoto('Product', 'CreateProduct');
-					}
-					else {
-						$product->rentPrice = $_POST['rentPrice'];
-					}
-				}
-				try {
-					$this->productModel->CreateProduct($_SESSION['username'], $product, $this->getToken());
-					return null;
-				} catch(BadRequestException $e) {
-					RentItError('Something went wrong, please try again');	
-					RentItGoto('Product', 'CreateProduct');	
-				} catch (ForbiddenException $e) {
-					RentItError('Login has expired');
-					RentItGoto('Auth', 'Login');
-				} catch (NotFoundException $e) {
-					RentItError('Server error');
-					RentItGoto('Product', 'CreateProduct');
-				} catch (RequestEntityTooLargeException $e) {
-			
-				}
-			}
-		} else {
-			if(isset($_SESSION['token'])) {
-				$user = $this->getToken();
-				if($user->type=='contentProvider') {
-					$types = $this->productModel->GetTypes();
-					return new Product_Widget_CreateProduct($types);
-				}
-			}
-		}*/
+	public function Create() {
+    if(isset($_SESSION['token'])){
+      if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'content provider')
+        return new Product_Widget_CreateProduct();
+    } else {
+      RentItError('Please authenticate as Content Provider');
+      RentItGoto('Auth', 'Login');
+    }
 	}
+
+  public function SaveNewProduct(){
+    if(isset($_SESSION['token']) && isset($_SESSION['username'])){
+      if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'content provider'){
+
+        $error = FALSE;
+        if(!isset($_POST['title']) || trim($_POST['title']) == ''){
+          RentItError('Please fill in title');
+          $error = TRUE;
+        }
+        if(!isset($_POST['type']) || trim($_POST['type']) == ''){
+          RentItError('Please fill in type');
+          $error = TRUE;
+        }
+        if($error) RentItGoto('Product', 'Create');
+
+        $info = new stdClass();
+        $info->title = $_POST['title'];
+        $info->type = strtolower($_POST['type']);
+
+        $id = $this->productModel->CreateProduct($_SESSION['username'], $info, $_SESSION['token']->token);
+
+        RentItGoto('Product', 'View/'.$id->id);
+      }
+    } else {
+      RentItError('Please authenticate as Content Provider');
+      RentItGoto('Auth', 'Login');
+    }
+  }
 	
 	/**
 	 * 
@@ -281,28 +266,7 @@ class Product_Controller_Default extends CommonController {
 		}
 		exit();
 	}
-	
-	/**
-	 * 
-	 * @param int $id
-	 * @return Product_Widget_ViewRating
-	 */
-	public function ViewRating($id) {
-		if(isset($_POST['rating'])) {
-			if(isset($_SESSION['token'])) {
-				try{
-					$this->productModel->UpdateRating($id, $_POST['rating'], $this->getToken());
-				} catch (Exception $e) {
-					
-				}
-			}
-		} else {
-			$product = $this->productModel->GetProduct($id, $this->getToken);
-			$rating = $product->rating;
-			return new Product_Widget_ViewRating($rating);
-		}
-	}
-	
+
 	/**
 	 * 
 	 * @return token|NULL
