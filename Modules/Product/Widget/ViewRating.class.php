@@ -1,7 +1,7 @@
 <?php
 
 class Product_Widget_ViewRating extends Widget_Wrapper {
-  public function __construct($product, $height = 20, $width = 20) {
+  public function __construct($product, $height = 15, $width = 15) {
     $this->title = "rated " . $product->rating->score." from ".$product->rating->count." votes";
     $goodPct = ($product->rating->score > 0) ? $product->rating->score/5*100 : 0;
     $badPct  = ($product->rating->score < 0) ? abs($product->rating->score)/5*100 : 0;

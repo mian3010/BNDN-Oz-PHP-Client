@@ -8,10 +8,11 @@ class Purchase_Widget_SmallViewPurchase extends Widget_Wrapper {
         width: 463px;
         height: 100px;
         position: relative;
+        margin: 20px;
       }
       .small-purchase-inner {
-        border: 1px dashed #000;
         padding: 15px;
+        margin: 0 20px;
         position: absolute;
         top: 15px;
         bottom: 0;
@@ -25,7 +26,7 @@ CSS;
 
     if ($purchase->type == "B") $title = "Buy";
     if ($purchase->type == "R") $title = "Rent";
-    $this->wrapperTitle = $title;
+    $this->wrapperTitle = "Type: ".$title;
 
     $plbw = new Widget_Wrapper();
     $plb = new Widget_Label("Purchased: ");

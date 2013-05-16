@@ -8,15 +8,10 @@ class Product_Widget_ViewType extends Widget_Wrapper {
     $this->classes[] = 'hasALotOfPadding';
     $this->classes[] = 'hasALotOfBorder';
     $this->classes[] = 'hasLargeTitle';
+    $this->classes[] = 'hasSpecialTitle';
     $this->classes[] = 'product-type';
     $this->classes[] = 'clearfix';
     $css = <<<CSS
-      .product-type > h2 {
-        color: #fff;
-        border-bottom: 1px solid #fff;
-        margin-bottom: 10px;
-        font-weight: bold;
-      }
       .product-type {
         position: relative;
       }

@@ -346,6 +346,12 @@ html[xmlns] .clearfix {
 .hasALotOfPadding{ padding:15px; margin: 15px; }
 .hasALotOfBorder{ border: 2px solid #fff; }
 .hasLargeTitle > h2{ font-size: 20px; }
+.hasSpecialTitle > h2 {
+  color: #fff;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
 .left { float: left; }
 .right { float: right; }
 .wrapperTitle{ color: #CA4700; }

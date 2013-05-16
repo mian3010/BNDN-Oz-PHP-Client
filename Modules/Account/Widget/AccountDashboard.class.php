@@ -9,11 +9,15 @@ class Account_Widget_AccountDashboard extends Widget_Wrapper {
     $brw = new Widget_Wrapper();
     $bw = new Widget_Wrapper();
     $bw->wrapperTitle = "Buys";
+    $bw->classes[] = 'hasLargeTitle';
+    $bw->classes[] = 'hasSpecialTitle';
     foreach ($buys as $buy) {
       $bw->widgets[] = new Product_Widget_SmallViewProduct($products[$buy]["product"], $products[$buy]["buy"], $products[$buy]["rent"]);
     }
     $rw = new Widget_Wrapper();
     $rw->wrapperTitle = "Rents";
+    $rw->classes[] = 'hasLargeTitle';
+    $rw->classes[] = 'hasSpecialTitle';
     foreach ($rents as $rent) {
       $rw->widgets[] = new Product_Widget_SmallViewProduct($products[$rent]["product"], $products[$rent]["buy"], $products[$rent]["rent"]);
     }
