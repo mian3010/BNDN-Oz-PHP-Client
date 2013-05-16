@@ -29,7 +29,7 @@ CSS;
     $this->wrapperTitle = $account->user;
 
     $tw = new Widget_Link("Account/View/".$account->user);
-    $t = new Account_Widget_ViewThumbnail($account->id);
+    $t = new Account_Widget_ViewThumbnail($account->user);
     $t->classes[] = 'left';
     $tw->widgets = array($t);
 
