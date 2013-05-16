@@ -45,7 +45,7 @@ class Account_Controller_Default extends CommonController {
     }
   }
 
-  public function ListView($types = 'PC', $incBanned = FALSE){ //TODO
+  public function ViewAll($types = 'PC', $incBanned = FALSE){ //TODO
     try {
       if(isset($_SESSION['token']) && isset($_SESSION['username'])){
         if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'admin'){
@@ -53,7 +53,7 @@ class Account_Controller_Default extends CommonController {
           $incBanned = FALSE;
         }
         $accounts = $this->accountModel->GetAccounts($types, $incBanned, 'more', $_SESSION['token']->token);
-        return null; //TODO
+        return new Account_Widget_ViewAccounts($accounts);
       } else {
         RentItError('Please authenticate');
         RentItGoto("Auth", "Login");
@@ -171,6 +171,8 @@ class Account_Controller_Default extends CommonController {
           else $unpublished[] = $product;
         }
         return new Account_Widget_ContentProviderDashboard($published, $unpublished);
+      } else {
+        return new Widget_Label('Welcome '.$_SESSION['type']);
       }
     } else {
       RentItError('Please authenticate');
