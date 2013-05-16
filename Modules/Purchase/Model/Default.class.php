@@ -25,7 +25,7 @@ class Purchase_Model_Default extends CommonModel {
   public function GetPurchaseByPid($username, $token, $pId) {
     $purchases = $this->GetPurchases($username, $token);
     foreach ($purchases as $purchase) {
-      if ($purchase->id == $pId) return $purchase;
+      if ($purchase->product == $pId) return $purchase;
     }
     return null;
   }

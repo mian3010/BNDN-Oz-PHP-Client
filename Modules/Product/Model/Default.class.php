@@ -8,21 +8,19 @@ class Product_Model_Default extends CommonModel {
    * @param $info Level of detail
    * @return Array of Products
    */
-  public function GetProducts($searchString, $types, $unpublished, $info, $token = null) {
+  public function GetProducts($token, $searchString = null, $types = null, $unpublished = null, $info = 'more') {
   	$ws = new WebService('products', 'GET');
   	$data = array();
   	if($searchString!=null) {
   		$data['search'] = $searchString;
   	}
   	if($types!=null) {
-  		$data['types'] = $types;
+  		$data['type'] = $types;
   	}
   	if($unpublished!=null) {
   		$data['unpublished'] = $unpublished;
-  	}
-  	if($info!=null) {
-  		$data['info'] = $info;
-  	}
+    }
+    $data['info'] = $info;
   	if($token!=null) $ws->SetToken($token);
   	$ws->SetData($data);
   	$object = $ws->Execute();
@@ -54,8 +52,7 @@ class Product_Model_Default extends CommonModel {
    * @return array of strings
    */
   public function GetProductTypes() {
-    $ws = new WebService('/product/types', 'GET');
-    $ws->SetToken($token);
+    $ws = new WebService('/products/types', 'GET');
     $object = $ws->Execute();
     $code = $ws->GetHttpStatusCode();
     $this->ThrowExceptionIfError($code);
@@ -72,9 +69,10 @@ class Product_Model_Default extends CommonModel {
     $ws = new WebService('accounts/'.$provider.'/products', 'POST');
     $ws->SetToken($token);
     $ws->SetData($product);
-    $ws->Execute();
+    $data = $ws->Execute();
     $code = $ws->GetHttpStatusCode();
     $this->ThrowExceptionIfError($code);
+    return $data;
   }
 
   /*
@@ -83,7 +81,7 @@ class Product_Model_Default extends CommonModel {
    * @param string $token
    */
   public function UpdateProduct($product, $token) {
-    $ws = new WebSerice('products/'.$product->id, 'PUT');
+    $ws = new WebService('products/'.$product['id'], 'PUT');
     $ws->SetToken($token);
     $ws->SetData($product);
     $ws->Execute();
@@ -178,10 +176,9 @@ class Product_Model_Default extends CommonModel {
    * @return string mime
    */
   private function setMime($file) {
-  	$mime;
   	$finfo = finfo_open(FILEINFO_MIME_TYPE);
   	$mime = finfo_file($finfo, $file);
-  	$finfo_close($finfo);
+  	$finfo->close($finfo);
   	return $mime;
   }
 }

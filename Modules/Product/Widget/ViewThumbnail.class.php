@@ -5,6 +5,5 @@ class Product_Widget_ViewThumbnail extends Widget_Image {
     parent::__construct(WebService::GetAbsolute("/products/".$id."/thumbnail"), 'static/img/accountThumb.jpg');
     $this->width = 100;
     $this->height = 100;
-    $this->classes[] = 'left';
   }
 }
