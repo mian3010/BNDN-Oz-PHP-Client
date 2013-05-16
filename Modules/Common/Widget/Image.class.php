@@ -6,6 +6,7 @@ class Widget_Image extends Widget {
   private $imgWidth;
   private $imgSrc;
   private $gdImg;
+  private $altSrc;
   public function __construct($src, $altSrc = null) {
     $this->imgSrc = $src;
     $this->altSrc = $altSrc;
