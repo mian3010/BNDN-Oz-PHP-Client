@@ -89,6 +89,7 @@ class Account_Controller_Default extends CommonController {
       RentItError('Server error');
       RentItGoto();
     }
+    RentItSuccess('Account has been updated');
     RentItGoto('Account', 'View/' . $username);
   }
 
@@ -122,6 +123,7 @@ class Account_Controller_Default extends CommonController {
       RentItError('Server error');
       RentItGoto();
     }
+    RentItSuccess('Account created');
     RentItGoto('Account', 'View/' . $info['username']);
   }
 
