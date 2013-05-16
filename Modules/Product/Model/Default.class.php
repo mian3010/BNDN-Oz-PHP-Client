@@ -79,7 +79,7 @@ class Product_Model_Default extends CommonModel {
    * @param string $token
    */
   public function UpdateProduct($product, $token) {
-    $ws = new WebSerice('products/'.$product->id, 'PUT');
+    $ws = new WebService('products/'.$product['id'], 'PUT');
     $ws->SetToken($token);
     $ws->SetData($product);
     $ws->Execute();
