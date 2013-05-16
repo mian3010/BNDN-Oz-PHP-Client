@@ -96,7 +96,18 @@ class Product_Controller_Default extends CommonController {
 	 */
 	public function GetProductTypes() {
 		return $this->productModel->GetTypes();
-	}
+  }
+
+  public function ViewTypes() {
+    $w = new Widget_Wrapper();
+    $pm = $this->productModel;
+    $productTypes = $pm->GetProductTypes();
+    foreach ($productTypes as $productType) {
+      $products = array_slice($pm->GetProducts(null, $productType), 0,2);
+      $w->widgets[] = new Product_Widget_ViewType($productType, $products);
+    }
+    return $w;
+  }
 	
 	/**
 	 * 
