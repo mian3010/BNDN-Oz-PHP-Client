@@ -114,18 +114,43 @@ class Product_Controller_Default extends CommonController {
 	/**
 	 * 
 	 */
-	public function CreateProduct() {
-    if(isset($_SESSION['token']))
-      if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'content provider'){
+	public function Create() {
+    if(isset($_SESSION['token'])){
+      if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'content provider')
         return new Product_Widget_CreateProduct();
-      } else {
-        RentItError('Please authenticate as Content Provider');
-        RentItGoto('Auth', 'Login');
-      }
+    } else {
+      RentItError('Please authenticate as Content Provider');
+      RentItGoto('Auth', 'Login');
+    }
 	}
 
-  public function SaveNewProduct(){ //TODO
+  public function SaveNewProduct(){
+    if(isset($_SESSION['token']) && isset($_SESSION['username'])){
+      if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'content provider'){
 
+        $error = FALSE;
+        if(!isset($_POST['title']) || trim($_POST['title']) == ''){
+          RentItError('Please fill in title');
+          $error = TRUE;
+        }
+        if(!isset($_POST['type']) || trim($_POST['type']) == ''){
+          RentItError('Please fill in type');
+          $error = TRUE;
+        }
+        if($error) RentItGoto('Product', 'Create');
+
+        $info = new stdClass();
+        $info->title = $_POST['title'];
+        $info->type = strtolower($_POST['type']);
+
+        $id = $this->productModel->CreateProduct($_SESSION['username'], $info, $_SESSION['token']->token);
+
+        RentItGoto('Product', 'View/'.$id->id);
+      }
+    } else {
+      RentItError('Please authenticate as Content Provider');
+      RentItGoto('Auth', 'Login');
+    }
   }
 	
 	/**

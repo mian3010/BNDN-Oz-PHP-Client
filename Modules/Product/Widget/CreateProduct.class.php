@@ -10,7 +10,7 @@ class Product_Widget_CreateProduct extends Widget_Form {
     );
 
     // Form
-    $this->action = UriController::GetAbsolutePath('/Product/CreateProduct/');
+    $this->action = UriController::GetAbsolutePath('/Product/SaveNewProduct/');
     $this->method = 'POST';
 
     // Title
@@ -19,6 +19,7 @@ class Product_Widget_CreateProduct extends Widget_Form {
     $fTitle = new Widget_ClickEditField('');
     $fTitle->name = 'title';
     $fTitle->classes[] = 'editField';
+    $cTitle->classes[] = 'hasALittleBitOfPadding';
     $cTitle->widgets += array($lTitle, $fTitle);
     $this->widgets[] = $cTitle;
 
@@ -29,11 +30,12 @@ class Product_Widget_CreateProduct extends Widget_Form {
     $fType = new Widget_ClickEditField('');
     $fType->name = 'type';
     $fType->classes[] = 'editField';
+    $cType->classes[] = 'hasALittleBitOfPadding';
     $cType->widgets += array($lType, $fType);
     $this->widgets[] = $cType;
 
     // Button
-    $s = new Widget_Button('Create account');
+    $s = new Widget_Button('Create product');
     $this->widgets[] = $s;
   }
 }
