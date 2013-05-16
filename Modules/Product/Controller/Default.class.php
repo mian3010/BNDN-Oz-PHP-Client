@@ -17,7 +17,7 @@ class Product_Controller_Default extends CommonController {
 	public function View($id = 0) {
     if($id == 0){
       RentItError('Product not found');
-      RentItGoto('Product', 'Browse');
+      RentItGoto('Product', 'ViewTypes');
     }
 		try {
       if(!isset($_SESSION['token'])) {
@@ -27,7 +27,7 @@ class Product_Controller_Default extends CommonController {
 			$product = $this->productModel->GetProduct($id, $_SESSION['token']->token);
       if($product == null) {
         RentItError('Product not found');
-        RentItGoto('Product', 'Browse');
+        RentItGoto('Product', 'ViewTypes');
       }
       $edit = FALSE;
       if((isset($_SESSION['username'])) && strtolower($_SESSION['username']) == $product->owner) $edit = TRUE;
@@ -40,7 +40,7 @@ class Product_Controller_Default extends CommonController {
 		} catch (Exception $e) {
 			  RentItError('Server error');
 		}
-	RentItGoto('Product', 'Browse');
+	RentItGoto('Product', 'ViewTypes');
 	}
 	
 	/**
