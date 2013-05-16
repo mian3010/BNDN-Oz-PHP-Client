@@ -15,8 +15,7 @@ class Product_Widget_SmallViewProduct extends Widget_Wrapper {
       }
       .small-product {
         width: 453px;
-        margin-right: 10px;
-        margin: 10px 20px;
+        margin: 10px 10px 10px 0;
         position: relative;
       }
       .small-product-inner {
