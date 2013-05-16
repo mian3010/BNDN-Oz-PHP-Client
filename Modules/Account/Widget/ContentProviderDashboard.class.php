@@ -19,9 +19,10 @@ class Account_Widget_ContentProviderDashboard extends Widget_Wrapper {
     $uw->wrapperTitle = "Unpublished products";
     $uw->classes[] = 'hasLargeTitle';
     $uw->classes[] = 'hasSpecialTitle';
-    $uw->style = "width: 475px";
+    $uw->style = "width: 475px; padding: 20px;";
     foreach ($unpublished as $product) {
-      $uw->widgets[] = new Product_Widget_SmallViewProduct($product);
+      $widget = new Product_Widget_SmallViewProduct($product);
+      $uw->widgets[] = $widget;
     }
     
     $this->widgets[] = $uw;
