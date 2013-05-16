@@ -52,7 +52,6 @@ class Product_Model_Default extends CommonModel {
    */
   public function GetProductTypes() {
     $ws = new WebService('/products/types', 'GET');
-    $ws->SetToken($token);
     $object = $ws->Execute();
     $code = $ws->GetHttpStatusCode();
     $this->ThrowExceptionIfError($code);

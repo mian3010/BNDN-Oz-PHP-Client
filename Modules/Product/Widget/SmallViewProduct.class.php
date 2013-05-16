@@ -7,6 +7,7 @@ class Product_Widget_SmallViewProduct extends Widget_Wrapper {
   public function __construct($product, $buy = null, $rent = null) {
     $this->classes[] = 'clearfix';
     $this->classes[] = 'small-product';
+    $this->classes[] = 'hasLargeTitle';
     $css = <<<CSS
       .small-product-text {
         height: 100px;
