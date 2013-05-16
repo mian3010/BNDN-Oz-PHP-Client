@@ -49,13 +49,13 @@ class Product_Controller_Default extends CommonController {
 	 * @param string $types
 	 * @param booleain $unpublished
 	 * @param string $info
-	 * @return Product_Widget_ViewProductList
+	 * @return Product_Widget_ViewProducts
 	 */
-	public function ViewProductList($searchString = null, $types = null, $unpublished = false) {
+	public function ViewAll($searchString = null, $types = null, $unpublished = false) {
 		try {
 			$info = 'detailed';	
 			$products = $this->productModel->getProducts($searchString, $types, $unpublished, $info, $this->getToken());
-			return new Product_Widget_ViewProductList($products);
+			return new Product_Widget_ViewProducts($products);
 		} catch (BadRequestException $e) {
       RentItError('Internal error');
       RentItGoto("Product", "ViewProducts");
@@ -72,13 +72,13 @@ class Product_Controller_Default extends CommonController {
 	 * @param string $searchString
 	 * @param string $types
 	 * @param string $unpublished
-	 * @return Product_Widget_ViewProductList
+	 * @return Product_Widget_ViewProducts
 	 */
 	public function SearchProducts($searchString = null, $types = null, $unpublished = false) {
 		try {
 			$info = 'detailed';
 			$products = $this->productModel->getProducts($searchString, $types, $unpublished, $info, $this->getToken());
-			return new Product_Widget_ViewProductList($products);
+			return new Product_Widget_ViewProducts($products);
 		} catch (BadRequestException $e) {
       RentItError('Internal error');
       RentItGoto("Product", "ViewProducts");

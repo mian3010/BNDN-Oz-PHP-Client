@@ -33,7 +33,7 @@ Widget::register();
 
 function RentItGoto($module = '', $method = '', $args = array()) {
   if($module == '')
-    RentItGoto('Product', 'ViewProductList');
+    RentItGoto('Product', 'ViewAll');
   header("Location: ".UriController::GetAbsolutePath("/$module/$method/".implode("/", $args)));
   exit;
 }
