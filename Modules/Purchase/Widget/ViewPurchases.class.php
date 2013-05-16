@@ -38,7 +38,7 @@ CSS;
     $r = new Widget_TableRow();
     $r->AutoCreateCell($purchase->id);
     $r->AutoCreateCell($purchase->purchased);
-    $r->AutoCreateCell($purchase->expires);
+    $r->AutoCreateCell(isset($purchase->expires) ? $purchase->expires : "Never");
     $r->AutoCreateCell($purchase->paid);
     $r->AutoCreateCell($purchase->type);
     return $r;
