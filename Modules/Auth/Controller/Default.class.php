@@ -9,6 +9,7 @@ class Auth_Controller_Default extends CommonController {
 
   public function LogOut(){ //
     session_destroy();
+    RentItInfo('Goodbye - Come again!');
     RentItGoto();
   }
 
@@ -38,6 +39,7 @@ class Auth_Controller_Default extends CommonController {
     } catch (Exception $e) {
       RentItError('Server error. Please try again later.');
     }
+    RentItInfo('Welcome!');
     RentItGoto('Auth', 'Login');
   }
 }
