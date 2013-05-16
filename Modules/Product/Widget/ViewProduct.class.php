@@ -5,6 +5,9 @@
  */
 class Product_Widget_ViewProduct extends Widget_Form {
 
+  //TODO Upload Thumbnail
+  //TODO Upload Media
+
   public function __construct($product, $editable = FALSE) {
     $pc = new Product_Controller_Default();
     $puc = new Purchase_Controller_Default();
@@ -23,7 +26,7 @@ class Product_Widget_ViewProduct extends Widget_Form {
 
     if($editable){
       /// Form
-      $this->action = UriController::GetAbsolutePath('/Product/UpdateProduct' . $product->id);
+      $this->action = UriController::GetAbsolutePath('/Product/UpdateProduct/' . $product->id);
       $this->method = 'POST';
 
       $cTitle = new Widget_Wrapper();
@@ -56,6 +59,7 @@ class Product_Widget_ViewProduct extends Widget_Form {
     $cType = new Widget_Wrapper();
     //TODO Make this a link when Browse supports it
     $fType = new Widget_ClickEditField(isset($product->type) ? ucfirst($product->type) : '', !$editable);
+    $fType->name = 'type';
     $fType->classes[] = 'editField';
     $cType->classes[] = 'hasALittleBitOfPadding';
     $cType->widgets[] = $fType;
@@ -77,6 +81,7 @@ class Product_Widget_ViewProduct extends Widget_Form {
     $lOwner = new Widget_Label('Owner ');
     if($editable){
       $fOwner = new Widget_ClickEditField(isset($product->owner) ? $product->owner : '', !$editable);
+      $fOwner->name = 'owner';
       $fOwner->classes[] = 'editField';
     } else {
       $fOwner = new Widget_Link('/Account/View/' . $product->owner);
@@ -88,6 +93,24 @@ class Product_Widget_ViewProduct extends Widget_Form {
     $rightWrapper->widgets[] = $cOwner;
 
     if($editable){
+      // Buy price
+      $cBuy = new Widget_Wrapper();
+      $lBuy = new Widget_Label('Buy price ');
+      $fBuy = new Widget_ClickEditField(isset($product->price->buy) ? $product->price->buy : '', !$editable);
+      $fBuy->name = 'buy';
+      $cBuy->classes[] = 'hasALittleBitOfPadding';
+      $cBuy->widgets += array($lBuy, $fBuy);
+      $rightWrapper->widgets[] = $cBuy;
+
+      // Rent price
+      $cRent = new Widget_Wrapper();
+      $lRent = new Widget_Label('Rent price ');
+      $fRent = new Widget_ClickEditField(isset($product->price->rent) ? $product->price->rent : '', !$editable);
+      $fRent->name = 'rent';
+      $cRent->classes[] = 'hasALittleBitOfPadding';
+      $cRent->widgets += array($lRent, $fRent);
+      $rightWrapper->widgets[] = $cRent;
+
       //Submit button
       $s = new Widget_Button("Save changes");
       $s->classes[] = 'hasALittleBitOfPadding';
