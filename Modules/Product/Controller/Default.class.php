@@ -37,7 +37,7 @@ class Product_Controller_Default extends CommonController {
 		} catch (Exception $e) {
 			  RentItError('Server error');
 		}
-	RentItGoto('Product', 'ViewTypes');
+	  RentItGoto('Product', 'ViewTypes');
 	}
 	
 	/**
@@ -173,34 +173,37 @@ class Product_Controller_Default extends CommonController {
 	 * 
 	 * @param int $id
 	 */
-	public function UpdateProduct($id = null) {
-		if(isset($_POST['submit'])) {
-			try {
-				if(isset($_SESSION['token'])) {
-					$user = $this->getToken();
-					if($user->type=='contentProvider') {
-						//$this->productModel->UpdateProduct($product, $this->getToken());
-						return null;
-					}
-				}
-			} catch (NotFoundException $e) {
-				RentItError('The given product does not belong to you');	
-			} catch (Exception $e) {
-				RentItError('Server errror');
-			}
-			RentItGoto('Product', 'UpdateProduct');
-		} else {
-			if(isset($_SESSION['token'])) {
-				$user = $this->getUser();
-				if($user->type=='contentProvider') {
-					$product = $this->productModel->GetProduct($id, $this->getToken);
-					return new Product_Widget_EditProduct($product);
-				}			
-			} else {
-				RentItError('Authentication needed');
-				RentItGoto('Auth', 'Login');
-			}
-		}
+	public function UpdateProduct($id) {
+    // Build info array
+    $info = array();
+    foreach ($_POST as $k => $v){
+      if(trim($v) != '' && $k != 'published' && $k != 'buy' && $k != 'rent')
+        $info[$k] = strtolower($v);
+    }
+    $info['id'] = $id;
+    if(isset($_POST['published'])) $info['published'] = true;
+    else $info['published'] = false;
+
+    $price = new stdClass();
+    $price->buy = $_POST['buy'];
+    $price->rent = $_POST['rent'];
+    $info['price'] = $price;
+
+    try{
+      if(isset($_SESSION['token']))
+        $this->productModel->UpdateProduct($info, $_SESSION['token']->token);
+      else{
+        RentItError('Please authenticate');
+        RentItGoto("Auth", "Login");
+      }
+    } catch (UnauthorizedException $e){
+      RentItError('Please authenticate');
+      RentItGoto("Auth", "Login");
+    } catch (Exception $e){
+      RentItError('Server error');
+      RentItGoto();
+    }
+    RentItGoto('Product', 'View/' . $info['id']);
 	}
 	
 	/**
