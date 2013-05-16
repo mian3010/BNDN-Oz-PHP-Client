@@ -20,10 +20,6 @@ class Product_Controller_Default extends CommonController {
       RentItGoto('Product', 'Browse');
     }
 		try {
-      if(!isset($_SESSION['token'])) {
-        RentItError('Please authenticate');
-        RentItGoto('Auth', 'Login');
-      }
 			$product = $this->productModel->GetProduct($id, $_SESSION['token']->token);
       if($product == null) {
         RentItError('Product not found');
