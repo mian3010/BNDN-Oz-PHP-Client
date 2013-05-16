@@ -103,7 +103,7 @@ class Product_Controller_Default extends CommonController {
     $pm = $this->productModel;
     $productTypes = $pm->GetProductTypes();
     foreach ($productTypes as $productType) {
-      $products = array_slice($pm->GetProducts(null, $productType), 0,2);
+      $products = array_slice($pm->GetProducts(null, $productType), 0,4);
       $w->widgets[] = new Product_Widget_ViewType($productType, $products);
     }
     return $w;

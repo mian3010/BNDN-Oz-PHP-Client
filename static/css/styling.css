@@ -343,6 +343,9 @@ html[xmlns] .clearfix {
     display:inline-block;
 }
 .hasALittleBitOfPadding{ padding:3px; }
+.hasALotOfPadding{ padding:15px; margin: 15px; }
+.hasALotOfBorder{ border: 2px solid #fff; }
+.hasLargeTitle > h2{ font-size: 20px; }
 .left { float: left; }
 .right { float: right; }
 .wrapperTitle{ color: #CA4700; }
