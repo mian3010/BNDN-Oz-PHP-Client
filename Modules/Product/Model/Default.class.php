@@ -15,7 +15,7 @@ class Product_Model_Default extends CommonModel {
   		$data['search'] = $searchString;
   	}
   	if($types!=null) {
-  		$data['types'] = $types;
+  		$data['type'] = $types;
   	}
   	if($unpublished!=null) {
   		$data['unpublished'] = $unpublished;
