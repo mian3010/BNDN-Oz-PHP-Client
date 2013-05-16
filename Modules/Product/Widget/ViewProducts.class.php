@@ -6,7 +6,7 @@
 class Product_Widget_ViewProducts extends Widget_Container {
   public function __construct($products) {
     $this->SetTitle("Product list");
-    $this->AddOption("Search products", "Product/Search/");
+    $this->AddOption("Browse products", "Product/ViewTypes/");
     $pw = new Widget_Wrapper();
     foreach ($products as $product) {
       $pw->widgets[] = new Product_Widget_SmallViewProduct($product);
