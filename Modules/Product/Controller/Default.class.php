@@ -96,6 +96,8 @@ class Product_Controller_Default extends CommonController {
 
   public function ViewTypes() {
     $w = new Widget_Wrapper();
+    $w->SetTitle('Browse products');
+    $w->AddOption("View all products", "Product/ViewAll");
     $pm = $this->productModel;
     $productTypes = $pm->GetProductTypes();
     foreach ($productTypes as $productType) {

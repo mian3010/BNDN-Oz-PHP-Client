@@ -33,8 +33,10 @@ CSS;
     $this->AddCss($css);
     $this->wrapperTitle = $product->title;
 
+    $tw = new Widget_Link("Product/View/".$product->id);
     $t = new Product_Widget_ViewThumbnail($product->id);
     $t->classes[] = 'left';
+    $tw->widgets = array($t);
 
     $r = new Product_Widget_ViewRating($product);
     $r->classes[] = 'small-product-rating';
@@ -51,7 +53,7 @@ CSS;
     $w->classes[] = 'hasALittleBitOfPadding';
 
     $w->widgets[] = $r;
-    $w->widgets[] = $t;
+    $w->widgets[] = $tw;
     $w->widgets[] = $br;
     $w->widgets[] = $tx;
     $this->widgets[] = $w;
