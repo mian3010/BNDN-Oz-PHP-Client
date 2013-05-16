@@ -9,6 +9,7 @@ class Auth_Controller_Default extends CommonController {
 
   public function LogOut(){ //
     session_destroy();
+    session_start();
     RentItInfo('Goodbye - Come again!');
     RentItGoto();
   }
@@ -33,13 +34,13 @@ class Auth_Controller_Default extends CommonController {
       $user = $am->GetAccount($username, $_SESSION[token]->token);
       $_SESSION['type'] = $user->type;
 
+      RentItInfo('Welcome!');
       RentItGoto('Account', 'Dashboard');
     } catch (UnauthorizedException $e) {
       RentItError('Credentials supplied was wrong.');
     } catch (Exception $e) {
       RentItError('Server error. Please try again later.');
     }
-    RentItInfo('Welcome!');
     RentItGoto('Auth', 'Login');
   }
 }
