@@ -44,9 +44,11 @@ CSS;
     $tx = new Widget_Text(isset($product->description) ? $product->description : '');
     $tx->classes[] = 'small-product-text';
 
-    $pCont = new Purchase_Controller_Default();
-    $br = $pCont->BuyRent($product, $buy, $rent);
-    $br->classes[] = 'right';
+    if (strtolower($_SESSION['type']) == 'customer') {
+      $pCont = new Purchase_Controller_Default();
+      $br = $pCont->BuyRent($product, $buy, $rent);
+      $br->classes[] = 'right';
+    } else $br = new Widget_Wrapper();
 
     $w = new Widget_Wrapper();
     $w->classes[] = 'small-product-inner';

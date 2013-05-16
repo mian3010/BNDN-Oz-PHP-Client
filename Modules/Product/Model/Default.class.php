@@ -28,6 +28,27 @@ class Product_Model_Default extends CommonModel {
   	$this->ThrowExceptionIfError($code);
   	return $object;
   }
+  
+  public function GetProductsByContentProvider($username, $token, $searchString = null, $types = null, $unpublished = null, $info = 'detailed') {
+  	$ws = new WebService('accounts/'.$username.'/products', 'GET');
+  	$data = array();
+  	if($searchString!=null) {
+  		$data['search'] = $searchString;
+  	} else $data['search'] = '';
+  	if($types!=null) {
+  		$data['type'] = $types;
+  	} else $data['type'] = '';
+    $data['info'] = $info;
+  	if($unpublished!=null) {
+  		$data['unpublished'] = $unpublished;
+    } else $data['unpublished'] = 'false';
+  	if($token!=null) $ws->SetToken($token);
+  	$ws->SetData($data);
+  	$object = $ws->Execute();
+  	$code = $ws->GetHttpStatusCode();
+  	$this->ThrowExceptionIfError($code);
+  	return $object;
+  }
 
   /*
    * @param $id
