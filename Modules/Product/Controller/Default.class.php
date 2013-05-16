@@ -264,28 +264,7 @@ class Product_Controller_Default extends CommonController {
 		}
 		exit();
 	}
-	
-	/**
-	 * 
-	 * @param int $id
-	 * @return Product_Widget_ViewRating
-	 */
-	public function ViewRating($id) {
-		if(isset($_POST['rating'])) {
-			if(isset($_SESSION['token'])) {
-				try{
-					$this->productModel->UpdateRating($id, $_POST['rating'], $this->getToken());
-				} catch (Exception $e) {
-					
-				}
-			}
-		} else {
-			$product = $this->productModel->GetProduct($id, $this->getToken);
-			$rating = $product->rating;
-			return new Product_Widget_ViewRating($rating);
-		}
-	}
-	
+
 	/**
 	 * 
 	 * @return token|NULL
