@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget containing the row of a table
+ */
 class Widget_TableRow extends Widget_Container {
   
   private $cells = array();

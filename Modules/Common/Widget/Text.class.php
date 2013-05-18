@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget containing a number of paragraphs
+ */
 class Widget_Text extends Widget_Wrapper {
   private $text;
   public $limit;

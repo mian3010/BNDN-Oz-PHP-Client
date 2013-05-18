@@ -1,4 +1,7 @@
 <?php
+/**
+ *  Widget containing a wrapper that can be collapsed
+ */
 
 class Widget_Slider extends Widget_Wrapper {
   private $class; // Rotation class
@@ -12,30 +15,46 @@ class Widget_Slider extends Widget_Wrapper {
     $this->classes[] = 'inline';
   }
 
+  /**
+   * Slide it right
+   */
   public function SlideRight(){
     $this->class = 'right';
     $this->btnClass = 'rightBtn';
     $this->aniAtrb = 'width';
   }
 
+  /**
+   * Slide it left
+   */
   public function SlideLeft(){
     $this->class = 'left';
     $this->btnClass = 'leftBtn';
     $this->aniAtrb = 'width';
   }
 
+  /**
+   * Slide it up
+   */
   public function SlideUp(){
     $this->class = 'top';
     $this->btnClass = 'topBtn';
     $this->aniAtrb = 'height';
   }
 
+  /**
+   * Slide it down
+   */
   public function SlideDown(){
     $this->class = 'bottom';
     $this->btnClass = 'bottomBtn';
     $this->aniAtrb = 'height';
   }
 
+  /**
+   * Override base GetCss method to make sure that our css is set before getcss is called
+   * @return The css contained in parent class
+   */
   public function GetCss() {
     $css = <<<CSS
       .slider{
@@ -132,6 +151,10 @@ CSS;
     return parent::GetCss();
   }
 
+  /**
+   * Override base GetJs method to make sure that our js is set before getjs is called
+   * @return The js contained in parent class
+   */
   public function GetJs() {
     $js = <<<JAVASCRIPT
       $(window).load(function() {

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Containing a HTML5 audio tag.
+ */
 class Widget_Audio extends WidgetContainer {
 	private $source;
 	

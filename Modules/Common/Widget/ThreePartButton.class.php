@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * A widget containing a button in three parts
+ */
 class Widget_ThreePartButton extends Widget_Link {
   private $part1;
   private $part2;
@@ -12,6 +14,11 @@ class Widget_ThreePartButton extends Widget_Link {
     $this->part3 = $part3;
   }
 
+
+  /**
+   * Override base GetCss method to make sure that our css is set before the method is called
+   * @return The css contained in parent
+   */
   public function GetCss() {
     $css = <<<CSS
       .three-part-button div {

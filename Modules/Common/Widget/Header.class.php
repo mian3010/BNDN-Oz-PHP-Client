@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget for displaying the header. Must not be used without using the footer after
+ */
 class Widget_Header extends Widget {
 
   	public function __construct($css = array(), $cssFiles = array(), $js = array(), $jsFiles = array()) {
@@ -12,7 +14,6 @@ class Widget_Header extends Widget {
   	}
 
  	public function ToHtml() {
-  
     	$pageClass = $this->producePageClass();
     	
     	$notifications = new Widget_Notifications();
@@ -34,16 +35,8 @@ class Widget_Header extends Widget {
       foreach ($mouse->GetCss() as $css) $this->AddCss($css);
       foreach ($mouse->GetJs() as $js) $this->AddJs($js);
       $menuLinks .= $mouse->ToHtml();
-      //$wMouse->value = 'hejsa';
-      //$wMouse->widgets[] = $mouse;
-      //$menuLinks .= $wMouse->ToHtml();
-
-    	
-    	// Should be invisible if not logged in with a proper role
-    	// $menuLinks .= $this->produceLink('URL_HERE', 'My RentIt', 'MyRentIt', 1);
-    	// $menuLinks .= $this->produceLink('URL_HERE', 'Admin', 'Admin', 1);
-                    
-        $pageTitle = $this->GetTitle();
+      
+      $pageTitle = $this->GetTitle();
     	$pageLinks = $this->producePageLinks($this->GetOptions());
     	
     	$title = 'RentIt';
@@ -88,29 +81,30 @@ class Widget_Header extends Widget {
                     		</header>
                     		<section class="clearfix">';
 	}
-	
-	public function SetTitle($title){
-	
-		parent::SetTitle($title);
-	}
-	
-	public function AddOption($text, $url){
-	
-		parent::AddOption($text, $url);
-	}
-	
-	private function expandCssPath($path) {
-	
+
+  /**
+   * Get the path for a css file
+   * @param $path The file
+   * @return the full path
+   */
+  private function expandCssPath($path) {
 		return 'static/css/' . $path;
 	}
 	
+  /**
+   * Get the path for a js file
+   * @param $path The file
+   * @return the full path
+   */
 	private function expandJsPath($path) {
-	
 		return 'static/js/' . $path;
 	}
 	
+  /**
+   * Produce the page classes from module and method
+   * @return The string containing the classes
+   */
 	private function producePageClass() {
-	
 		if(!empty($_GET[0])) {
 		
 			$result = "page-" . $_GET[0] . '-';
@@ -120,9 +114,14 @@ class Widget_Header extends Widget {
 		}
 		else return 'page-default-default';
 	}
-	
+
+  /**
+   * Produce the css to put on page
+   * @param $css Array containing css from page
+   * @param $cssFile Array of files to include on page
+   * @return string containing all styles and includes
+   */
 	private function produceCss($css, $cssFiles) {
-	
 		$result = '';
 		
 		foreach($cssFiles as $path) $result .= '<link rel="stylesheet" type="text/css" href="'. $this->expandCssPath($path) . '" />';
@@ -130,7 +129,13 @@ class Widget_Header extends Widget {
 		
 		return $result;
 	}
-	
+
+  /**
+   * Produce the js to put on page
+   * @param $js Array containing the js from page
+   * @param @$jsFiles Array containing the files to include on page
+   * @return string containing all js and includes
+   */
 	private function produceJs($js, $jsFiles) {
 	
     $result = '';
@@ -140,7 +145,15 @@ class Widget_Header extends Widget {
 		
 		return $result;
 	}
-	
+
+  /**
+   * Produce a link from path, text, title and tabindex
+   * @param $url The path of the link
+   * @param $text The text the link should contain
+   * @param $title The title of the link
+   * @param $tab The tabindex
+   * @return html link
+   */
 	private function produceLink($url, $text = null, $title = null, $tab = null) {
 	
 		$url = UriController::GetBasePath(true) . $url;
@@ -150,7 +163,12 @@ class Widget_Header extends Widget {
 	
 		return '<a title="' . $title . '" href="' . $url . '" ' . ($tab !== null ? 'tabindex="' . $tab .'"' : '') . '>' . $text . '</a>';
 	}
-	
+
+  /**
+   * Produce the page links to put on page
+   * @param $options Array of links
+   * @return HTML for the links
+   */
 	private function producePageLinks($options) {
 	
 		if(count($options) == 0) return '';

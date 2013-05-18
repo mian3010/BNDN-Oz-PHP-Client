@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget for displaying a checkbox
+ */
 class Widget_CheckBox extends Widget {
 
   public function __construct($checked = FALSE){

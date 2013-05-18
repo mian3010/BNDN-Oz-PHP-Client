@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * Widget containing a label with text
+ */
 class Widget_Label extends Widget {
   private $text;
 

@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * Widget for displaying a clickeditfield. This is a field that can be edited when clicked
+ */
 class Widget_ClickEditField extends Widget_Wrapper {
   private $handler = '';
   private $readonly;
@@ -11,6 +13,10 @@ class Widget_ClickEditField extends Widget_Wrapper {
     $this->readonly = $readonly;
   }
 
+  /**
+   * Override the base class GetJs to make sure that we have set our JS when it is getted
+   * @return The js contained in parent
+   */
   public function GetJs() {
     $js = <<<JAVASCRIPT
       $(window).load(function() {
@@ -35,6 +41,10 @@ JAVASCRIPT;
     return parent::GetJs();
   }
 
+  /**
+   * Override the base class GetCss to make sure that we have set our CSS when it is getted
+   * @return The css contained in parent
+   */
   public function GetCss() {
     $css = <<<CSS
       .click-edit-field.empty .field-value {

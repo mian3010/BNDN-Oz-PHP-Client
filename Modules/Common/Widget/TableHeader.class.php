@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget containing the header of a table
+ */
 class Widget_TableHeader extends Widget_Container {
   
   private $head = null;

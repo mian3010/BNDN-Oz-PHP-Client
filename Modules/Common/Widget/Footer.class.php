@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget for displaying the footer. Must not be used without using the header as well
+ */
 class Widget_Footer extends Widget {
 
   public function __construct() {

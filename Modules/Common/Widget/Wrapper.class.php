@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget containing a wrapper and elements in it
+ */
 class Widget_Wrapper extends WidgetContainer {
   public $wrapperTitle;
 

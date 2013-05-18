@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget for showing a dropdown box with autocomplete. Not implemented yet. Also not needed yet
+ */
 class Widget_DropdownAutocomplete extends Widget_Wrapper {
 
   private $options = array();

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget for displaying a date
+ */
 class Widget_Date extends Widget {
   private $date;
   private $format;

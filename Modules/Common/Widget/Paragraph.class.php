@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget containing a paragraph of text
+ */
 class Widget_Paragraph extends Widget_Wrapper {
   private $text;
   public function __construct($text) {

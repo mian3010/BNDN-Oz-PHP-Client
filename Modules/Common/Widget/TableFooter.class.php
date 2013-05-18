@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget containing the footer of a table
+ */
 class Widget_TableFooter extends Widget_Container {
     
   private $foot = null;

@@ -1,15 +1,24 @@
 <?php
-
+/**
+ * Widget for displaying a clickbox. This is a box that is hidden until clicked
+ */
 class Widget_ClickBox extends Widget_Wrapper {
   public $border;
   public $text;
 
+  /**
+   * Constructor. Takes the text to display in link, and sets some standard values
+   */
   public function __construct($text) {
     $this->text = $text;
     $this->border = '1px solid black';
     $this->classes[] = 'clickBoxWrapper';
   }
 
+  /**
+   * Override the base class GetCss to make sure that we have set our CSS when it is getted
+   * @return The css contained in parent
+   */
   public function GetCss() {
     $css = <<<CSS
     .clickBoxWrapper{
@@ -39,6 +48,10 @@ CSS;
     return parent::GetCss();
   }
 
+  /**
+   * Override the bae class GetJs to make sure that we have set our JS when it is getted
+   * @return The js contained in parent
+   */
   public function GetJs() {
     $js = <<<JAVASCRIPT
     $(window).load(function() {

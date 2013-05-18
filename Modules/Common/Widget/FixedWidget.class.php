@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget for displaying a wrapper fixed on the page
+ */
 class Widget_FixedWidget extends Widget_Wrapper {
   private $top;
   private $left;

@@ -51,8 +51,6 @@ class Widget_Image extends Widget {
 
   private function createTransparent($x, $y) { 
     $imageOut = imagecreatetruecolor($x, $y);
-/*    $colourBlack = imagecolorallocate($imageOut, 0, 0, 0);
-imagecolortransparent($imageOut, $colourBlack);*/
     return $imageOut;
   }
 
@@ -112,14 +110,21 @@ imagecolortransparent($imageOut, $colourBlack);*/
     return "cache/{$name}_{$this->width}x{$this->height}.".$this->ext;
   }
 
+  /**
+   * Checks whether or not the file already exists i.e. has been resized
+   * @return bool
+   */
   private function fileExists() {
     return file_exists($_SERVER["DOCUMENT_ROOT"].$this->getResFilename());
   }
 
   public function ToHtml() {
+    //If file does not exist, try resizing it
     if (!$this->fileExists()) {
       $this->findImgSize();
+      //If something went wrong in getting image info, try alternative
       if ($this->imgWidth == NULL) {
+        //Replace source and call the methods again
         $this->imgSrc = $this->altSrc;
         if (!$this->fileExists()) {
           $this->findImgSize();

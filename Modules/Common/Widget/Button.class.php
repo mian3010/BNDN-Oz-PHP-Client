@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget for displaying a button
+ */
 class Widget_Button extends Widget_InputField {
   private $text;
 

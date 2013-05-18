@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget containing a link with possibility to disable it
+ */
 class Widget_Link extends WidgetContainer {
   public function __construct($href) {
     $this->href = $href;

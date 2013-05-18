@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget containing the navigation options to put on page
+ */
 class Common_Widget_NavigationOption extends Widget {
 
   private $options;

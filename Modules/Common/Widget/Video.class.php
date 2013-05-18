@@ -1,4 +1,7 @@
 <?php
+/**
+ * Widget containing the HTML5 video
+ */
 class Widget_Video extends WidgetContainer {
 	private $source;
 	

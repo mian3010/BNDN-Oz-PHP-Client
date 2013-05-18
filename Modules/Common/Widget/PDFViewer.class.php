@@ -1,4 +1,7 @@
 <?php
+/**
+ * Widget containing a PDF
+ */
 class Widget_PDFViewer extends WidgetContainer {
 	private $source;
 	

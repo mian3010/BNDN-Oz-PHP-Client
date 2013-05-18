@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * A widget containing some text with no wrapper
+ */
 class Widget_TextSimple extends Widget {
   private $text;
 

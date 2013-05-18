@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget containing a single table cell
+ */
 class Widget_TableCell extends Widget_Container {
   
   private $content = null;

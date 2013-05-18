@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget containing the notifications in the top of page
+ */
 class Widget_Notifications extends Widget {
 
   	public function __construct() {
