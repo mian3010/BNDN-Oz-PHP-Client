@@ -7,6 +7,6 @@ class Widget_Video extends WidgetContainer {
 	}
 	
 	public function ToHtml() {
-		return '<video controls><source src='.$this->source.'></video>';
+		return '<video controls ' . $this->GetAttributes() . '><source src='.$this->source.'></video>';
 	}
 }

@@ -1,55 +1,45 @@
 <?php
 
-class Purchase_Widget_ViewPurchases extends Widget_Container {
-    private $purchases = null;
-    
+class Purchase_Widget_ViewPurchases extends Widget_Table {
   public function __construct($purchases) {
-    //print_r($purchases);
-    $this->purchases = $purchases;
-    $this->SetTitle("Purchases");
-  }
-  
-  public function ToHtml() {
-    $t = new Widget_Table();
-    $t->classes[] = 'greatTable';
-    
-    // Make header;
-    $hr = new Widget_TableRow();
-    $hr->AutoCreateMultiCells("Purchase ID,PDate,ExpDate,Price,Type");
-    
-    $head = new Widget_TableHeader();
-    $head->AddRow($hr);
-    $t->AddHeader($head);
-    
-    // content
-    if($this->purchases != null) {
-      foreach ($this->purchases as $p) {
-        $t->AddRow($this->createRowFromPurchase($p));
-      }
-    }
-    
-    return $t->ToHtml();
-  }
-  
-  public function GetCss() {
     $css = <<<CSS
       .greatTable{
         border-collapse: separate; 
         border-spacing: 15px;
         border-style:solid;
-        border-width: 15px;
-        border-radius: 20px;
+        border-width: 2px;
+        width: 100%;
+      }
+      .greatTable thead {
+        outline: 1px solid #fff;
       }
 CSS;
     $this->AddCss($css);
-    return parent::GetCss();
+    $this->SetTitle("Purchases");
+    $this->classes[] = 'greatTable';
+    
+    // Make header;
+    $hr = new Widget_TableRow();
+    $hr->AutoCreateMultiCells("Purchase ID,Purchase date,Expire date,Price,Type");
+    
+    $head = new Widget_TableHeader();
+    $head->AddRow($hr);
+    $this->AddHeader($head);
+    
+    // content
+    if($purchases != null) {
+      foreach ($purchases as $p) {
+        $this->AddRow($this->createRowFromPurchase($p));
+      }
+    }
+        border-radius: 20px;
   }
-  
+    
   private function createRowFromPurchase($purchase) {
     $r = new Widget_TableRow();
     $r->AutoCreateCell($purchase->id);
     $r->AutoCreateCell($purchase->purchased);
-    $r->AutoCreateCell($purchase->expires);
+    $r->AutoCreateCell(isset($purchase->expires) ? $purchase->expires : "Never");
     $r->AutoCreateCell($purchase->paid);
     $r->AutoCreateCell($purchase->type);
     return $r;

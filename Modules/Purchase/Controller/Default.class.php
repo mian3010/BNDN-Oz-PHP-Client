@@ -9,7 +9,7 @@ class Purchase_Controller_Default extends CommonController {
   /*
    * Get a list of Purchases?
    */
-  public function GetPurchases($buyrent = "BR", $info = 'more') {
+  public function View($buyrent = "BR", $info = 'more') {
     $p = $this->purchaseModel->GetPurchases($_SESSION['username'], $_SESSION['token']->token, $buyrent, $info);    
     return new Purchase_Widget_ViewPurchases($p);
   }

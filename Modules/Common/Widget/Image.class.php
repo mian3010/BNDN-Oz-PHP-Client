@@ -6,6 +6,7 @@ class Widget_Image extends Widget {
   private $imgWidth;
   private $imgSrc;
   private $gdImg;
+  private $altSrc;
   public function __construct($src, $altSrc = null) {
     $this->imgSrc = $src;
     $this->altSrc = $altSrc;
@@ -28,20 +29,31 @@ class Widget_Image extends Widget {
     //Get the dimensions of the temp image
     list($rw, $rh) = $this->getImgSize();
     //Scale the image according to temp dimensions
-    $gdResTmp = imagecreatetruecolor($rw, $rh);
+    $gdResTmp = $this->createTransparent($rw, $rh);
+    imagealphablending($gdResTmp, false);
     imagecopyresampled($gdResTmp,$gdImg, 0, 0, 0, 0, $rw, $rh, $this->imgWidth, $this->imgHeight);
+    imagesavealpha($gdResTmp, true);
     //Set start position for copying image over
     $x0 = ($rw - $this->width) / 2;
     $y0 = ($rh - $this->height) / 2;
     //Copy image to end result
-    $gdRes = imagecreatetruecolor($this->width, $this->height);
+    $gdRes = $this->createTransparent($this->width, $this->height);
+    imagealphablending($gdRes, false);
     imagecopy($gdRes, $gdResTmp, 0, 0, $x0, $y0, $this->width, $this->height);
+    imagesavealpha($gdRes, true);
     //Save the image
     $this->saveImg($gdRes);
     //Cleanup
     imagedestroy($gdImg);
     imagedestroy($gdResTmp);
     imagedestroy($gdRes);
+  }
+
+  private function createTransparent($x, $y) { 
+    $imageOut = imagecreatetruecolor($x, $y);
+/*    $colourBlack = imagecolorallocate($imageOut, 0, 0, 0);
+imagecolortransparent($imageOut, $colourBlack);*/
+    return $imageOut;
   }
 
   /**
@@ -66,9 +78,9 @@ class Widget_Image extends Widget {
       case IMAGETYPE_GIF:
         return imagegif($gdImg, $this->getResFilename());
       case IMAGETYPE_JPEG:
-        return imagejpeg($gdImg, $this->getResFilename(), 90);
+        return imagejpeg($gdImg, $this->getResFilename(), 100);
       case IMAGETYPE_PNG:
-        return imagepng($gdImg, $this->getResFilename(), 9);
+        return imagepng($gdImg, $this->getResFilename(), 0);
     }
   }
 

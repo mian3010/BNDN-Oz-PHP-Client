@@ -19,7 +19,9 @@ class Widget_Header extends Widget {
     	$notificationsHtml = $notifications->ToHtml();
     
     	$menuLinks = '';
-    	$menuLinks .= $this->produceLink('Product/Browse', 'Browse', 'Browse', 1);
+    	$menuLinks .= $this->produceLink('Account/Dashboard', 'Dashboard', 'Dashboard', 1);
+    	$menuLinks .= $this->produceLink('Product/ViewTypes', 'Browse products', 'Browse products', 1);
+    	$menuLinks .= $this->produceLink('Account/ViewAll', 'View accounts', 'View accounts', 1);
 
       $ac = new Auth_Controller_Default();
       $login = $ac->Login();

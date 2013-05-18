@@ -41,14 +41,13 @@ abstract class Widget {
       $tmp = explode('_', get_class($this));
   		$shortName = array_pop($tmp);
   		
-  		$this->id = uniqid($shortName . '_');
+      $this->id = uniqid($shortName . '_');
   	}
   
     return @$this->atrbs[$k];
   }
 
   protected function GetAttributes(){
-    $this->atrbs['id'] = $this->id;
     $this->atrbs['class'] = $this->GetClasses();
     ksort($this->atrbs);
     $atrb = '';
@@ -98,7 +97,7 @@ abstract class Widget {
     return $this->cssFiles;
   }
   
-  protected function AddOption($text, $url) {
+  public function AddOption($text, $url) {
   
   	$this->options[$text] = $url;
   }
@@ -108,7 +107,7 @@ abstract class Widget {
   	return $this->options;
   }
   
-  protected function SetTitle($title) {
+  public function SetTitle($title) {
   
   	$this->title = $title;
   }

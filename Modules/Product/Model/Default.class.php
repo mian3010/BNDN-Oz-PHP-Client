@@ -8,21 +8,40 @@ class Product_Model_Default extends CommonModel {
    * @param $info Level of detail
    * @return Array of Products
    */
-  public function GetProducts($searchString, $types, $unpublished, $info, $token = null) {
+  public function GetProducts($token, $searchString = null, $types = null, $unpublished = null, $info = 'detailed') {
   	$ws = new WebService('products', 'GET');
   	$data = array();
   	if($searchString!=null) {
   		$data['search'] = $searchString;
   	}
   	if($types!=null) {
-  		$data['types'] = $types;
+  		$data['type'] = $types;
   	}
   	if($unpublished!=null) {
   		$data['unpublished'] = $unpublished;
-  	}
-  	if($info!=null) {
-  		$data['info'] = $info;
-  	}
+    }
+    $data['info'] = $info;
+  	if($token!=null) $ws->SetToken($token);
+  	$ws->SetData($data);
+  	$object = $ws->Execute();
+  	$code = $ws->GetHttpStatusCode();
+  	$this->ThrowExceptionIfError($code);
+  	return $object;
+  }
+  
+  public function GetProductsByContentProvider($username, $token, $searchString = null, $types = null, $unpublished = null, $info = 'detailed') {
+  	$ws = new WebService('accounts/'.$username.'/products', 'GET');
+  	$data = array();
+  	if($searchString!=null) {
+  		$data['search'] = $searchString;
+  	} else $data['search'] = '';
+  	if($types!=null) {
+  		$data['type'] = $types;
+  	} else $data['type'] = '';
+    $data['info'] = $info;
+  	if($unpublished!=null) {
+  		$data['unpublished'] = $unpublished;
+    } else $data['unpublished'] = 'false';
   	if($token!=null) $ws->SetToken($token);
   	$ws->SetData($data);
   	$object = $ws->Execute();
@@ -54,8 +73,7 @@ class Product_Model_Default extends CommonModel {
    * @return array of strings
    */
   public function GetProductTypes() {
-    $ws = new WebService('/product/types', 'GET');
-    $ws->SetToken($token);
+    $ws = new WebService('/products/types', 'GET');
     $object = $ws->Execute();
     $code = $ws->GetHttpStatusCode();
     $this->ThrowExceptionIfError($code);
@@ -72,9 +90,10 @@ class Product_Model_Default extends CommonModel {
     $ws = new WebService('accounts/'.$provider.'/products', 'POST');
     $ws->SetToken($token);
     $ws->SetData($product);
-    $ws->Execute();
+    $data = $ws->Execute();
     $code = $ws->GetHttpStatusCode();
     $this->ThrowExceptionIfError($code);
+    return $data;
   }
 
   /*
@@ -83,7 +102,7 @@ class Product_Model_Default extends CommonModel {
    * @param string $token
    */
   public function UpdateProduct($product, $token) {
-    $ws = new WebSerice('products/'.$product->id, 'PUT');
+    $ws = new WebService('products/'.$product['id'], 'PUT');
     $ws->SetToken($token);
     $ws->SetData($product);
     $ws->Execute();
@@ -160,9 +179,11 @@ class Product_Model_Default extends CommonModel {
    * @param string $token
    */
   public function UpdateRating($id, $rating, $token) {
-    $ws = new WebService('PUT','products/'.$id.'/rating', 'GET');
+    $ws = new WebService('products/'.$id.'/rating', 'PUT');
     $ws->SetToken($token);
-    $ws->SetData($rating);
+    $ratingD = new StdClass();
+    $ratingD->rating = $rating;
+    $ws->SetData($ratingD);
     $ws->Execute();
     $code = $ws->GetHttpStatusCode();
     $this->ThrowExceptionIfError($code);
@@ -178,10 +199,9 @@ class Product_Model_Default extends CommonModel {
    * @return string mime
    */
   private function setMime($file) {
-  	$mime;
   	$finfo = finfo_open(FILEINFO_MIME_TYPE);
   	$mime = finfo_file($finfo, $file);
-  	$finfo_close($finfo);
+  	$finfo->close($finfo);
   	return $mime;
   }
 }
