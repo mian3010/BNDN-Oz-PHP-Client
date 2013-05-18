@@ -23,6 +23,9 @@ class Account_Controller_Default extends CommonController {
     } catch (UnauthorizedException $e) {
       RentItError('Please authenticate');
       RentItGoto("Auth", "Login");
+    } catch (ForbiddenException $e) {
+      RentItInfo("You do not have permission to view this account");
+      RentItGoto(); 
     } catch (Exception $e){
       RentItError('Server error');
       RentItGoto();
