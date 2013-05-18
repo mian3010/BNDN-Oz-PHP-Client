@@ -1,23 +1,22 @@
 <?php
 	
 /**
- * 
- * 
- *
+ * Class for parsing json. Simple right now, but could be extended
  */
 class JsonParser {
 
 	/**
-	 * 
-	 * @param $data
+	 * Parse object to json
+	 * @param $object The object to parse
 	 */
 	public static function ToJson($object) {
 		return json_encode($object);
 	}
 	
 	/**
-	 * 
-	 * @param $stream
+	 * Parse json to object
+   * @param $stream The json stream to parse
+   * @return Object
 	 */
 	public static function FromJson($stream) {
 		return json_decode($stream);

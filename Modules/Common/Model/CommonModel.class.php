@@ -1,9 +1,20 @@
 <?php
-
+/**
+ * Base class for all models
+ * Containing functionality for throwing exceptions if errors occur from webservice layer
+ * With possibility to override which exception is thrown at which status code
+ */
 abstract class CommonModel {
 	protected $httpStatusCodeToException;
 	private static $models = array();
-	
+
+  /**
+   * Static method for instantiating a model. Singleton pattern,
+   * as only one instance of each model can be created
+   * @param $module The module the model is in
+   * @param $specific The specific model.
+   * @return The model object
+   */
 	public static function GetModel($module, $specific = 'Default') {
 		if (!isset(self::$models[$module])) {
 			$model = $module.'_Model_'.$specific;
@@ -11,7 +22,10 @@ abstract class CommonModel {
 		}
 		return self::$models[$module][$specific];
 	}
-	
+
+  /**
+   * Constructor. Fill out map deciding exception to throw on each status code
+   */
 	private function __construct() {
 		$this->httpStatusCodeToException = array(
 			400 => new BadRequestException(),
@@ -42,17 +56,18 @@ abstract class CommonModel {
 	
 	/**
 	 * Sets a status code to an exception in the httpStatusCodeToExceptionMap.
-	 * @param int $key
-	 * @param exception $value
+	 * @param $key The status code
+   * @param $exception The new exception to throw instead
+   * @return null
 	 */
 	protected function OverrideStatusCodeToExceptionMap($key, $exception) {
 		$this->httpStatusCodeToException[$key] = $exception;	
 	}
 	
 	/**
-	 * 
-	 * @param int $code
-	 * @throws Exception if error code recieved from server.
+	 * Throw an exception if the code should throw one
+	 * @param $code The status code to check
+	 * @return null
 	 */
 	protected function ThrowExceptionIfError($code) {
 		if(array_key_exists($code, $this->httpStatusCodeToException)) throw $this->httpStatusCodeToException[$code];
