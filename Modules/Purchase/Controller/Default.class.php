@@ -7,7 +7,8 @@ class Purchase_Controller_Default extends CommonController {
 	}
 	
   /*
-   * Get a list of Purchases?
+   * View all purchases by you
+   * @return Purchase_Widget_ViewPurchases
    */
   public function View($buyrent = "BR", $info = 'more') {
     $p = $this->purchaseModel->GetPurchases($_SESSION['username'], $_SESSION['token']->token, $buyrent, $info);    
@@ -33,9 +34,17 @@ class Purchase_Controller_Default extends CommonController {
     return Purchase_Widget_ViewPurchase();
   }
 
+  /**
+   * BuyRent widget. If either of buy or rent is specified, this assumes that both are entered.
+   * @param $product The product to render buyrent for
+   * @param $buy Optional buy to send, to avoid calling webservice multiple times
+   * @param $rent Optional rent to send, to avoid calling webservice multiple times
+   * @return Widget_Wrapper
+   */
   public function BuyRent($product, $buy = null, $rent = null) {
     $container = new Widget_Wrapper();
     if (!isset($_SESSION['token'])) return $container;
+    //Add styling
     $container->classes[] = 'buy-rent';
     $css = <<<CSS
       .buy-rent {
@@ -50,6 +59,7 @@ CSS;
     $container->AddCss($css);
     $pm = $this->purchaseModel;
 
+    //Whether or not to load from web service
     $doLoad = $buy == null && $rent == null;
 
     if ($doLoad && $product->price->buy == 0) $buy = false;
