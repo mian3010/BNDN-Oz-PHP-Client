@@ -2,24 +2,28 @@
 
 class Account_Controller_Default extends CommonController {
 
+  /**
+   * Constructor. Instantiates the model needed
+   */
   public function __construct(){
     $this->accountModel = CommonModel::GetModel("Account");
   }
 
+  /**
+   * View a single account
+   * @param $username The username of the account to view
+   * @return Account_Widget_ViewAccount
+   */
   public function View($username){
     try {
-      if(isset($_SESSION['token'])){
-        $user = $this->accountModel->GetAccount($username, $_SESSION['token']->token);
-        $edit = FALSE;
-        if(isset($_SESSION['username']) && strtolower($_SESSION['username']) == strtolower($username))
-          $edit = TRUE;
-        else if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'admin')
-          $edit = TRUE;
-        return new Account_Widget_ViewAccount($username, $user, $edit);
-      } else {
-        RentItError('Please authenticate');
-        RentItGoto("Auth", "Login");
-      }
+      if(!isset($_SESSION['token'])) throw new UnauthorizedException();
+      $user = $this->accountModel->GetAccount($username, $_SESSION['token']->token);
+      $edit = FALSE;
+      if(isset($_SESSION['username']) && strtolower($_SESSION['username']) == strtolower($username))
+        $edit = TRUE;
+      else if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'admin')
+        $edit = TRUE;
+      return new Account_Widget_ViewAccount($username, $user, $edit);
     } catch (UnauthorizedException $e) {
       RentItError('Please authenticate');
       RentItGoto("Auth", "Login");
@@ -32,6 +36,10 @@ class Account_Controller_Default extends CommonController {
     }
   }
 
+  /**
+   * Create an account
+   * @return Account_Widget_CreateAccount
+   */
   public function Create(){
     try {
       $admin = FALSE;
@@ -48,19 +56,21 @@ class Account_Controller_Default extends CommonController {
     }
   }
 
+  /**
+   * View all accounts
+   * @param $types The types to include. String containing values A/P/C
+   * @param $incBanned Whether or not to include banned accounts
+   * @return 
+   */
   public function ViewAll($types = 'PC', $incBanned = FALSE){ //TODO
     try {
-      if(isset($_SESSION['token']) && isset($_SESSION['username'])){
-        if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'admin'){
-          $types = str_ireplace('a', '', $types);
-          $incBanned = FALSE;
-        }
-        $accounts = $this->accountModel->GetAccounts($types, $incBanned, 'more', $_SESSION['token']->token);
-        return new Account_Widget_ViewAccounts($accounts);
-      } else {
-        RentItError('Please authenticate');
-        RentItGoto("Auth", "Login");
+      if (!isset($_SESSION['token']) || !isset($_SESSION['username'])) throw new UnauthorizedException();
+      if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'admin'){
+        $types = str_ireplace('a', '', $types);
+        $incBanned = FALSE;
       }
+      $accounts = $this->accountModel->GetAccounts($types, $incBanned, 'more', $_SESSION['token']->token);
+      return new Account_Widget_ViewAccounts($accounts);
     } catch (UnauthorizedException $e) {
       RentItError('Please authenticate');
       RentItGoto("Auth", "Login");
@@ -70,6 +80,11 @@ class Account_Controller_Default extends CommonController {
     }
   }
 
+  /**
+   * Save changes made to an account
+   * @return $username The username to update
+   * @return null
+   */
   public function SaveAccountChanges($username){
     // Build info array
     $info = array();
@@ -79,12 +94,8 @@ class Account_Controller_Default extends CommonController {
     }
 
     try{
-      if(isset($_SESSION['token']))
-        $this->accountModel->UpdateAccount($username, $info, $_SESSION['token']->token);
-      else{
-        RentItError('Please authenticate');
-        RentItGoto("Auth", "Login");
-      }
+      if(!isset($_SESSION['token'])) throw new UnauthorizedException();
+      $this->accountModel->UpdateAccount($username, $info, $_SESSION['token']->token);
     } catch (UnauthorizedException $e){
       RentItError('Please authenticate');
       RentItGoto("Auth", "Login");
@@ -96,6 +107,10 @@ class Account_Controller_Default extends CommonController {
     RentItGoto('Account', 'View/' . $username);
   }
 
+  /**
+   * Save a new account
+   * @return null
+   */
   public function SaveNewAccount(){
     $error = FALSE;
     if(!isset($_POST['username'])){
@@ -130,6 +145,10 @@ class Account_Controller_Default extends CommonController {
     RentItGoto('Account', 'View/' . $info['username']);
   }
 
+  /**
+   * View a users dashboard. Has two states. One for customers and one for content providers
+   * @return Account_Widget_AccountDashboard or Account_Widget_ContentProviderDasboard
+   */
   public function Dashboard(){
     if(isset($_SESSION['token']) && isset($_SESSION['username']) && isset($_SESSION['type'])){
       $pum = CommonModel::GetModel("Purchase");
@@ -170,11 +189,13 @@ class Account_Controller_Default extends CommonController {
         $published = array();
         $unpublished = array();
         foreach ($products as $product) {
+          //If product is published put it in published array
           if ($product->published == true) $published[] = $product;
           else $unpublished[] = $product;
         }
         return new Account_Widget_ContentProviderDashboard($published, $unpublished);
       } else {
+        //User are admin
         return new Widget_Label('Welcome '.$_SESSION['type']);
       }
     } else {
