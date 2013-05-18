@@ -1,19 +1,33 @@
 <?php
 
 class Auth_Controller_Default extends CommonController {
+  /**
+   * View for loggin in a user/showing info when logged in
+   * @return Auth_Widget_LoggedIn or Auth_Widget_Login
+   */
   public function Login() {
     if(isset($_SESSION['token']) && (isset($_SESSION['username'])))
       return new Auth_Widget_Loggedin($_SESSION['username']);
     return new Auth_Widget_Login();
   }
 
-  public function LogOut(){ //
+  /**
+   * Logs a user out
+   * @return null
+   */
+  public function LogOut(){ 
+    //Destroy session data
     session_destroy();
+    //Create a new one, so that we might display message to user
     session_start();
     RentItInfo('Goodbye - Come again!');
     RentItGoto();
   }
 
+  /**
+   * Authenticate a user against webservices
+   * @return null
+   */
   public function Authenticate() {
     if (!isset($_POST['login-username']) ||
         !isset($_POST['login-password']) ||
