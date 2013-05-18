@@ -1,7 +1,10 @@
 <?php
-
+/**
+ * Widget for viewing a list of purchases
+ */
 class Purchase_Widget_ViewPurchases extends Widget_Table {
   public function __construct($purchases) {
+    //Styling
     $css = <<<CSS
       .greatTable{
         border-collapse: separate; 
@@ -34,7 +37,11 @@ CSS;
     }
         border-radius: 20px;
   }
-    
+  /**
+   * Create a table row from a purchase
+   * @param $purchase The purchase
+   * @return Widget_TableRow
+   */
   private function createRowFromPurchase($purchase) {
     $r = new Widget_TableRow();
     $r->AutoCreateCell($purchase->id);
