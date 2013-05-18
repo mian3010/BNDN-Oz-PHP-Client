@@ -2,9 +2,6 @@
 
 class Auth_Widget_Loggedin extends Widget_Wrapper {
   public function __construct($username) {
-    // Title = username
-    //$this->wrapperTitle = $username;
-
     // Wrapper
     $wrap = new Widget_Wrapper();
     $wrap->classes[] = 'hasALittleBitOfPadding';
