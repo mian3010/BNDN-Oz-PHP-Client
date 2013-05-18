@@ -1,10 +1,11 @@
 <?php
 
 /*
- * Get a small Widget of Product for showing in a list
+ * Widget for small product view. f.ex for showing in a list
  */
 class Account_Widget_SmallViewAccount extends Widget_Wrapper {
   public function __construct($account) {
+    //Setup styling
     $this->classes[] = 'clearfix';
     $this->classes[] = 'small-account';
     $this->classes[] = 'hasLargeTitle';
@@ -28,21 +29,25 @@ CSS;
     $this->AddCss($css);
     $this->wrapperTitle = $account->user;
 
+    //Thumbnail with link
     $tw = new Widget_Link("Account/View/".$account->user);
     $t = new Account_Widget_ViewThumbnail($account->user);
     $t->classes[] = 'left';
     $tw->widgets = array($t);
 
+    //Text
     $tx = new Widget_Wrapper();
     $tx1 = new Widget_Paragraph("Email: ".(isset($account->email) ? $account->email : ''));
     $tx2 = new Widget_Paragraph("Type: ".(isset($account->type) ? $account->type : ''));
     $tx->widgets = array($tx1, $tx2);
     $tx->classes[] = 'small-account-text';
 
+    //Wrapper styling
     $w = new Widget_Wrapper();
     $w->classes[] = 'small-account-inner';
     $w->classes[] = 'hasALittleBitOfPadding';
 
+    //Add everything
     $w->widgets[] = $tw;
     $w->widgets[] = $tx;
     $this->widgets[] = $w;

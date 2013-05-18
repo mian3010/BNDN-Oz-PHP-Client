@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Widget for editing a specific account by username
+ * Widget for creating an account
  */
 class Account_Widget_CreateAccount extends Widget_Form {
   public function __construct($admin = FALSE) {

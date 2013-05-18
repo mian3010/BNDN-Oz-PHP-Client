@@ -4,14 +4,15 @@
  */
 class Account_Widget_ViewAccount extends Widget_Form {
   public function __construct($username, $user, $editable = FALSE) {
+    //Setup styling
     $this->classes[] = "clearfix";
     $this->AddCss(
       '#' . $this->id . '{ width:100%; position: relative; }
       .editField{ width:150px; }
       ');
 
+    //Setup basic configuration
     $this->SetTitle($username);
-    /// Options
     $this->AddOption('Dashboard', 'Account/Dashboard');
 
     if($editable){
@@ -132,14 +133,11 @@ class Account_Widget_ViewAccount extends Widget_Form {
     $cCd->widgets += array($lCd, $fCd);
     $rightWrapper->widgets[] = $cCd;
 
-    //$this->widgets[] = $rightWrapper;
-
     /// Middle element
     /// About me
     $cAbout = new Widget_Wrapper();
     $fAbout = new Widget_ClickEditField(isset($user->about) ? $user->about : '', !$editable);
     $fAbout->name = 'about';
-    //$fAbout->AddCss('#' . $fAbout->id . '{ border:dashed 1px black; }');
     $cAbout->wrapperTitle = 'About me';
     $cAbout->classes[] = 'hasALittleBitOfPadding';
     $cAbout->widgets[] = $fAbout;
