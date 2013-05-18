@@ -38,6 +38,7 @@ class Purchase_Widget_ViewPurchases extends Widget_Container {
         border-spacing: 15px;
         border-style:solid;
         border-width: 15px;
+        border-radius: 20px;
       }
 CSS;
     $this->AddCss($css);
