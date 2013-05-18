@@ -32,6 +32,7 @@ CSS;
         $this->AddRow($this->createRowFromPurchase($p));
       }
     }
+        border-radius: 20px;
   }
     
   private function createRowFromPurchase($purchase) {
