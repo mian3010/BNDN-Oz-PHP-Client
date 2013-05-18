@@ -8,6 +8,7 @@ class Purchase_Widget_ViewPurchases extends Widget_Table {
         border-spacing: 15px;
         border-style:solid;
         border-width: 2px;
+        border-radius: 20px;
         width: 100%;
       }
       .greatTable thead {
@@ -32,7 +33,6 @@ CSS;
         $this->AddRow($this->createRowFromPurchase($p));
       }
     }
-        border-radius: 20px;
   }
     
   private function createRowFromPurchase($purchase) {
