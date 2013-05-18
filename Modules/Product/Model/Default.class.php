@@ -2,7 +2,8 @@
 class Product_Model_Default extends CommonModel {
 	
   /*
-   * @param $searchString
+   * Get products
+   * @param $searchString The string to search by
    * @param $types Array of product types
    * @param $unpublished Boolean include unpublished
    * @param $info Level of detail
@@ -28,7 +29,16 @@ class Product_Model_Default extends CommonModel {
   	$this->ThrowExceptionIfError($code);
   	return $object;
   }
-  
+
+  /**
+   * Get products by a specific content provider
+   * @param $username The username of the content provider
+   * @param $searchString The string to search by
+   * @param $types Array of product types
+   * @param $unpublished Boolean include unpublished
+   * @param $info Level of detail
+   * @return Array of Products
+   */
   public function GetProductsByContentProvider($username, $token, $searchString = null, $types = null, $unpublished = null, $info = 'detailed') {
   	$ws = new WebService('accounts/'.$username.'/products', 'GET');
   	$data = array();
@@ -51,8 +61,10 @@ class Product_Model_Default extends CommonModel {
   }
 
   /*
-   * @param $id
-   * @return Product
+   * Get a single product
+   * @param $id The id of the product
+   * @param $token Optional token to send along
+   * @return Product object
    */
   public function GetProduct($id, $token = null) {
     $ws = new WebService('products/'.$id, 'GET');
@@ -62,7 +74,13 @@ class Product_Model_Default extends CommonModel {
     $this->ThrowExceptionIfError($code);
     return $object;
   }
-  
+
+  /**
+   * Get a type from a product id
+   * @param $pId The product id
+   * @param $token Optional token to send along
+   * @return string containing the product type
+   */
   public function GetProductType($pId, $token = null) {
   	$object = $this->GetProduct($pId, $token);
     return $object->type;
@@ -81,10 +99,11 @@ class Product_Model_Default extends CommonModel {
   }
  
   /*
-   * 
-   * @param string $provider
-   * @param object $product
-   * @param string $token
+   * Create a product
+   * @param $provider The username of the provider to create for
+   * @param $product The product to create
+   * @param $token Token to send along
+   * @return The new product
    */
   public function CreateProduct($provider, $product, $token) {
     $ws = new WebService('accounts/'.$provider.'/products', 'POST');
@@ -97,9 +116,10 @@ class Product_Model_Default extends CommonModel {
   }
 
   /*
-   * 
-   * @param object $product
-   * @param string $token
+   * Update a product
+   * @param $product The product to update
+   * @param $token Token to send along
+   * @return null
    */
   public function UpdateProduct($product, $token) {
     $ws = new WebService('products/'.$product['id'], 'PUT');
@@ -111,10 +131,10 @@ class Product_Model_Default extends CommonModel {
   }
 
   /*
-   * 
-   * @param int $id
-   * @param media $file
-   * @param string $token
+   * Upload media for a product
+   * @param $id The id of the product
+   * @param $file The media to upload
+   * @param $token Token to send along
    */
   public function UploadMedia($id, $file, $token) {
     $ws = new WebService('products/'.$id, 'POST');
@@ -128,10 +148,10 @@ class Product_Model_Default extends CommonModel {
   }
 
   /*
-   * 
-   * @param int $id
-   * @param image $file
-   * @param string $token
+   * Upload thumbnail for a product
+   * @param $id The id of the product
+   * @param $file The file to upload
+   * @param $token Token to send along
    */
   public function UploadThumbnail($id, $file, $token) {
     $ws = new WebService('products/'.$id.'/THUMBNAIL', 'POST');
@@ -145,10 +165,10 @@ class Product_Model_Default extends CommonModel {
   }
 
   /*
-   * 
-   * @param int $id
-   * @param string $token
-   * @return image
+   * Get the thumbnail for a product
+   * @param $id The id of the product
+   * @param $token Optional thumbnail
+   * @return The thumbnail
    */
   public function GetThumbnail($id, $token = null) {
     $ws = new WebService('products/'.$id.'/thumbnail', 'GET');
@@ -160,10 +180,10 @@ class Product_Model_Default extends CommonModel {
   }
 
   /*
-   * 
-   * @param int $id
-   * @param string $token
-   * @return unknown $media
+   * Get the media for a product
+   * @param $id The id of the product
+   * @param $token Token to send along
+   * @return The media for the product
    */
   public function GetMedia($id, $token) {
     $opts = array('http' =>array('method' =>'GET','header'=>'token:'.$token));
@@ -173,10 +193,11 @@ class Product_Model_Default extends CommonModel {
   }
 
   /*
-   * 
-   * @param int $id
-   * @param int $rating
-   * @param string $token
+   * Update the rating of a product
+   * @param $id The id of the product
+   * @param $rating The rating to rate it
+   * @param $token Token to send along
+   * @return null
    */
   public function UpdateRating($id, $rating, $token) {
     $ws = new WebService('products/'.$id.'/rating', 'PUT');
@@ -189,10 +210,6 @@ class Product_Model_Default extends CommonModel {
     $this->ThrowExceptionIfError($code);
   }
 
-  public function GetProductsByAccount($token) {
-    throw new NotImplementedException();
-  }
-  
   /*
    * Returns the MIME-type of the given file.
    * @param media $file
