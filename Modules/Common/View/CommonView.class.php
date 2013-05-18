@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Base class for view. Renders header/footer and places widget in center
+ */
 class CommonView {
   private $container;
 
