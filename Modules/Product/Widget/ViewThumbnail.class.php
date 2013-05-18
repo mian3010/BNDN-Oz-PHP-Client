@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget for viewing a thumbnail
+ */
 class Product_Widget_ViewThumbnail extends Widget_Image {
   public function __construct($id) {
     parent::__construct(WebService::GetAbsolute("/products/".$id."/thumbnail"), 'static/img/accountThumb.jpg');

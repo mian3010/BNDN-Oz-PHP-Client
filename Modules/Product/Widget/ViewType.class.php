@@ -5,6 +5,7 @@
  */
 class Product_Widget_ViewType extends Widget_Wrapper {
   public function __construct($type, $products) {
+    //Styling
     $this->classes[] = 'hasALotOfPadding';
     $this->classes[] = 'hasALotOfBorder';
     $this->classes[] = 'hasLargeTitle';

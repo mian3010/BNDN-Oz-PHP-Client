@@ -1,8 +1,10 @@
 <?php
-
+/**
+ * Widget for creating a product
+ */
 class Product_Widget_CreateProduct extends Widget_Form {
   public function __construct() {
-    // Title
+    // Page title
     $this->SetTitle('Create new Product');
     $this->AddCss(
       '#' . $this->id . '{ border: 1px dashed black; width:100% }

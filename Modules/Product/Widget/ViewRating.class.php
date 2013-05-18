@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Widget for viewing rating
+ */
 class Product_Widget_ViewRating extends Widget_Wrapper {
   public function __construct($product, $height = 15, $width = 15) {
     $this->title = "rated " . $product->rating->score." from ".$product->rating->count." votes";
@@ -16,6 +18,7 @@ class Product_Widget_ViewRating extends Widget_Wrapper {
       $i->ToHtml();
     }
 
+    //Add all styling
     $this->AddCss('.part-wrapper { position: relative; }');
     $this->AddCss('.wrapper, .f-wrapper { height: '.$height.'px; }');
     $this->AddCss('.f-wrapper { position: absolute; top: 0; left: 0; }');
@@ -26,7 +29,8 @@ class Product_Widget_ViewRating extends Widget_Wrapper {
     $this->AddCss('.bad-wrapper { background: url('.$img["bad"]->src.'); }');
     $this->AddCss('.bad-f-wrapper { right: 0; left: auto; background: url('.$img["badF"]->src.'); background-position: right; }');
     $this->AddCss('.neutral-wrapper { background: url('.$img["neutral"]->src.'); }');
-    
+
+    //Good wrappers
     $gw = new Widget_Wrapper();
     $gw->classes[] = 'part-wrapper';
     $gwnf = new Widget_Wrapper();
@@ -37,6 +41,7 @@ class Product_Widget_ViewRating extends Widget_Wrapper {
     $gw->classes[] = 'left';
     $gw->widgets = array($gwnf, $gwf);
 
+    //Create 5 good links for rating
     for ($i = 5; $i > 0; $i--) {
       $ghw = new Widget_Link('Product/Rate/'.$product->id.'/'.$i);
       $ghw->classes[] = 'good-hover-'.$i;
@@ -47,10 +52,12 @@ class Product_Widget_ViewRating extends Widget_Wrapper {
     $this->AddCss('.good-hover { background: none; }');
     $this->AddCss('.good-hover:hover { background: url('.$img["goodF"]->src.'); }');
 
+    //Create neutral link
     $nw = new Widget_Link('Product/Rate/'.$product->id.'/0');
     $nw->classes[] = 'wrapper neutral-wrapper';
     $nw->classes[] = 'left';
 
+    //Bad wrappers
     $bw = new Widget_Wrapper();
     $bw->classes[] = 'part-wrapper';
     $bwnf = new Widget_Wrapper();
@@ -61,6 +68,7 @@ class Product_Widget_ViewRating extends Widget_Wrapper {
     $bw->classes[] = 'left';
     $bw->widgets = array($bwnf, $bwf);
 
+    //Create 5 bad links for rating
     for ($i = -5; $i < 0; $i++) {
       $bhw = new Widget_Link('Product/Rate/'.$product->id.'/'.$i);
       $bhw->classes[] = 'bad-hover-'.abs($i);
@@ -70,7 +78,8 @@ class Product_Widget_ViewRating extends Widget_Wrapper {
     }
     $this->AddCss('.bad-hover { right: 0; left: auto; background: none; }');
     $this->AddCss('.bad-hover:hover { background: url('.$img["badF"]->src.'); }');
-    
+
+    //Add everything
     $this->widgets[] = $bw;
     $this->widgets[] = $nw;
     $this->widgets[] = $gw;
