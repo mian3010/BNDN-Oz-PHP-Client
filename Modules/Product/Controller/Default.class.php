@@ -3,15 +3,15 @@
 class Product_Controller_Default extends CommonController {
 	
 	/**
-	 * 
+	 * Constructur. Instantiates the model used
 	 */
 	public function __construct() {
 		$this->productModel = CommonModel::GetModel('Product');
 	}
 	
-	/**
-	 * 
-	 * @param string $id
+  /**
+   * View a product
+	 * @param $id The id of the product
 	 * @return Product_Widget_ViewProduct
 	 */
   public function View($id = 0) {
@@ -40,11 +40,7 @@ class Product_Controller_Default extends CommonController {
 	}
 	
 	/**
-	 * 
-	 * @param string $searchString
-	 * @param string $types
-	 * @param booleain $unpublished
-	 * @param string $info
+	 * View all products
 	 * @return Product_Widget_ViewProducts
 	 */
 	public function ViewAll() {
@@ -63,6 +59,12 @@ class Product_Controller_Default extends CommonController {
 		}
   }
 
+  /**
+   * Rate a product
+   * @param $productId The id of the product to rate
+   * @param $rating The rating of the product
+   * @return null
+   */
   public function Rate($productId, $rating) {
     $pm = $this->productModel;
 		try {
@@ -82,10 +84,10 @@ class Product_Controller_Default extends CommonController {
   }
 	
 	/**
-	 * 
-	 * @param string $searchString
-	 * @param string $types
-	 * @param string $unpublished
+	 * Search for products
+	 * @param $searchString The string to search for
+	 * @param $types The types to include
+	 * @param $unpublished Whether or not to include unpublished products 
 	 * @return Product_Widget_ViewProducts
 	 */
 	public function SearchProducts($searchString = null, $types = null, $unpublished = false) {
@@ -105,13 +107,10 @@ class Product_Controller_Default extends CommonController {
 		}		
 	}
 	
-	/**
-	 * 
-	 */
-	public function GetProductTypes() {
-		return $this->productModel->GetTypes();
-  }
-
+  /**
+   * View product types with preview of four products
+   * @return Widget_Wrapper
+   */
   public function ViewTypes() {
     $w = new Widget_Wrapper();
     $w->SetTitle('Browse products');
@@ -125,6 +124,11 @@ class Product_Controller_Default extends CommonController {
     return $w;
   }
 
+  /**
+   * View all products of a single type
+   * @param $productType The product type to display products for
+   * @return Product_Widget_ViewType
+   */
   public function ViewType($productType) {
     $pm = $this->productModel;
     $products = $pm->GetProducts(null, null, $productType);
@@ -132,7 +136,8 @@ class Product_Controller_Default extends CommonController {
   }
 	
 	/**
-	 * 
+   * Show create product widget
+   * @return Product_Widget_CreateProduct
 	 */
 	public function Create() {
     if(isset($_SESSION['token'])){
@@ -144,6 +149,10 @@ class Product_Controller_Default extends CommonController {
     }
 	}
 
+  /**
+   * Save the new product
+   * @return null
+   */
   public function SaveNewProduct(){
     if(isset($_SESSION['token']) && isset($_SESSION['username'])){
       if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'content provider'){
@@ -175,8 +184,9 @@ class Product_Controller_Default extends CommonController {
   }
 	
 	/**
-	 * 
-	 * @param int $id
+	 * Update a product
+   * @param $id The id of the product to update
+   * @return null
 	 */
 	public function UpdateProduct($id) {
     // Build info array
@@ -213,8 +223,8 @@ class Product_Controller_Default extends CommonController {
 	}
 	
 	/**
-	 * 
-	 * @param string $id
+	 * Upload a media for a product
+	 * @param $id The id of the product
 	 * @return Product_Widget_UploadMedia
 	 */
 	public function UploadMedia($id = null) {
@@ -231,8 +241,9 @@ class Product_Controller_Default extends CommonController {
 	}
 	
 	/**
-	 * 
-	 * @param string $id
+	 * Upload a thumbnail for a product. Not implemented
+   * @param $id The id of the product
+   * @return null
 	 */
 	public function UploadThumbnail($id = null) {
 		if(isset($_POST['submit'])) {
@@ -243,9 +254,9 @@ class Product_Controller_Default extends CommonController {
 	}
 	
 	/**
-	 * 
-	 * @param unknown $id
-	 * @return StreamProduct
+	 * Stream a product
+	 * @param $id The id of the purchase
+	 * @return Product_Widget_StreamProduct
 	 */
 	public function Stream($tId) {
 		if(isset($_SESSION['token'])) {
@@ -264,6 +275,11 @@ class Product_Controller_Default extends CommonController {
 		}
 	}
 
+  /**
+   * Print the actual stream out
+   * @param The id of the purchase
+   * @return The stream contents
+   */
 	public function GetStreamFileContent($id) {
 		if(isset($_SESSION['token'])) {
 			$pm = CommonModel::GetModel('Purchase');
@@ -288,7 +304,7 @@ class Product_Controller_Default extends CommonController {
 	}
 
 	/**
-	 * 
+	 * Get the token, or null if it does not exist
 	 * @return token|NULL
 	 */	
 	private function getToken() {
@@ -300,7 +316,7 @@ class Product_Controller_Default extends CommonController {
 	}
 	
 	/**
-	 * 
+	 * Get the user from token
 	 * @return object $user
 	 */
 	private function getUser() {
