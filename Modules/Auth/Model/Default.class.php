@@ -4,6 +4,7 @@ class Auth_Model_Default extends CommonModel {
    * Get token for a user.
    * @param $user Username of user
    * @param $pass Password for user
+   * @return Token object
    */
   public function GetToken($user, $pass) {
     $ws = new WebService('auth', 'GET');
