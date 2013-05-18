@@ -1,13 +1,16 @@
 <?php
 
 class Credits_Controller_Default extends CommonController {
-	
+  /**
+   * Constructor. Instantiates the model to use
+   */	
 	public function __construct() {
     	$this->creditsModel = CommonModel::GetModel("Credits");
   	}
   /*
    * Add credits to an account
    * @param $amount Amount of credits to be added
+   * @return null
    */
   public function UpdateCredits() {
   	if(isset($_SESSION['token'])){
@@ -26,7 +29,6 @@ class Credits_Controller_Default extends CommonController {
                 RentItError('Some error occured');
               }
             } catch (Exception $e) {
-              RentItError("Error :/ --> $e");
               RentItError('Server error. Please try again later.');
             }
           } else {
@@ -36,7 +38,10 @@ class Credits_Controller_Default extends CommonController {
       }
     RentItGoto("Credits", "GetCredits");
   }
-  
+  /**
+   * Show the buy credits widget
+   * @return Credits_Widget_BuyCredits
+   */ 
   public function buyCredits() {
   	if(isset($_SESSION['token'])){
     		return new Credits_Widget_BuyCredits();
@@ -45,7 +50,7 @@ class Credits_Controller_Default extends CommonController {
 
   /*
    * Get credit for an account
-   * @return Credit ammount
+   * @return Credits_Widget_ViewCredits
    */
   public function GetCredits() {
   	if(isset($_SESSION['token'])){
@@ -53,6 +58,6 @@ class Credits_Controller_Default extends CommonController {
       $a = $am->GetAccount($_SESSION['username'], $_SESSION['token']->token);
 		  $c = $a->credits;
 		  return new Credits_Widget_ViewCredits($c);
-	}
+	  }
   }
 }
