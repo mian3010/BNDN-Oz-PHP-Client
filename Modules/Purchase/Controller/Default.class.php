@@ -18,19 +18,28 @@ class Purchase_Controller_Default extends CommonController {
   /*
    * Make purchases
    * @param $ids A comma seperated list of product ids
+   * @return null
    */
   public function CreatePurchases($ids) {
-  	//$pIds = explode(",", $ids);
-    //return $this->purchaseModel->CreatePurchases($_SESSION['username'], $pIds, $_SESSION['token']);
-    //return Purchase_Widget_
+    try {
+      $pIds = explode(",", $ids);
+      return $this->purchaseModel->CreatePurchases($_SESSION['username'], $pIds, $_SESSION['token']);
+      RentItSuccess(count($pIds)." product(s) purchased with success");
+    } catch (PaymentRequiredException $e) {
+      RentItError("You do not have enough credits for this purchase");
+    } catch (ForbiddenException $e) {
+      RentItError("You do not have permission to purchase those products");
+    } catch (Exception $e) {
+      RentItError("Server error");
+    }
+    RentItGoto();
   }
 
   /*
-   * Get a single purchase
+   * View a list of your purchases
    * @param $id Purchase id
    */
   public function GetPurchase($tId) {
-    //return $this->purchaseModel->GetPurchase($_SESSION['username'], $tId, $_SESSION['token']);
     return Purchase_Widget_ViewPurchase();
   }
 
