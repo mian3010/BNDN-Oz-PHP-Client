@@ -23,21 +23,22 @@ class Purchase_Controller_Default extends CommonController {
   public function Purchase($ids) {
     try {
       $purchases = explode(",", $ids);
-      array_walk($pIds, function($curr) {
+      array_walk($purchases, function(&$curr, $key) {
         $tmp = explode(":", $curr);
         if (count($tmp) != 2 ||
             strlen(trim($tmp[0])) == 0 ||
             strlen(trim($tmp[1])) == 0) {
           RentItError("Purchase malformed, ignored");
-          return array();
+          $curr = array();
+          return;
         }
-        return array(
+        $curr = array(
           'product' => trim($tmp[1]),
           'purchased' => trim($tmp[0]),
         );
       });
-      return $this->purchaseModel->CreatePurchases($_SESSION['username'], array_filter($purchases), $_SESSION['token']);
-      RentItSuccess(count($pIds)." product(s) purchased with success");
+      $this->purchaseModel->CreatePurchases($_SESSION['username'], array_filter($purchases), $_SESSION['token']->token);
+      RentItSuccess(count($purchases)." product(s) purchased with success");
     } catch (PaymentRequiredException $e) {
       RentItError("You do not have enough credits for this purchase");
     } catch (ForbiddenException $e) {
