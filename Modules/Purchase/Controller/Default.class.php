@@ -65,6 +65,9 @@ class Purchase_Controller_Default extends CommonController {
    * @return Widget_Wrapper
    */
   public function BuyRent($product, $buy = null, $rent = null) {
+    if (is_object($buy)) $buy = array($buy);
+    if (is_object($rent)) $rent = array($rent);
+
     $container = new Widget_Wrapper();
     if (!isset($_SESSION['token'])) return $container;
     //Add styling
@@ -90,14 +93,17 @@ CSS;
     if ($doLoad && $product->price->rent == 0) $rent = false;
     else if ($doLoad) $rent = $pm->GetPurchaseByPid($_SESSION["username"], $_SESSION["token"]->token, $product->id, "R");
 
+    $cont = true;
     if ($buy !== false) {
       if ($buy == null)
         $b = new Purchase_Widget_Buy($product);
-      else
+      else {
         $b = new Purchase_Widget_Bought(array_pop($buy));
+        $cont = false;
+      }
     } else $b = new Purchase_Widget_NotBuyable();
     $container->widgets[] = $b;
-    if ($buy != null) return $container;
+    if (!$cont) return $container;
 
 
     if ($rent !== false) {
