@@ -44,12 +44,13 @@ class Purchase_Model_Default extends CommonModel {
    * @param $pId The product id to get purchase by
    * @return The single purchase
    */
-  public function GetPurchaseByPid($username, $token, $pId) {
+  public function GetPurchaseByPid($username, $token, $pId, $type) {
+    $return = array();
     $purchases = $this->GetPurchases($username, $token);
     foreach ($purchases as $purchase) {
-      if ($purchase->product == $pId) return $purchase;
+      if ($purchase->product == $pId && $purchase->type == $type) $return[] = $purchase;
     }
-    return null;
+    return count($return) == 0 ? null : $return;
   }
 
   /**

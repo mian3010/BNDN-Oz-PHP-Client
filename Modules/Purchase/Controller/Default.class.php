@@ -86,15 +86,16 @@ CSS;
     $doLoad = $buy == null && $rent == null;
 
     if ($doLoad && $product->price->buy == 0) $buy = false;
-    else if ($doLoad) $buy = $pm->GetPurchaseByPid($_SESSION["username"], $_SESSION["token"]->token, $product->id);
+    else if ($doLoad) $buy = $pm->GetPurchaseByPid($_SESSION["username"], $_SESSION["token"]->token, $product->id, "B");
     if ($doLoad && $product->price->rent == 0) $rent = false;
-    else if ($doLoad) $rent = $pm->GetPurchaseByPid($_SESSION["username"], $_SESSION["token"]->token, $product->id);
+    else if ($doLoad) $rent = $pm->GetPurchaseByPid($_SESSION["username"], $_SESSION["token"]->token, $product->id, "R");
+    if ($product->id == 9)var_dump($buy);
 
     if ($buy !== false) {
       if ($buy == null)
         $b = new Purchase_Widget_Buy($product);
       else
-        $b = new Purchase_Widget_Bought($buy);
+        $b = new Purchase_Widget_Bought(array_pop($buy));
     } else $b = new Purchase_Widget_NotBuyable();
     $container->widgets[] = $b;
     if ($buy != null) return $container;
@@ -104,7 +105,7 @@ CSS;
       if ($rent == null)
         $r = new Purchase_Widget_Rent($product);
       else
-        $r = new Purchase_Widget_Rentet($rent);
+        $r = new Purchase_Widget_Rentet(array_pop($rent));
     } else $r = new Purchase_Widget_NotRentable();
     $container->widgets[] = $r;
     return $container;
