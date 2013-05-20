@@ -14,8 +14,8 @@ class Purchase_Widget_ViewPurchases extends Widget_Table {
         border-radius: 20px;
         width: 100%;
       }
-      .greatTable thead {
-        outline: 1px solid #fff;
+      .greatTable thead td {
+        border-bottom: 1px solid #fff;
       }
 CSS;
     $this->AddCss($css);
