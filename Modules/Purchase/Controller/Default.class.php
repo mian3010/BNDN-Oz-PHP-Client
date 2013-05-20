@@ -20,7 +20,7 @@ class Purchase_Controller_Default extends CommonController {
    * @param $ids A comma seperated list of product ids
    * @return null
    */
-  public function CreatePurchases($ids) {
+  public function Purchase($ids) {
     try {
       $pIds = explode(",", $ids);
       return $this->purchaseModel->CreatePurchases($_SESSION['username'], $pIds, $_SESSION['token']);
