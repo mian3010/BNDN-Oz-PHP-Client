@@ -89,7 +89,6 @@ CSS;
     else if ($doLoad) $buy = $pm->GetPurchaseByPid($_SESSION["username"], $_SESSION["token"]->token, $product->id, "B");
     if ($doLoad && $product->price->rent == 0) $rent = false;
     else if ($doLoad) $rent = $pm->GetPurchaseByPid($_SESSION["username"], $_SESSION["token"]->token, $product->id, "R");
-    if ($product->id == 9)var_dump($buy);
 
     if ($buy !== false) {
       if ($buy == null)
