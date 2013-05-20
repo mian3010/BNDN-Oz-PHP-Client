@@ -22,8 +22,21 @@ class Purchase_Controller_Default extends CommonController {
    */
   public function Purchase($ids) {
     try {
-      $pIds = explode(",", $ids);
-      return $this->purchaseModel->CreatePurchases($_SESSION['username'], $pIds, $_SESSION['token']);
+      $purchases = explode(",", $ids);
+      array_walk($pIds, function($curr) {
+        $tmp = explode(":", $curr);
+        if (count($tmp) != 2 ||
+            strlen(trim($tmp[0])) == 0 ||
+            strlen(trim($tmp[1])) == 0) {
+          RentItError("Purchase malformed, ignored");
+          return array();
+        }
+        return array(
+          'product' => trim($tmp[1]),
+          'purchased' => trim($tmp[0]),
+        );
+      });
+      return $this->purchaseModel->CreatePurchases($_SESSION['username'], array_filter($purchases), $_SESSION['token']);
       RentItSuccess(count($pIds)." product(s) purchased with success");
     } catch (PaymentRequiredException $e) {
       RentItError("You do not have enough credits for this purchase");
@@ -78,7 +91,7 @@ CSS;
 
     if ($buy !== false) {
       if ($buy == null)
-        $b = new Purchase_Widget_Buy($product->price->buy);
+        $b = new Purchase_Widget_Buy($product);
       else
         $b = new Purchase_Widget_Bought($buy);
     } else $b = new Purchase_Widget_NotBuyable();
@@ -88,7 +101,7 @@ CSS;
 
     if ($rent !== false) {
       if ($rent == null)
-        $r = new Purchase_Widget_Rent($product->price->rent);
+        $r = new Purchase_Widget_Rent($product);
       else
         $r = new Purchase_Widget_Rentet($rent);
     } else $r = new Purchase_Widget_NotRentable();
