@@ -142,6 +142,10 @@ class Account_Controller_Default extends CommonController {
       RentItGoto();
     }
     RentItSuccess('Account created');
+    $auth_cont = new Auth_Controller_Default();
+    $_POST['login-username'] = $_POST['username'];
+    $_POST['login-password'] = $_POST['password'];
+    $auth_cont->Authenticate();
     RentItGoto('Account', 'View/' . $info['username']);
   }
 
