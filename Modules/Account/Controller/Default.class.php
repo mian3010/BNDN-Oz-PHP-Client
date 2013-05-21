@@ -62,12 +62,12 @@ class Account_Controller_Default extends CommonController {
    * @param $incBanned Whether or not to include banned accounts
    * @return 
    */
-  public function ViewAll($types = 'PC', $incBanned = FALSE){ //TODO
+  public function ViewAll($types = 'PC', $incBanned = "false"){ //TODO
     try {
       if (!isset($_SESSION['token']) || !isset($_SESSION['username'])) throw new UnauthorizedException();
       if(isset($_SESSION['type']) && strtolower($_SESSION['type']) == 'admin'){
         $types = str_ireplace('a', '', $types);
-        $incBanned = FALSE;
+        $incBanned = "true";
       }
       $accounts = $this->accountModel->GetAccounts($types, $incBanned, 'more', $_SESSION['token']->token);
       return new Account_Widget_ViewAccounts($accounts);
