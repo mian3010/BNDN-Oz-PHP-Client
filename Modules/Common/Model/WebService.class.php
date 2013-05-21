@@ -63,6 +63,10 @@ class WebService {
     $json = curl_exec($curl);
     //Set status code on us
     $this->httpStatusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    if ($this->httpStatusCode >= 500 && $this->httpStatusCode <= 599) {
+      RentItError("Server error");
+      RentItGoto("Error", "Fatal");
+    }
 
     return JsonParser::FromJson($json);
   }
