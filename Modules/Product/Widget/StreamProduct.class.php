@@ -14,7 +14,7 @@ class Product_Widget_StreamProduct extends Widget_Container {
 		$type = $product->type;
 
     //Determine type and add widget accordingly
-		if(stristr($type, 'video') || stristr($type, 'film')) {
+		if(stristr($type, 'video') || stristr($type, 'film') || stristr($type, 'series')) {
 			$streamer = new Widget_Video($src);
 		}
 		else if(stristr($type, 'audio') || stristr($type, 'music')) {
