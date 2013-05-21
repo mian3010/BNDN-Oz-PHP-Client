@@ -20,7 +20,8 @@ class Product_Controller_Default extends CommonController {
       RentItGoto('Product', 'ViewTypes');
     }
 		try {
-			$product = $this->productModel->GetProduct($id, $_SESSION['token']->token);
+			if(isset($_SESSION['token'])) $t = $_SESSION['token']->token;
+      $product = $this->productModel->GetProduct($id, @$t);
       if($product == null) {
         RentItError('Product not found');
         RentItGoto('Product', 'ViewTypes');
