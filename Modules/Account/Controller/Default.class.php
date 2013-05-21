@@ -89,9 +89,11 @@ class Account_Controller_Default extends CommonController {
     // Build info array
     $info = array();
     foreach ($_POST as $k => $v){
-      if(trim($v) != '' && (strtolower(trim($v)) != 'change password'))
+      if(trim($v) != '' && $k != 'published' && $k != 'buy' && $k != 'rent' && (strtolower(trim($v)) != 'change password'))
         $info[$k] = $v;
     }
+    if(isset($_POST['banned'])) $info['banned'] = true;
+    else $info['banned'] = false;
 
     try{
       if(!isset($_SESSION['token'])) throw new UnauthorizedException();

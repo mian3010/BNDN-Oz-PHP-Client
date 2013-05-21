@@ -24,6 +24,17 @@ class Account_Widget_ViewAccount extends Widget_Form {
       $leftWrapper = new Widget_Wrapper();
       $leftWrapper->classes[] = 'hasALittleBitOfPadding';
 
+      if($username != $_SESSION['username']){
+        // Published
+        $cBanned = new Widget_Wrapper();
+        $lBanned = new Widget_Label('Banned ');
+        $fBanned = new Widget_CheckBox($user->banned);
+        $fBanned->name = 'banned';
+        $cBanned->classes[] = 'hasALittleBitOfPadding';
+        $cBanned->widgets += array($lBanned, $fBanned);
+        $leftWrapper->widgets[] = $cBanned;
+      }
+
       // Name
       $cName = new Widget_Wrapper();
       $lName = new Widget_Label('Name ');
