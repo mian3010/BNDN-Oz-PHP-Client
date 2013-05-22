@@ -18,7 +18,7 @@ class CommonView {
    */
   public function Render() {
   
-  	$container = $this->container;
+    $container = $this->container;
     $containerHtml = $this->RenderContainer();
     
     $footer = new Widget_Footer();

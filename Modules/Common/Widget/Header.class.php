@@ -23,20 +23,20 @@ class Widget_Header extends Widget {
     	$menuLinks .= $this->produceLink('Account/Dashboard', 'Dashboard', 'Dashboard', 1);
     	$menuLinks .= $this->produceLink('Product/ViewTypes', 'Browse products', 'Browse products', 1);
     	$menuLinks .= $this->produceLink('Account/ViewAll', 'View accounts', 'View accounts', 1);
-
-      $ac = new Auth_Controller_Default();
-      $login = $ac->Login();
-      $username = 'Login';
-      if(isset($_SESSION['username'])) $username = $_SESSION['username'];
-      $mouse = new Widget_ClickBox($username);
-      $mouse->widgets[] = $login;
-      $mouse->AddCss('#' . $mouse->id . '{ float:right; }');
-
-      foreach ($mouse->GetCss() as $css) $this->AddCss($css);
-      foreach ($mouse->GetJs() as $js) $this->AddJs($js);
-      $menuLinks .= $mouse->ToHtml();
-      
-      $pageTitle = $this->GetTitle();
+        if ($_GET[0] != "Error" && $_GET[1] != "Fatal") {
+          $ac = new Auth_Controller_Default();
+          $login = $ac->Login();
+          $username = 'Login';
+          if(isset($_SESSION['username'])) $username = $_SESSION['username'];
+          $mouse = new Widget_ClickBox($username);
+          $mouse->widgets[] = $login;
+          $mouse->AddCss('#' . $mouse->id . '{ float:right; }');
+ 
+          foreach ($mouse->GetCss() as $css) $this->AddCss($css);
+          foreach ($mouse->GetJs() as $js) $this->AddJs($js);
+          $menuLinks .= $mouse->ToHtml();
+        }
+        $pageTitle = $this->GetTitle();
     	$pageLinks = $this->producePageLinks($this->GetOptions());
     	
     	$title = 'RentIt';
